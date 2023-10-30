@@ -1642,7 +1642,7 @@ border-radius: 0px;
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">Boas Práticas e Ferramentas da Ciência Aberta na Ecologia - BIE5798-1</a>
+      <a class="navbar-brand" href="index.html">Reprodutibilidade Computacional e Organização de Dados em Ecologia e Evolução</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -1692,6 +1692,7 @@ border-radius: 0px;
     <li>
       <a href="conflitos.html">Resolvendo conflitos</a>
     </li>
+    <li class="dropdown-header">Releasing - retrato permanente</li>
   </ul>
 </li>
 <li class="dropdown">
@@ -1719,8 +1720,12 @@ border-radius: 0px;
     <li>
       <a href="renv-basics.html">Pacote `{renv}`</a>
     </li>
+    <li class="dropdown-header">Pacote `{groundhog}`</li>
     <li>
       <a href="rocker-basics.html">Containers</a>
+    </li>
+    <li>
+      <a href="targets_basics.html">Pipelines com Targets</a>
     </li>
   </ul>
 </li>
@@ -1748,19 +1753,16 @@ border-radius: 0px;
 
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-<div id="curso-boas-práticas-e-ferramentas-da-ciência-aberta-na-ecologia" class="section level1">
-<h1>Curso: Boas Práticas e Ferramentas da Ciência Aberta na
-Ecologia</h1>
+<div id="apresentação" class="section level1">
+<h1>Apresentação</h1>
 <p>Este curso tratará de conceitos e ferramentas computacionais
 utilizadas para garantir a execução de projetos reprodutíveis em
 Ecologia e Evolução. Nele trataremos dos seguintes tópicos:</p>
 <ul>
-<li><p>Ciência aberta: motivação, tendências e razões para práticas
-científicas abertas.</p></li>
-<li><p>A importância dos dados em ecologia: valorização, organização e
-publicação.</p></li>
 <li><p>Reprodutibilidade científica e reprodutibilidade computacional
 como fundamento básico de qualquer investigação científica.</p></li>
+<li><p>A importância dos dados em ecologia: valorização, organização e
+publicação.</p></li>
 <li><p>Ferramentas de controle de versão para código de análises de
 dados (git, GitHub) e ferramentas para escrita de relatórios (material
 suplementar, websites, livros, vinhetas) e códigos em R
@@ -1774,15 +1776,15 @@ publicação científica, pré-registro de projetos, entre outros</p></li>
 </ul>
 <p>Este repositório contém o códigos fonte e dados que serão utilizados
 durante o curso. As atividades práticas e exercícios de apoio podem ser
-encontradas neste <a href="https://gabrielnakamura.github.io/USP_reproducibility_BIE5798/">sítio</a></p>
+encontradas neste <a href>sítio</a></p>
 </div>
-<div id="responsáveis-pela-disciplina" class="section level1">
-<h1>Responsáveis pela disciplina</h1>
-<p><a href="https://melinaleite.weebly.com/">Melina Leite</a> e <a href="https://main--gabrielnakamura.netlify.app/">Gabriel
+<div id="ministrante" class="section level1">
+<h1>Ministrante</h1>
+<p><a href="https://main--gabrielnakamura.netlify.app/">Gabriel
 Nakamura</a></p>
 </div>
 
-<div id="rmd-source-code">LS0tCm91dHB1dDogZ2l0aHViX2RvY3VtZW50Ci0tLQoKPCEtLSBSRUFETUUubWQgaXMgZ2VuZXJhdGVkIGZyb20gUkVBRE1FLlJtZC4gUGxlYXNlIGVkaXQgdGhhdCBmaWxlIC0tPgoKYGBge3IsIGluY2x1ZGUgPSBGQUxTRX0Ka25pdHI6Om9wdHNfY2h1bmskc2V0KAogIGNvbGxhcHNlID0gVFJVRSwKICBjb21tZW50ID0gIiM+IiwKICBmaWcucGF0aCA9ICJtYW4vZmlndXJlcy9SRUFETUUtIiwKICBvdXQud2lkdGggPSAiMTAwJSIsCiAgZXZhbCA9IEZBTFNFCikKYGBgCgojIEN1cnNvOiBCb2FzIFByw6F0aWNhcyBlIEZlcnJhbWVudGFzIGRhIENpw6puY2lhIEFiZXJ0YSBuYSBFY29sb2dpYSAgCgpFc3RlIGN1cnNvIHRyYXRhcsOhIGRlIGNvbmNlaXRvcyBlIGZlcnJhbWVudGFzIGNvbXB1dGFjaW9uYWlzIHV0aWxpemFkYXMgcGFyYSBnYXJhbnRpciBhIGV4ZWN1w6fDo28gZGUgcHJvamV0b3MgcmVwcm9kdXTDrXZlaXMKICAgIGVtIEVjb2xvZ2lhIGUgRXZvbHXDp8Ojby4gTmVsZSB0cmF0YXJlbW9zIGRvcyBzZWd1aW50ZXMgdMOzcGljb3M6CiAgICAKLSBDacOqbmNpYSBhYmVydGE6IG1vdGl2YcOnw6NvLCB0ZW5kw6puY2lhcyBlIHJhesO1ZXMgcGFyYSBwcsOhdGljYXMgY2llbnTDrWZpY2FzIGFiZXJ0YXMuIAoKLSBBIGltcG9ydMOibmNpYSBkb3MgZGFkb3MgZW0gZWNvbG9naWE6IHZhbG9yaXphw6fDo28sIG9yZ2FuaXphw6fDo28gZSBwdWJsaWNhw6fDo28uCgotIFJlcHJvZHV0aWJpbGlkYWRlIGNpZW50w61maWNhIGUgcmVwcm9kdXRpYmlsaWRhZGUgY29tcHV0YWNpb25hbCBjb21vIGZ1bmRhbWVudG8gYsOhc2ljbyBkZSBxdWFscXVlciBpbnZlc3RpZ2HDp8OjbyBjaWVudMOtZmljYS4KCi0gRmVycmFtZW50YXMgZGUgY29udHJvbGUgZGUgdmVyc8OjbyBwYXJhIGPDs2RpZ28gZGUgYW7DoWxpc2VzIGRlIGRhZG9zIChnaXQsIEdpdEh1YikgZSBmZXJyYW1lbnRhcyBwYXJhIGVzY3JpdGEgZGUgcmVsYXTDs3Jpb3MgKG1hdGVyaWFsIHN1cGxlbWVudGFyLCB3ZWJzaXRlcywgbGl2cm9zLCB2aW5oZXRhcykgZSBjw7NkaWdvcyBlbSBSIChSbWFya2Rvd24vUXVhcnRvKS4gCgotIE91dHJhcyBmZXJyYW1lbnRhcyBwYXJhIGFzc2VndXJhciByZXByb2R1dGliaWxpZGFkZSBjb21wdXRhY2lvbmFsIGRhcyBhbsOhbGlzZXM6IGRvY2tlcnMvY29udGFpbmVycywgZSBwYWNvdGVzIGVtIFIuIAoKLSBSZXBvc2l0w7NyaW9zIG9ubGluZSBlIG8gRE9JIChEaWdpdGFsIE9iamVjdCBJZGVudGlmaWVyKTogdGlwb3MgZGUgcmVwb3NpdMOzcmlvcyBwYXJhIGRhZG9zLCBhbsOhbGlzZXMgZSBtYW51c2NyaXRvcyAoUHJlUHJpbnRzKS4gCgotIE91dHJhcyB0ZW5kw6puY2lhcyBlbSBlY29sb2dpYSBlIGNpw6puY2lhIGFiZXJ0YTogw6l0aWNhIGVtIHB1YmxpY2HDp8OjbyBjaWVudMOtZmljYSwgcHLDqS1yZWdpc3RybyBkZSBwcm9qZXRvcywgZW50cmUgb3V0cm9zCgpFc3RlIHJlcG9zaXTDs3JpbyBjb250w6ltIG8gY8OzZGlnb3MgZm9udGUgZSBkYWRvcyBxdWUgc2Vyw6NvIHV0aWxpemFkb3MgZHVyYW50ZSBvIGN1cnNvLiBBcyBhdGl2aWRhZGVzIHByw6F0aWNhcyBlIGV4ZXJjw61jaW9zIGRlIGFwb2lvIHBvZGVtIHNlciAKICAgIGVuY29udHJhZGFzIG5lc3RlIFtzw610aW9dKGh0dHBzOi8vZ2FicmllbG5ha2FtdXJhLmdpdGh1Yi5pby9VU1BfcmVwcm9kdWNpYmlsaXR5X0JJRTU3OTgvKSAKCgojIFJlc3BvbnPDoXZlaXMgcGVsYSBkaXNjaXBsaW5hCgpbTWVsaW5hIExlaXRlXShodHRwczovL21lbGluYWxlaXRlLndlZWJseS5jb20vKSBlIFtHYWJyaWVsIE5ha2FtdXJhXShodHRwczovL21haW4tLWdhYnJpZWxuYWthbXVyYS5uZXRsaWZ5LmFwcC8pCgoKCgoKCgo=</div>
+<div id="rmd-source-code">LS0tCm91dHB1dDogZ2l0aHViX2RvY3VtZW50Ci0tLQoKPCEtLSBSRUFETUUubWQgaXMgZ2VuZXJhdGVkIGZyb20gUkVBRE1FLlJtZC4gUGxlYXNlIGVkaXQgdGhhdCBmaWxlIC0tPgoKYGBge3IsIGluY2x1ZGUgPSBGQUxTRX0Ka25pdHI6Om9wdHNfY2h1bmskc2V0KAogIGNvbGxhcHNlID0gVFJVRSwKICBjb21tZW50ID0gIiM+IiwKICBmaWcucGF0aCA9ICJtYW4vZmlndXJlcy9SRUFETUUtIiwKICBvdXQud2lkdGggPSAiMTAwJSIsCiAgZXZhbCA9IEZBTFNFCikKYGBgCgojIEFwcmVzZW50YcOnw6NvCgpFc3RlIGN1cnNvIHRyYXRhcsOhIGRlIGNvbmNlaXRvcyBlIGZlcnJhbWVudGFzIGNvbXB1dGFjaW9uYWlzIHV0aWxpemFkYXMgcGFyYSBnYXJhbnRpciBhIGV4ZWN1w6fDo28gZGUgcHJvamV0b3MgcmVwcm9kdXTDrXZlaXMKICAgIGVtIEVjb2xvZ2lhIGUgRXZvbHXDp8Ojby4gTmVsZSB0cmF0YXJlbW9zIGRvcyBzZWd1aW50ZXMgdMOzcGljb3M6CgotIFJlcHJvZHV0aWJpbGlkYWRlIGNpZW50w61maWNhIGUgcmVwcm9kdXRpYmlsaWRhZGUgY29tcHV0YWNpb25hbCBjb21vIGZ1bmRhbWVudG8gYsOhc2ljbyBkZSBxdWFscXVlciBpbnZlc3RpZ2HDp8OjbyBjaWVudMOtZmljYS4KCi0gQSBpbXBvcnTDom5jaWEgZG9zIGRhZG9zIGVtIGVjb2xvZ2lhOiB2YWxvcml6YcOnw6NvLCBvcmdhbml6YcOnw6NvIGUgcHVibGljYcOnw6NvLgoKLSBGZXJyYW1lbnRhcyBkZSBjb250cm9sZSBkZSB2ZXJzw6NvIHBhcmEgY8OzZGlnbyBkZSBhbsOhbGlzZXMgZGUgZGFkb3MgKGdpdCwgR2l0SHViKSBlIGZlcnJhbWVudGFzIHBhcmEgZXNjcml0YSBkZSByZWxhdMOzcmlvcyAobWF0ZXJpYWwgc3VwbGVtZW50YXIsIHdlYnNpdGVzLCBsaXZyb3MsIHZpbmhldGFzKSBlIGPDs2RpZ29zIGVtIFIgKFJtYXJrZG93bi9RdWFydG8pLiAKCi0gT3V0cmFzIGZlcnJhbWVudGFzIHBhcmEgYXNzZWd1cmFyIHJlcHJvZHV0aWJpbGlkYWRlIGNvbXB1dGFjaW9uYWwgZGFzIGFuw6FsaXNlczogZG9ja2Vycy9jb250YWluZXJzLCBlIHBhY290ZXMgZW0gUi4gCgotIFJlcG9zaXTDs3Jpb3Mgb25saW5lIGUgbyBET0kgKERpZ2l0YWwgT2JqZWN0IElkZW50aWZpZXIpOiB0aXBvcyBkZSByZXBvc2l0w7NyaW9zIHBhcmEgZGFkb3MsIGFuw6FsaXNlcyBlIG1hbnVzY3JpdG9zIChQcmVQcmludHMpLiAKCi0gT3V0cmFzIHRlbmTDqm5jaWFzIGVtIGVjb2xvZ2lhIGUgY2nDqm5jaWEgYWJlcnRhOiDDqXRpY2EgZW0gcHVibGljYcOnw6NvIGNpZW50w61maWNhLCBwcsOpLXJlZ2lzdHJvIGRlIHByb2pldG9zLCBlbnRyZSBvdXRyb3MKCkVzdGUgcmVwb3NpdMOzcmlvIGNvbnTDqW0gbyBjw7NkaWdvcyBmb250ZSBlIGRhZG9zIHF1ZSBzZXLDo28gdXRpbGl6YWRvcyBkdXJhbnRlIG8gY3Vyc28uIEFzIGF0aXZpZGFkZXMgcHLDoXRpY2FzIGUgZXhlcmPDrWNpb3MgZGUgYXBvaW8gcG9kZW0gc2VyIAogICAgZW5jb250cmFkYXMgbmVzdGUgW3PDrXRpb10oKSAKCgojIE1pbmlzdHJhbnRlCgpbR2FicmllbCBOYWthbXVyYV0oaHR0cHM6Ly9tYWluLS1nYWJyaWVsbmFrYW11cmEubmV0bGlmeS5hcHAvKQoKCgoKCgoK</div>
 
 
 </div>

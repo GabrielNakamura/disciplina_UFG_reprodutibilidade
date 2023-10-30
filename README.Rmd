@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# Curso: Reprodutibilidade computacional e organização de dados em Ecologia e Evolução  
+# Apresentação
 
 Este curso tratará de conceitos e ferramentas computacionais utilizadas para garantir a execução de projetos reprodutíveis
     em Ecologia e Evolução. Nele trataremos dos seguintes tópicos:
