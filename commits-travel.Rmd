@@ -98,6 +98,42 @@ Você pode abrir o arquivo no estado em que ele se encontrava em um dado commit 
 knitr::include_graphics(here::here("figs", "git-history-file.png"))
 ```
 
+## Back to the future: revertendo o trabalho do repositório e voltando
+
+Existem situações que gostariamos de reverter não só um arquivo em específico, mas o **estado** inteiro de um repositório em um dado momento no tempo.
+
+Por exemplo, digamos que você fez um push quando não deveria. Ou mudou muitos arquivos de uma só vez, o que tornaria bastante trabalhoso reverter arquivo por arquivo (ainda que possível, utilizando o método apresentado anteriormente). Nesta situação podemos reverter o nosso repositório para algum momento do tempo. Para fazer isso precisamos, primeiro, identificar o momento do tempo que gostaríamos de retornar. E como isso é possível? Utilizando os **commits**. Como dito anteriormente, os commits são momentos do seu repositório (mais um motivo para utilizar commits informativos).
+
+Existem algumas formas de retornar ao passado, da mais radical para a menos radical:
+
+### Deletar tudo e clonar novamente o repositório
+
+O método mais radical, mas útil quando não fazemos ideia do que está errado, consiste em:
+
+1. salvar os arquivos em uma pasta temporária
+2. deletar o diretório local
+3. clonar novamente o repositório a partir do github
+
+Isso irá, obviamente, retornar o seu repositório para o estado que ele se encontrava no último `push` realizado para o GitHub
+
+### Resetando
+
+Resetar na linguagem do versionamento significa, basicamente, realizar um *CTR + Z* no seu repositório. Em termos mais técnicos do versionamento isso equivale a mover o HEAD para o último commit realizado. Esse movimento para o passado pode ser feito de duas formas. 
+
+1. Movendo para o passado mas mantendo o trabalho localmente 
+
+```{r echo=TRUE, eval=FALSE}
+git reset --soft HEAD^
+```
+
+2. Movendo para o passado e **deletando** o trabalho localmente
+
+```{r echo=TRUE, eval=FALSE}
+git reset --hard HEAD^
+```
+
+
+
 ## Atividade
 
 Explore um pouco os commits que realizaram. Abra a página do github e também através do Rstudio, veja as diferenças, as vantangens e desvantagens de cada uma das abordagens

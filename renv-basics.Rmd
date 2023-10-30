@@ -1,0 +1,14 @@
+---
+title: "Manejando versões de pacotes - renv"
+author: "Gabriel Nakamura"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+# Compatibilidade com pacotes
+
+Até agora aprendemos como reduzir os erros comuns de reprodutibilidade computacional associados a arquivos presentes no nosso diretório. Porém, na maioria dos projetos não utilizamos apenas arquivos que estão presentes no diretório local ou remoto, por exemplo, os pacotes!
+
+Os pacotes são disponibilizados abertamente e o que fazemos é baixar uma versão deste pacote em nosso computador. Porém, pacotes nem sempre (ou a maioria das vezes), ficam da maneira como os baixamos. Pacotes são editados por seus proponentes, função internas são corrigidas, algumas são excluídas, outras adicionadas e algumas vezes até mesmo o nome da função é modificado. Mas como conseguimos garantir que nosso código seja reprodutível, quando ele depende de uma outra pessoa atualizando funções e dependências nos nossos scripts? Uma das soluções é o pacote {`renv`}
+
+# Garantindo a reprodutibilidade das funções {`renv`}
