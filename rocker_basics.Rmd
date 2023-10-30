@@ -1,0 +1,30 @@
+---
+title: 'Containers'
+author: "Gabriel Nakamura"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, fig.align = "center")
+```
+
+```{r klippy, echo=FALSE, include=TRUE}
+klippy::klippy()
+```
+
+# Apresentação
+
+Essa seção vai tratar de ferramentas que estão no horizonte do processo de reprodutibilidade computacional, por isso não entraremos a fundo nestes assuntos, visto que a documentação para as ferramentas que serão apresentadas aqui ainda é escassa, vou apresentar apenas os conceitos e as principais fontes onde mais informações podem ser adquiridas
+
+# Containers
+
+Os containers são ambientes fechados que contém todas as informações necessárias para reprodução de uma rotina de análises (um pacote, uma projeto, etc.). Os containers não só empacotam os dados e scripts necessários, mas também todo o ambiente computacional necessário para as análises (versões de pacotes, sistema operacional, etc.)
+
+# Como gerar containers usando o R
+
+Para utilizarmos containers usando o R a melhor ferramenta disponível é o pacote [Rocker](https://ropensci.org/blog/2014/10/23/introducing-rocker/). O Rocker se utiliza de um outro aplicativo chamado Docker, que por sua vez é responsável por formar os containers.
+
+Os containers são **imagens**, na linguagem da computação, que armazenam toda informação necessária para reproduzir as análises.
+
+[Neste site você pode encontrar um tutorial para Rocker](https://ropensci.org/blog/2014/10/23/introducing-rocker/)

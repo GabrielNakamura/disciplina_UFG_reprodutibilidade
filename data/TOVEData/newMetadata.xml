@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eml:eml xmlns:eml="https://eml.ecoinformatics.org/eml-2.2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:stmml="http://www.xml-cml.org/schema/stmml-1.1" xsi:schemaLocation="https://eml.ecoinformatics.org/eml-2.2.0 xsd/eml.xsd" xml:lang="eng" system="undefined" packageId="1d3e155b-f216-4847-a038-4a9245655a14">
+  <dataset>
+    <title>TOV-E Bird monitoring sampling
+data</title>
+    <keywordSet>
+      <keyword>breeding birds</keyword>
+      <keyword>sampling event</keyword>
+    </keywordSet>
+    <contact>
+      <individualName>
+        <givenName>John Atle</givenName>
+        <surName>Kålås</surName>
+      </individualName>
+    </contact>
+    <abstract>Data from the project: “Extensive monitoring of
+breeding birds (TOV-E)” from 2006 up until today. The project is carried
+out in cooperation between NOF BirdLife Norway, Norwegian Institute for
+Nature Research (NINA) and Norwegian Environment Agency, and is the most
+important project for monitoring population trends for Norwegian bird
+species on land.<value>Data fra
+prosjektet “Ekstensiv overvåking av hekkefugl (TOV-E)” fra 2006 og frem
+til i dag. Prosjektet utføres i samarbeid mellom Norsk Ornitologisk
+Forening, Norsk Institutt for Naturforskning og Miljødirektoratet og er
+det viktigste prosjektet for å overvåke populasjonstrender for norske
+fuglearter på land.</value></abstract>
+    <creator>
+      <individualName>
+        <givenName>John Atle</givenName>
+        <surName>Kålås</surName>
+      </individualName>
+      <positionName>senior researcher</positionName>
+      <organizationName>Norwegian Institute for Nature Research</organizationName>
+      <electronicMailAddress>john.kalas@nina.no</electronicMailAddress>
+    </creator>
+    <creator>
+      <individualName>
+        <givenName>Ingar Jostein</givenName>
+        <surName>Øien</surName>
+      </individualName>
+      <positionName>fagsjef</positionName>
+      <organizationName>Norsk Ornitologisk Forening</organizationName>
+      <electronicMailAddress>ingar@birdlife.no</electronicMailAddress>
+    </creator>
+    <creator>
+      <individualName>
+        <givenName>Bård</givenName>
+        <surName>Stokke</surName>
+      </individualName>
+      <positionName>senior researcher</positionName>
+      <organizationName>Norwegian Institute for Nature Research</organizationName>
+      <electronicMailAddress>bard.stokke@nina.no</electronicMailAddress>
+    </creator>
+    <creator>
+      <individualName>
+        <givenName>Roald</givenName>
+        <surName>Vang</surName>
+      </individualName>
+      <positionName>data manager</positionName>
+      <organizationName>Norwegian Institute for Nature Research</organizationName>
+      <electronicMailAddress>roald.vang@nina.no</electronicMailAddress>
+    </creator>
+  </dataset>
+</eml:eml>

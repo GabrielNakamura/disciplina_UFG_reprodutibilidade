@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Gabriel Nakamura" />
+
+<meta name="date" content="2023-10-30" />
+
+<title>Trabalho em colaboração</title>
+
+<script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<script src="site_libs/navigation-1.1/sourceembed.js"></script>
+<script src="site_libs/clipboard-1.7.1/clipboard.min.js"></script>
+<link href="site_libs/primer-tooltips-1.4.0/build.css" rel="stylesheet" />
+<link href="site_libs/klippy-0.0.0.9500/css/klippy.min.css" rel="stylesheet" />
+<script src="site_libs/klippy-0.0.0.9500/js/klippy.min.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #204a87; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #204a87; font-weight: bold; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #ce5c00; font-weight: bold; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+<style type="text/css">
+#rmd-source-code {
+  display: none;
+}
+</style>
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Reprodutibilidade Computacional e Organização de Dados em Ecologia e Evolução</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Início</a>
+</li>
+<li>
+  <a href="intro_ciencia_aberta.html">O que é ciência aberta?</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Dados abertos
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="dados_abertos.html">O que são dados abertos?</a>
+    </li>
+    <li>
+      <a href="metadata_EML.html">Metadados</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="Organizacao_dir_local.html">Organização local</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Versionamento
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="basics_git.html">ABC do versionamento</a>
+    </li>
+    <li>
+      <a href="commits-travel.html">Viajando no tempo</a>
+    </li>
+    <li>
+      <a href="colabs_github.html">Trabalho colaborativo</a>
+    </li>
+    <li>
+      <a href="gitgnore.html">Ignorando arquivos</a>
+    </li>
+    <li>
+      <a href="conflitos.html">Resolvendo conflitos</a>
+    </li>
+    <li class="dropdown-header">Releasing - retrato permanente</li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Programação letrada
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="rmarkdown-basics.html">Rmarkdown</a>
+    </li>
+    <li>
+      <a href="sites-basics.html">Sites</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Avançado
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="renv-basics.html">Pacote `{renv}`</a>
+    </li>
+    <li class="dropdown-header">Pacote `{groundhog}`</li>
+    <li>
+      <a href="rocker-basics.html">Containers</a>
+    </li>
+    <li>
+      <a href="targets_basics.html">Pipelines com Targets</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-download-source" href="#">Download Rmd</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Trabalho em colaboração</h1>
+<h4 class="author">Gabriel Nakamura</h4>
+<h4 class="date">2023-10-30</h4>
+
+</div>
+
+
+<script>
+  addClassKlippyTo("pre.r, pre.markdown");
+  addKlippy('left', 'top', 'auto', '1', 'Copy code', 'Copied!');
+</script>
+<div id="apresentação" class="section level1">
+<h1>Apresentação</h1>
+<p>Outra potencialidade do git e GitHub é a possibilidade de utilizar
+estas ferramentas para trabalhos colaborativos eficientes. Quem nunca
+perdeu aquela versão que o colaborador/colaboradora enviou por email? ou
+aquele arquivo importante enviado por Whats? Ou mesmo numa pasta
+compartilhada com ferramentas específicas de armazenamento em nuvem,
+quem nunca se deparou com “você tem OneDrive? e Google Drive?”.</p>
+<p>Pois essa seção visa mostrar o básico sobre trabalho em colaboração
+utilizando o GitHub. Nada melhor que começar com essas palavras da Jenny
+Brian</p>
+<p><img src="figs/colab-horst-brian.png" width="60%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="branches" class="section level1">
+<h1>Branches</h1>
+<p>Os branches são versões alternativas do trabalho que fazemos no
+<code>main</code> ou <code>master</code>. Em outras palavras, são
+desvios de rotas que podem ser usados para testar, por exemplo, análises
+diferentes, ou um local seguro para os colaboradores fazerem
+modificações que acha pertinente, sem comprometer o trabalho que está
+sendo realizado no <code>main</code>, que, vale lembrar, também é um
+branch.</p>
+<div id="criando-um-branch" class="section level2">
+<h2>Criando um branch</h2>
+<p>Podemos criar branches de duas formas distintas:</p>
+<p>1 - usando o próprio GitHub no browser - nesta opção devemos ir até a
+página do repositório e criar um novo branch como demonstrado na imagem
+a seguir. Basta clicar em master, digitar um novo nome para o branch e
+pedir para criar um novo branch com o nome digitado.</p>
+<p><img src="figs/colab-branch.png" width="60%" style="display: block; margin: auto;" /></p>
+<p><strong>Obs</strong> Quando esta opção for utilizada, ao retornar
+para o RStudio não se esqueça de fazer um <code>pull</code> no seu
+diretório. Lembre-se, as modificações foram feitas apenas no repositório
+remoto, então precisamos “puxar” essas modificações para o nosso
+diretório local. Após o pull uma mensagem irá aparecer no seu console
+(se estiver mexendo na linha de comando), ou num pop-up (se estiver
+mexendo no RStudio)</p>
+<p><img src="figs/new-branch-pull.png" width="60%" style="display: block; margin: auto;" /></p>
+<p>2 - Podemos usar a linha de comando no terminal e criar o branch</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>git branch nome<span class="sc">-</span>para<span class="sc">-</span>novo<span class="sc">-</span>branch</span></code></pre></div>
+<p>Na linha de comando usamos a função <code>branch</code> do git e
+nomeamos o novo branch com o nome desejado.</p>
+</div>
+<div id="navegando-entre-branches" class="section level2">
+<h2>Navegando entre branches</h2>
+<p>Para navegar entre branches podemos utilizar duas abordagens</p>
+<p>1 - usando o RStudio, basta clicar na seta onde está escrito o nome
+do branch (master geralmente), e você vai ver as opções de branches
+existentes</p>
+<p><img src="figs/colab-branch-change.png" width="60%" style="display: block; margin: auto;" /></p>
+<p>2 - usando a linha de comando, como demosntrado abaixo</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>git checkout nome<span class="sc">-</span>do<span class="sc">-</span>branch</span></code></pre></div>
+<p>Usamos a função <code>checkout</code> do git para acessar um branch.
+Você vai notar que ao modificar o branch, os arquivos no seu diretório
+vão mudar (caso os arquivos de um branch e de outro sejam
+diferentes).</p>
+</div>
+<div id="fusionando-os-branches-merge" class="section level2">
+<h2>Fusionando os branches (merge)</h2>
+<p>Vamos supor que estamos trabalhando em conjunto com outros
+colaboradores. O seu colaborador teve uma ideia que pode melhor o
+trabalho que está fazendo, por exemplo, adicionando um novo modelo para
+análise de dados. O colaborador/colaboradora resolve implementar esta
+modificação em um novo branch. Essa implementação funciona melhor que a
+anterior e então resolvemos adotar ela como a nova estratégia de análise
+de dados. Mas ela vive em um branch diferente do <code>main</code>,
+sendo que o ideal é que ela seja incorporada no main. Ou seja, queremos
+fusionar o branch do colaborador/colaboradora, ao passo que mantemos as
+modificações no branch main. Fazemos isso com um a função
+<code>merge</code> do git.</p>
+<p>De novo, existem duas formas de se fazer isso</p>
+<p>1 - utilizando o GitHub online. Navegue até a página do seu
+repositório. Acesse o branch que quer fazer o merge no branch main. Note
+que, em caso de diferenças entre os branches, uma mensagem aparecerá
+perguntando se você quer comparar os branches e abrir um pull-request,
+como na imagem abaixo</p>
+<p><img src="figs/merge-pull-request.png" width="60%" style="display: block; margin: auto;" /></p>
+<p>Neste momento, o github está te dizendo: “Existe uma diferença entre
+o branch main e o branch novo criado, você quer revisar essas
+modificações e abrir um pull-request para o proprietário deste
+repositório?, e depois quer fusionar esses branches?” Com isso você pode
+mergir os branches. <strong>OBS</strong> lembre-se de que quando voltar
+para o RStudio você precisa dar um <code>pull</code></p>
+<p>2 - podemos utilizar a linha de comando. Nela vá até o branch que
+deseja incorporar as mudanças do outro branch, e use a função
+<code>merge</code>do git</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>git checkout main</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>git merge nome<span class="sc">-</span>do<span class="sc">-</span>branch</span></code></pre></div>
+<p>Pronto, agora o branch <code>main</code> incorporou as modificações
+do branch <code>nome-do-branch</code></p>
+</div>
+</div>
+<div id="prática" class="section level1">
+<h1>Prática</h1>
+<p>Como prática sugerimos que os estudantes se juntem em duplas e
+simulem um trabalho colaborativo. O roteiro seria mais ou menos
+esse:</p>
+<p>1 - Uma pessoa convida um colaborador para o seu repositório no
+Github. A pessoa convidada deve aceitar o convite.</p>
+<p>2 - O colaborador deve criar um novo branch seguindo uma das formas
+ilustradas acima (ou outra que ache mais conveniente)</p>
+<p>3 - Faça algumas modificações no branch novo criado e faça um
+pull-request</p>
+<p>4 - A pessoa responsável pelo repositório deve revisar o pull-request
+e incorporar as sugestões no <code>branch main</code></p>
+</div>
+<div id="referências" class="section level1">
+<h1>Referências</h1>
+<p>Como sempre, o livro da Jenny Brian - Happy Git and GitHub for the
+UseR</p>
+</div>
+
+<div id="rmd-source-code">LS0tCnRpdGxlOiAnVHJhYmFsaG8gZW0gY29sYWJvcmHDp8OjbycKYXV0aG9yOiAiR2FicmllbCBOYWthbXVyYSIKZGF0ZTogImByIFN5cy5EYXRlKClgIgpvdXRwdXQ6IGh0bWxfZG9jdW1lbnQKLS0tCgpgYGB7ciBzZXR1cCwgaW5jbHVkZT1GQUxTRX0Ka25pdHI6Om9wdHNfY2h1bmskc2V0KGVjaG8gPSBUUlVFLCBmaWcuYWxpZ24gPSAiY2VudGVyIikKYGBgCgpgYGB7ciBrbGlwcHksIGVjaG89RkFMU0UsIGluY2x1ZGU9VFJVRX0Ka2xpcHB5OjprbGlwcHkoKQpgYGAKCiMgQXByZXNlbnRhw6fDo28KCk91dHJhIHBvdGVuY2lhbGlkYWRlIGRvIGdpdCBlIEdpdEh1YiDDqSBhIHBvc3NpYmlsaWRhZGUgZGUgdXRpbGl6YXIgZXN0YXMgZmVycmFtZW50YXMgcGFyYSB0cmFiYWxob3MgY29sYWJvcmF0aXZvcyBlZmljaWVudGVzLiBRdWVtIG51bmNhIHBlcmRldSBhcXVlbGEgdmVyc8OjbyBxdWUgbyBjb2xhYm9yYWRvci9jb2xhYm9yYWRvcmEgZW52aW91IHBvciBlbWFpbD8gb3UgYXF1ZWxlIGFycXVpdm8gaW1wb3J0YW50ZSBlbnZpYWRvIHBvciBXaGF0cz8gT3UgbWVzbW8gbnVtYSBwYXN0YSBjb21wYXJ0aWxoYWRhIGNvbSBmZXJyYW1lbnRhcyBlc3BlY8OtZmljYXMgZGUgYXJtYXplbmFtZW50byBlbSBudXZlbSwgcXVlbSBudW5jYSBzZSBkZXBhcm91IGNvbSAidm9jw6ogdGVtIE9uZURyaXZlPyBlIEdvb2dsZSBEcml2ZT8iLgoKUG9pcyBlc3NhIHNlw6fDo28gdmlzYSBtb3N0cmFyIG8gYsOhc2ljbyBzb2JyZSB0cmFiYWxobyBlbSBjb2xhYm9yYcOnw6NvIHV0aWxpemFuZG8gbyBHaXRIdWIuIE5hZGEgbWVsaG9yIHF1ZSBjb21lw6dhciBjb20gZXNzYXMgcGFsYXZyYXMgZGEgSmVubnkgQnJpYW4KCmBgYHtyIGVjaG89RkFMU0UsIGV2YWw9VFJVRSxvdXQud2lkdGg9IjYwJSJ9CmtuaXRyOjppbmNsdWRlX2dyYXBoaWNzKGhlcmU6OmhlcmUoImZpZ3MiLCAiY29sYWItaG9yc3QtYnJpYW4ucG5nIikpCmBgYAoKIyBCcmFuY2hlcwoKT3MgYnJhbmNoZXMgc8OjbyB2ZXJzw7VlcyBhbHRlcm5hdGl2YXMgZG8gdHJhYmFsaG8gcXVlIGZhemVtb3Mgbm8gYG1haW5gIG91IGBtYXN0ZXJgLiBFbSBvdXRyYXMgcGFsYXZyYXMsIHPDo28gZGVzdmlvcyBkZSByb3RhcyBxdWUgcG9kZW0gc2VyIHVzYWRvcyBwYXJhIHRlc3RhciwgcG9yIGV4ZW1wbG8sIGFuw6FsaXNlcyBkaWZlcmVudGVzLCBvdSB1bSBsb2NhbCBzZWd1cm8gcGFyYSBvcyBjb2xhYm9yYWRvcmVzIGZhemVyZW0gbW9kaWZpY2HDp8O1ZXMgcXVlIGFjaGEgcGVydGluZW50ZSwgc2VtIGNvbXByb21ldGVyIG8gdHJhYmFsaG8gcXVlIGVzdMOhIHNlbmRvIHJlYWxpemFkbyBubyBgbWFpbmAsIHF1ZSwgdmFsZSBsZW1icmFyLCB0YW1iw6ltIMOpIHVtIGJyYW5jaC4KCiMjIENyaWFuZG8gdW0gYnJhbmNoCgpQb2RlbW9zIGNyaWFyIGJyYW5jaGVzIGRlIGR1YXMgZm9ybWFzIGRpc3RpbnRhczogCgoxIC0gdXNhbmRvIG8gcHLDs3ByaW8gR2l0SHViIG5vIGJyb3dzZXIgLSBuZXN0YSBvcMOnw6NvIGRldmVtb3MgaXIgYXTDqSBhIHDDoWdpbmEgZG8gcmVwb3NpdMOzcmlvIGUgY3JpYXIgdW0gbm92byBicmFuY2ggY29tbyBkZW1vbnN0cmFkbyBuYSBpbWFnZW0gYSBzZWd1aXIuIEJhc3RhIGNsaWNhciBlbSBtYXN0ZXIsIGRpZ2l0YXIgdW0gbm92byBub21lIHBhcmEgbyBicmFuY2ggZSBwZWRpciBwYXJhIGNyaWFyIHVtIG5vdm8gYnJhbmNoIGNvbSBvIG5vbWUgZGlnaXRhZG8uCgpgYGB7ciBlY2hvPUZBTFNFLCBldmFsPVRSVUUsb3V0LndpZHRoPSI2MCUifQprbml0cjo6aW5jbHVkZV9ncmFwaGljcyhoZXJlOjpoZXJlKCJmaWdzIiwgImNvbGFiLWJyYW5jaC5wbmciKSkKYGBgCgoqKk9icyoqIFF1YW5kbyBlc3RhIG9ww6fDo28gZm9yIHV0aWxpemFkYSwgYW8gcmV0b3JuYXIgcGFyYSBvIFJTdHVkaW8gbsOjbyBzZSBlc3F1ZcOnYSBkZSBmYXplciB1bSBgcHVsbGAgbm8gc2V1IGRpcmV0w7NyaW8uIExlbWJyZS1zZSwgYXMgbW9kaWZpY2HDp8O1ZXMgZm9yYW0gZmVpdGFzIGFwZW5hcyBubyByZXBvc2l0w7NyaW8gcmVtb3RvLCBlbnTDo28gcHJlY2lzYW1vcyAicHV4YXIiIGVzc2FzIG1vZGlmaWNhw6fDtWVzIHBhcmEgbyBub3NzbyBkaXJldMOzcmlvIGxvY2FsLiBBcMOzcyBvIHB1bGwgdW1hIG1lbnNhZ2VtIGlyw6EgYXBhcmVjZXIgbm8gc2V1IGNvbnNvbGUgKHNlIGVzdGl2ZXIgbWV4ZW5kbyBuYSBsaW5oYSBkZSBjb21hbmRvKSwgb3UgbnVtIHBvcC11cCAoc2UgZXN0aXZlciBtZXhlbmRvIG5vIFJTdHVkaW8pCgpgYGB7ciBlY2hvPUZBTFNFLCBldmFsPVRSVUUsb3V0LndpZHRoPSI2MCUifQprbml0cjo6aW5jbHVkZV9ncmFwaGljcyhoZXJlOjpoZXJlKCJmaWdzIiwgIm5ldy1icmFuY2gtcHVsbC5wbmciKSkKYGBgCgoKMiAtIFBvZGVtb3MgdXNhciBhIGxpbmhhIGRlIGNvbWFuZG8gbm8gdGVybWluYWwgZSBjcmlhciBvIGJyYW5jaAoKYGBge3IgZWNobz1UUlVFLGV2YWw9RkFMU0V9CmdpdCBicmFuY2ggbm9tZS1wYXJhLW5vdm8tYnJhbmNoCmBgYAoKTmEgbGluaGEgZGUgY29tYW5kbyB1c2Ftb3MgYSBmdW7Dp8OjbyBgYnJhbmNoYCBkbyBnaXQgZSBub21lYW1vcyBvIG5vdm8gYnJhbmNoIGNvbSBvIG5vbWUgZGVzZWphZG8uCgojIyBOYXZlZ2FuZG8gZW50cmUgYnJhbmNoZXMKClBhcmEgbmF2ZWdhciBlbnRyZSBicmFuY2hlcyBwb2RlbW9zIHV0aWxpemFyIGR1YXMgYWJvcmRhZ2VucwoKMSAtIHVzYW5kbyBvIFJTdHVkaW8sIGJhc3RhIGNsaWNhciBuYSBzZXRhIG9uZGUgZXN0w6EgZXNjcml0byBvIG5vbWUgZG8gYnJhbmNoIChtYXN0ZXIgZ2VyYWxtZW50ZSksIGUgdm9jw6ogdmFpIHZlciBhcyBvcMOnw7VlcyBkZSBicmFuY2hlcyBleGlzdGVudGVzCgpgYGB7ciBlY2hvPUZBTFNFLCBldmFsPVRSVUUsb3V0LndpZHRoPSI2MCUifQprbml0cjo6aW5jbHVkZV9ncmFwaGljcyhoZXJlOjpoZXJlKCJmaWdzIiwgImNvbGFiLWJyYW5jaC1jaGFuZ2UucG5nIikpCmBgYAoKMiAtIHVzYW5kbyBhIGxpbmhhIGRlIGNvbWFuZG8sIGNvbW8gZGVtb3NudHJhZG8gYWJhaXhvCgpgYGB7ciBlY2hvPVRSVUUsZXZhbD1GQUxTRX0KZ2l0IGNoZWNrb3V0IG5vbWUtZG8tYnJhbmNoCmBgYAoKVXNhbW9zIGEgZnVuw6fDo28gYGNoZWNrb3V0YCBkbyBnaXQgcGFyYSBhY2Vzc2FyIHVtIGJyYW5jaC4gVm9jw6ogdmFpIG5vdGFyIHF1ZSBhbyBtb2RpZmljYXIgbyBicmFuY2gsIG9zIGFycXVpdm9zIG5vIHNldSBkaXJldMOzcmlvIHbDo28gbXVkYXIgKGNhc28gb3MgYXJxdWl2b3MgZGUgdW0gYnJhbmNoIGUgZGUgb3V0cm8gc2VqYW0gZGlmZXJlbnRlcykuCgojIyBGdXNpb25hbmRvIG9zIGJyYW5jaGVzIChtZXJnZSkKClZhbW9zIHN1cG9yIHF1ZSBlc3RhbW9zIHRyYWJhbGhhbmRvIGVtIGNvbmp1bnRvIGNvbSBvdXRyb3MgY29sYWJvcmFkb3Jlcy4gTyBzZXUgY29sYWJvcmFkb3IgdGV2ZSB1bWEgaWRlaWEgcXVlIHBvZGUgbWVsaG9yIG8gdHJhYmFsaG8gcXVlIGVzdMOhIGZhemVuZG8sIHBvciBleGVtcGxvLCBhZGljaW9uYW5kbyB1bSBub3ZvIG1vZGVsbyBwYXJhIGFuw6FsaXNlIGRlIGRhZG9zLiBPIGNvbGFib3JhZG9yL2NvbGFib3JhZG9yYSByZXNvbHZlIGltcGxlbWVudGFyIGVzdGEgbW9kaWZpY2HDp8OjbyBlbSB1bSBub3ZvIGJyYW5jaC4gRXNzYSBpbXBsZW1lbnRhw6fDo28gZnVuY2lvbmEgbWVsaG9yIHF1ZSBhIGFudGVyaW9yIGUgZW50w6NvIHJlc29sdmVtb3MgYWRvdGFyIGVsYSBjb21vIGEgbm92YSBlc3RyYXTDqWdpYSBkZSBhbsOhbGlzZSBkZSBkYWRvcy4gTWFzIGVsYSB2aXZlIGVtIHVtIGJyYW5jaCBkaWZlcmVudGUgZG8gYG1haW5gLCBzZW5kbyBxdWUgbyBpZGVhbCDDqSBxdWUgZWxhIHNlamEgaW5jb3Jwb3JhZGEgbm8gbWFpbi4gT3Ugc2VqYSwgcXVlcmVtb3MgZnVzaW9uYXIgbyBicmFuY2ggZG8gY29sYWJvcmFkb3IvY29sYWJvcmFkb3JhLCBhbyBwYXNzbyBxdWUgbWFudGVtb3MgYXMgbW9kaWZpY2HDp8O1ZXMgbm8gYnJhbmNoIG1haW4uIEZhemVtb3MgaXNzbyBjb20gdW0gYSBmdW7Dp8OjbyBgbWVyZ2VgIGRvIGdpdC4KCkRlIG5vdm8sIGV4aXN0ZW0gZHVhcyBmb3JtYXMgZGUgc2UgZmF6ZXIgaXNzbwoKMSAtIHV0aWxpemFuZG8gbyBHaXRIdWIgb25saW5lLiBOYXZlZ3VlIGF0w6kgYSBww6FnaW5hIGRvIHNldSByZXBvc2l0w7NyaW8uIEFjZXNzZSBvIGJyYW5jaCBxdWUgcXVlciBmYXplciBvIG1lcmdlIG5vIGJyYW5jaCBtYWluLiBOb3RlIHF1ZSwgZW0gY2FzbyBkZSBkaWZlcmVuw6dhcyBlbnRyZSBvcyBicmFuY2hlcywgdW1hIG1lbnNhZ2VtIGFwYXJlY2Vyw6EgcGVyZ3VudGFuZG8gc2Ugdm9jw6ogcXVlciBjb21wYXJhciBvcyBicmFuY2hlcyBlIGFicmlyIHVtIHB1bGwtcmVxdWVzdCwgY29tbyBuYSBpbWFnZW0gYWJhaXhvCgpgYGB7ciBlY2hvPUZBTFNFLCBldmFsPVRSVUUsb3V0LndpZHRoPSI2MCUifQprbml0cjo6aW5jbHVkZV9ncmFwaGljcyhoZXJlOjpoZXJlKCJmaWdzIiwgIm1lcmdlLXB1bGwtcmVxdWVzdC5wbmciKSkKYGBgCgpOZXN0ZSBtb21lbnRvLCBvIGdpdGh1YiBlc3TDoSB0ZSBkaXplbmRvOiAiRXhpc3RlIHVtYSBkaWZlcmVuw6dhIGVudHJlIG8gYnJhbmNoIG1haW4gZSBvIGJyYW5jaCBub3ZvIGNyaWFkbywgdm9jw6ogcXVlciByZXZpc2FyIGVzc2FzIG1vZGlmaWNhw6fDtWVzIGUgYWJyaXIgdW0gcHVsbC1yZXF1ZXN0IHBhcmEgbyBwcm9wcmlldMOhcmlvIGRlc3RlIHJlcG9zaXTDs3Jpbz8sIGUgZGVwb2lzIHF1ZXIgZnVzaW9uYXIgZXNzZXMgYnJhbmNoZXM/IiBDb20gaXNzbyB2b2PDqiBwb2RlIG1lcmdpciBvcyBicmFuY2hlcy4gKipPQlMqKiBsZW1icmUtc2UgZGUgcXVlIHF1YW5kbyB2b2x0YXIgcGFyYSBvIFJTdHVkaW8gdm9jw6ogcHJlY2lzYSBkYXIgdW0gYHB1bGxgCgoyIC0gcG9kZW1vcyB1dGlsaXphciBhIGxpbmhhIGRlIGNvbWFuZG8uIE5lbGEgdsOhIGF0w6kgbyBicmFuY2ggcXVlIGRlc2VqYSBpbmNvcnBvcmFyIGFzIG11ZGFuw6dhcyBkbyBvdXRybyBicmFuY2gsIGUgdXNlIGEgZnVuw6fDo28gYG1lcmdlYGRvIGdpdCAKCmBgYHtyIGVjaG89VFJVRSxldmFsPUZBTFNFfQpnaXQgY2hlY2tvdXQgbWFpbgpnaXQgbWVyZ2Ugbm9tZS1kby1icmFuY2gKYGBgCgpQcm9udG8sIGFnb3JhIG8gYnJhbmNoIGBtYWluYCBpbmNvcnBvcm91IGFzIG1vZGlmaWNhw6fDtWVzIGRvIGJyYW5jaCBgbm9tZS1kby1icmFuY2hgCgoKIyBQcsOhdGljYQoKQ29tbyBwcsOhdGljYSBzdWdlcmltb3MgcXVlIG9zIGVzdHVkYW50ZXMgc2UganVudGVtIGVtIGR1cGxhcyBlIHNpbXVsZW0gdW0gdHJhYmFsaG8gY29sYWJvcmF0aXZvLiBPIHJvdGVpcm8gc2VyaWEgbWFpcyBvdSBtZW5vcyBlc3NlOgoKMSAtIFVtYSBwZXNzb2EgY29udmlkYSB1bSBjb2xhYm9yYWRvciBwYXJhIG8gc2V1IHJlcG9zaXTDs3JpbyBubyBHaXRodWIuIEEgcGVzc29hIGNvbnZpZGFkYSBkZXZlIGFjZWl0YXIgbyBjb252aXRlLiAKCjIgLSBPIGNvbGFib3JhZG9yIGRldmUgY3JpYXIgdW0gbm92byBicmFuY2ggc2VndWluZG8gdW1hIGRhcyBmb3JtYXMgaWx1c3RyYWRhcyBhY2ltYSAob3Ugb3V0cmEgcXVlIGFjaGUgbWFpcyBjb252ZW5pZW50ZSkKCjMgLSBGYcOnYSBhbGd1bWFzIG1vZGlmaWNhw6fDtWVzIG5vIGJyYW5jaCBub3ZvIGNyaWFkbyBlIGZhw6dhIHVtIHB1bGwtcmVxdWVzdAoKNCAtIEEgcGVzc29hIHJlc3BvbnPDoXZlbCBwZWxvIHJlcG9zaXTDs3JpbyBkZXZlIHJldmlzYXIgbyBwdWxsLXJlcXVlc3QgZSBpbmNvcnBvcmFyIGFzIHN1Z2VzdMO1ZXMgbm8gYGJyYW5jaCBtYWluYAoKCiMgUmVmZXLDqm5jaWFzCgpDb21vIHNlbXByZSwgbyBsaXZybyBkYSBKZW5ueSBCcmlhbiAtIEhhcHB5IEdpdCBhbmQgR2l0SHViIGZvciB0aGUgVXNlUg==</div>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeSourceEmbed("colabs_github.Rmd");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,192 @@
+---
+title: "Dados abertos"
+author: "Melina Leite"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+Dados são a **base** de quase toda pesquisa ecológica e podem ser de natureza, formatos e tamanhos muito diferentes: tabelas, questionários, texto, imagem, áudio, entrevista, simulações, etc...
+
+Dados são **produto da pesquisa**, assim como teses e artigos. Portanto, devemos nos orgulhar dos dados que produzimos/coletamos/simulamos/organizamos dentro dos nossos projetos de pequisa!
+
+Nessa aula vamos navegar no universo dos dados ecológicos, discutindo um pouco sobre:
+
+-   Porque precisamos de dados abertos, ou minimamente abertos - fraudes como fabricação/falsificação de dados
+
+-   Longevidade dos dados - resgate de dados
+
+-   Plano de gestão de dados
+
+-   Boas práticas de organização e gestão de dados tabulares
+
+-   Importância dos metadados
+
+-   Vantagens em deixar dados abertos
+
+-   Barreiras para o compartilhamento de dados
+
+-   Princípios FAIR (Findable, Accessible, Interoperable and Reusable)
+
+-   Publicação de dados em repositórios e/ou revistas científicas
+
+-   Tipos de repositórios
+
+-   Licenças
+
+-   Ética na publicação de dados
+
+# Algumas revistas de dados
+
+Base de dados sobre políticas de dados de revistas em Ecologia e evolução:
+
+-   Berberi I, Roche D (2021) Living database of journal data policies in E&E. <https://doi.org/10.17605/OSF.IO/D6SP3>
+
+Listas de revistas de dados (*Data journals*):
+
+-   <https://zenodo.org/record/7082126>
+
+-   <https://libguides.wmich.edu/datasci/datajournals>
+
+Algumas revistas que publicam dados ou metadados extendidos de pesquisas
+
+-   [Data Papers](https://esapubs.org/archive/) nas revistas da ESA (Ecological Society of America)
+
+-   [Data in Brief](https://www.journals.elsevier.com/data-in-brief) (da Elsevier): várias disciplinas
+
+-   [Scientific Data](https://www.nature.com/sdata/) (da Springer Nature): várias disciplinas
+
+Exemplo de *data papers* em ecologia: 15 artigos de dados sobre biodiversidade da Mata Altântica publicados na *Ecology:*
+
+-   [ATLANTIC: Data Papers from a biodiversity hotspot](https://esajournals.onlinelibrary.wiley.com/doi/toc/10.1002/(ISSN)1939-9170.AtlanticPapers)
+
+# Alguns repositórios de dados
+
+Listas de vários repositórios de dados:
+
+-   <https://oad.simmons.edu/oadwiki/Data_repositories>
+
+-   <https://clarivate.com/webofsciencegroup/master-data-repository-list/>
+
+### Temáticos
+
+-   [Movebank](https://www.gbif.org/): dados de movimento animal
+
+-   [GBIF](https://www.gbif.org/)
+
+-   [KNB](https://knb.ecoinformatics.org/) (Knowledge Network for Biocomplexity)
+
+-   [bioTIME](https://biotime.st-andrews.ac.uk/): global database of assemblage time series for quantifying and understanding biodiversity change
+
+-   [Environmental Data Initiative](+(https://edirepository.org/)
+
+### Genéricos/gerais:
+
+-   [Figshare](https://figshare.com/)
+
+-   [Zenodo](https://zenodo.org/)
+
+-   [Dryad](https://datadryad.org/stash)
+
+-   [Mendeley Data](https://data.mendeley.com/)
+
+-   [Open Science Framework](https://osf.io/)
+
+-   [Dataverse](http://dataverse.org/)
+
+-   [Eudat](https://eudat.eu/)
+
+### Institucionais
+
+-   [USP](https://repositorio.uspdigital.usp.br/?codmnu=9980)
+
+### Redes de pesquisa/pesquisadores
+
+Alguns exemplos em ecologia de florestas quem mantém estrutura de dados compartilhados entre membros da rede (e externos mediante certas condições).
+
+-   [ForestGEO](https://forestgeo.si.edu/): dados de algumas parcelas são abertos (ex: Barro Colorado Island), outros você solicita mediante prenchimento de formulário no site, outros diretamente com os PI (principal investigators)
+
+-   [Amazon Tree Diversity Network](https://sites.google.com/naturalis.nl/amazon-tree-diversity-network/about-us)
+
+-   [ForestPlots.Net](https://forestplots.net/)
+
+# Buscadores/agregadores de dados
+
+-   [Metabuscador](https://metabuscador.uspdigital.usp.br/) das instituições do estado de São Paulo.
+
+-   [re3data](https://www.re3data.org/) (Registry of Research data Repositories)
+
+-   [DataONE](https://www.dataone.org/what-dataone)
+
+-   [DataCite](https://commons.datacite.org/)
+
+-   [Google Dataset Search](https://datasetsearch.research.google.com/)
+
+-   [OpenAIRE Explore](https://explore.openaire.eu/search/find/research-outcomes?type=%22datasets%22)
+
+# Leituras recomendadas
+
+## Geral
+
+-   Bledsoe E, Burant J, Higino G, Roche D, Binning S, Finlay K, Pither J, Pollock L, Sunday J, Srivastava D (2021) Data rescue: saving environmental data from extinction. <https://doi.org/10.32942/osf.io/ra6ze>
+
+-   Caetano DS, Aisenberg A (2014) Forgotten treasures: the fate of data in animal behaviour studies. Animal Behaviour 98:1--5. <https://doi.org/10.1016/j.anbehav.2014.09.025>
+
+-   Colavizza G, Hrynaszkiewicz I, Staden I, Whitaker K, McGillivray B (2020) The citation advantage of linking publications to research data. PLOS ONE 15:e0230416. <https://doi.org/10.1371/journal.pone.0230416>
+
+-   Culina A, Baglioni M, Crowther TW, Visser ME, Woutersen-Windhouwer S, Manghi P (2018) Navigating the unfolding open data landscape in ecology and evolution. Nat Ecol Evol 2:420--426. <https://doi.org/10.1038/s41559-017-0458-2>
+
+-   Gomes DGE, Pottier P, Crystal-Ornelas R, et al (2022) Why don't we share data and code? Perceived barriers and benefits to public archiving practices. Proceedings of the Royal Society B: Biological Sciences 289:20221113. <https://doi.org/10.1098/rspb.2022.1113>
+
+-   Gurstein MB (2011) Open data: Empowering the empowered or effective data use for everyone? First Monday. <https://doi.org/10.5210/fm.v16i2.3316>
+
+-   Lima RAF, Phillips OL, Duque A, et al (2022) Making forest data fair and open. Nat Ecol Evol 1--3. <https://doi.org/10.1038/s41559-022-01738-7>
+
+-   McIntosh ACS, Cushing JB, Nadkarni NM, Zeman L (2007) Database design for ecologists: Composing core entities with observations. Ecological Informatics 2:224--236. <https://doi.org/10.1016/j.ecoinf.2007.07.003>
+
+-   Mello M (2017) O que é um data paper? -- Sobrevivendo na Ciência. <https://marcoarmello.wordpress.com/2017/09/11/datapaper/>
+
+-   Perkel J (2016) Democratic databases: science on GitHub. Nature 538:127--128. <https://doi.org/10.1038/538127a>
+
+-   Roche DG, Berberi I, Dhane F, Lauzon F, Soeharjono S, Dakin R, Binning SA (2022) Slow improvement to the archiving quality of open datasets shared by researchers in ecology and evolution. Proceedings of the Royal Society B: Biological Sciences 289:20212780. <https://doi.org/10.1098/rspb.2021.2780>
+
+-   Roche DG, Kruuk LEB, Lanfear R, Binning SA (2015) Public Data Archiving in Ecology and Evolution: How Well Are We Doing? PLoS Biol 13:e1002295. <https://doi.org/10.1371/journal.pbio.1002295>
+
+-   Vanz SA de S, Passos PCSJ, Caregnato SE, Pavão CMG, Borges EN, Rocha RP da, Gabriel Junior RF, Azambuja LAB (2018) Acesso aberto a dados de pesquisa no Brasil : práticas e percepções dos pesquisadores: relatório 2018. Universidade Federal do Rio Grande do Sul. <https://lume.ufrgs.br/handle/10183/185195>
+
+-   Vines TH, Albert AYK, Andrew RL, Débarre F, Bock DG, Franklin MT, Gilbert KJ, Moore J-S, Renaut S, Rennison DJ (2014) The Availability of Research Data Declines Rapidly with Article Age. Current Biology 24:94--97. <https://doi.org/10.1016/j.cub.2013.11.014>
+
+-   Westoby M, Falster DS, Schrader J (2021) Motivating data contributions via a distinct career currency. Proceedings of the Royal Society B: Biological Sciences 288:20202830. <https://doi.org/10.1098/rspb.2020.2830>
+
+-   Wilkinson MD, Dumontier M, Aalbersberg IjJ, et al (2016) The FAIR Guiding Principles for scientific data management and stewardship. Sci Data 3:160018. <https://doi.org/10.1038/sdata.2016.18>
+
+-   Global Indigenous Data Alliance (2023) CARE Principles. In: Global Indigenous Data Alliance. <https://www.gida-global.org/care.> Accessed 6 Aug 2023
+
+## Plano de gestão e gestão de dados
+
+-   British Ecological Society (2014) [A guide to data management in ecology and evolution.](http://www.britishecologicalsociety.org/wp-content/uploads/Publ_Data-Management-Booklet.pdf)
+
+-   Data Carpentry Data Carpentry Workshops in Ecology. In: Data Carpentry. <https://datacarpentry.org/lessons/.> Accessed 7 Aug 2023
+
+-   Michener WK (2015) Ten Simple Rules for Creating a Good Data Management Plan. PLOS Computational Biology 11:e1004525. <https://doi.org/10.1371/journal.pcbi.1004525>
+
+-   Strasser C, Cook R, Michener W, Budden A (2012) Primer on Data Management: What You Always Wanted to Know. <https://doi.org/10.5060/D2251G48>
+
+## Organização de dados
+
+-   Broman KW, Woo KH (2017) Data organization in spreadsheets. The American Statistician <https://doi.org/10.1080/00031305.2017.1375989>
+
+-   Wickham H (2014) Tidy Data. Journal o Statistical Software 59. <https://www.jstatsoft.org/article/view/v059i10/v59i10.pdf>
+
+## Metadados
+
+-   Boettiger C, Jones M (2022) EML: Read and Write Ecological Metadata Language Files. <https://docs.ropensci.org/EML/>
+
+-   Jones MB, Schildhauer MP, Reichman OJ, Bowers S (2006) The New Bioinformatics: Integrating Ecological Data from the Gene to the Biosphere. Annu Rev Ecol Evol Syst 37:519--544. <https://doi.org/10.1146/annurev.ecolsys.37.091305.110031>
+
+-    Jones M, O'Brien M, Mecum B, Boettiger C, Schildhauer M, Maier M, Whiteaker T, Earl S, Chong S (2019) Ecological Metadata Language version 2.2.0. <https://doi.org/10.5063/f11834t2>
+
+-    Lortie CJ, Vargas Poulsen C, Brun J, Kui L (2022) Tabular strategies for metadata in ecology, evolution, and the environmental sciences. Ecology and Evolution 12:e9245. <https://doi.org/10.1002/ece3.9245>
+
+-   Video YouTube sobre conversão metadados em tabela [Excel para EML]( https://www.youtube.com/watch?v=rn8Uee49LsM) (Kui Li)
+
+-   Smith C (2022) EMLassemblyline: A tool kit for building EML metadata workflows. <https://ediorg.github.io/EMLassemblyline/index.html>

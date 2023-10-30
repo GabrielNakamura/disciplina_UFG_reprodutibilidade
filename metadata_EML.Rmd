@@ -1,0 +1,314 @@
+---
+title: 'Metadados com EML'
+author: "Gabriel Nakamura"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r echo=FALSE, include=TRUE}
+klippy::klippy()
+```
+
+# Metadados
+
+Os metadados consistem em explicações sobre a estrutura de dados. Por exemplo, o significado dos códigos ou abreviações presentes em uma data tabela, do que se trata a informação presente nas linhas e nas colunas, o que uma dada função faz. Reportar precisamente o que cada arquivo contém é de extrema importância para garantir com que outras pessoas, ou mesmo o você do futuro saiba o que foi/está sendo feito no projeto científico.
+
+Os metadados não servem apenas para reportar o significado das variáveis em tabelas, isso por si só já seria um motivo relevante para termos metadados, mas também para facilitar a integração de bases diferentes de dados. Imagine só ter que navegar manualmente nos metadados de estudos de diferentes grupos, com dados coletados com diferentes métodos, tabelas que adotam diferentes códigos, com distantas escalas espaciais e temporais. Até seria possível, mas talvez a taxa com que perdemos espécies e habitats seja mais rápida (e está sendo) que nossa capacidade de síntese de dados. Portanto, os metadados não servem apenas para o nosso interesse próprio de organização, mas ao utilizarmos os metadados estamos contribuindo para um avanço mais rápido do processo científico.
+
+Dada tais importâncias citadas acima, os metadados ideais devem seguir um esquema onde podem ser lidos por humanos (human-readable) e por computadores (machine-readable). Desta forma, nesta seção vamos praticar a elaboração de metadados que seguem essa característica, e que o formato foi pensado para satisfazer as especificidades dos dados ecológicos. Para tanto vamos utilizar o pacote EML. 
+
+## Leituras sugeridas
+
+Para uma itrodução mais completa sobre os metadados sugiro [este](https://sbclter.msi.ucsb.edu/external/EML/EML_documents/eml_metadata_guide.html) artigo. Para uma introdução da importância dos metadados para contruir conjuntos de dados integrados sugiro o artigo de [Jones et al. (2006)](https://www.annualreviews.org/doi/10.1146/annurev.ecolsys.37.091305.110031). Para um exemplo de base de dados online que se utiliza das potencialidades dos metadados sugiro visitar o [KNB - Knowledge Network Biocomplexity](https://knb.ecoinformatics.org/about).
+
+## Exemplos de metadados 
+
+Para um exemplo simples de como um metadado se parece veja [aqui](https://github.com/ropensci/EML/blob/master/inst/examples/example-eml-2.1.1.xml). Para um exemplo mais completo sugiro [este arquivo](https://github.com/ropensci/EML/blob/master/inst/examples/hf205.xml).
+Esta [introdução](https://www.neonscience.org/resources/learning-hub/tutorials/dc-metadata-importance-eml-r) trazida pelo NEON (National Ecological Observatory) é muito interessante para compreender de maneira geral a importância de metadados para síntese e como eles podem ser obtidos facilmente com auxílio do pacote EML. O [DataOne](https://www.dataone.org/) é uma plataforma de dados que também se utiliza dos arquivos XML para reportar as características gerais dos dados.
+
+# Metadados na prática - utilizando o pacote `{EML}`
+
+Nesta seção iremos utilizar o conjunto de dados do artigo ["Organic-matter loading determines regime shifts and alternative states in an aquatic ecosystem"](https://www.pnas.org/doi/10.1073/pnas.1221037110). Optamos por usar este dado pois ele já apresenta um arquivo de metadados associado, assim podemos reconstruí-lo e verificar como fica. Além disso ele é o mesmo dado utilizado no tutorial original do pacote EML, sendo conveniente para fins didáticos. Ao final vamos praticar com um outro conjunto de dados. Lembrando que se você baixou o repositório do material desta disciplina, você conseguirá ler os dados sem problemas.
+
+
+## Instalação
+
+Para instalar o pacote EML faça o seguinte:
+
+```{r echo=TRUE,eval=FALSE}
+install.packages("EML")
+
+library(EML)
+```
+
+Vamos utilizar um conjunto de dados contidos no próprio pacote EML para facilitar a compreensão dos passos necessários para construir um EML completo
+
+## Construindo um EML - Harvard Forest Data 
+
+### Construindo os Atributos
+
+Os atributos são as descrições para as variáveis contidas na nossa tabela. Aquela aba contendo as informações das variáveis, pois então, esta seria os atributos da sua tabela de dados. Então, primeiro precisamos de uma tabela de atributos que define o significado geral de cada variável em nossa tabela de dados. Esta tabela pode ser gerada aqui no R direto, como no exemplo abaixo, mas pode ser importada a partir de uma tabela `.csv`. A tabela segue o formato a seguir:
+
+```{r}
+attributes <-
+tibble::tribble(
+~attributeName, ~attributeDefinition,                                                 ~formatString, ~definition,        ~unit,   ~numberType,
+  "run.num",    "which run number (=block). Range: 1 - 6. (integer)",                 NA,            "which run number", NA,       NA,
+  "year",       "year, 2012",                                                         "YYYY",        NA,                 NA,       NA,
+  "day",        "Julian day. Range: 170 - 209.",                                      "DDD",         NA,                 NA,       NA,
+  "hour.min",   "hour and minute of observation. Range 1 - 2400 (integer)",           "hhmm",        NA,                 NA,       NA,
+  "i.flag",     "is variable Real, Interpolated or Bad (character/factor)",           NA,            NA,                 NA,       NA,
+  "variable",   "what variable being measured in what treatment (character/factor).", NA,            NA,                 NA,       NA,
+  "value.i",    "value of measured variable for run.num on year/day/hour.min.",       NA,            NA,                 NA,       NA,
+  "length",    "length of the species in meters (dummy example of numeric data)",     NA,            NA,                 "meter",  "real")
+```
+
+Dê uma olhada na tabela de atributos (pode ser feito usano a função `View` ou abrindo no Excel). A maioria dos dados seguem este formato geral.
+
+A seguir precisamos descrever os atributos que apresentam níveis. Por exemplo o atributo chamado `variable` apresenta oito níveis. A estratégia seguida aqui foi criar vetores com os códigos usados para cada nível dos atributos e uma pequena explicação.
+
+```{r echo=TRUE,eval=FALSE}
+i.flag <- c(R = "real",
+            I = "interpolated",
+            B = "bad")
+variable <- c(
+  control  = "no prey added",
+  low      = "0.125 mg prey added ml-1 d-1",
+  med.low  = "0,25 mg prey added ml-1 d-1",
+  med.high = "0.5 mg prey added ml-1 d-1",
+  high     = "1.0 mg prey added ml-1 d-1",
+  air.temp = "air temperature measured just above all plants (1 thermocouple)",
+  water.temp = "water temperature measured within each pitcher",
+  par       = "photosynthetic active radiation (PAR) measured just above all plants (1 sensor)"
+)
+
+value.i <- c(
+  control  = "% dissolved oxygen",
+  low      = "% dissolved oxygen",
+  med.low  = "% dissolved oxygen",
+  med.high = "% dissolved oxygen",
+  high     = "% dissolved oxygen",
+  air.temp = "degrees C",
+  water.temp = "degrees C",
+  par      = "micromoles m-1 s-1"
+)
+
+## Write these into the data.frame format
+factors <- rbind(
+data.frame(
+  attributeName = "i.flag",
+  code = names(i.flag),
+  definition = unname(i.flag)
+),
+data.frame(
+  attributeName = "variable",
+  code = names(variable),
+  definition = unname(variable)
+),
+data.frame(
+  attributeName = "value.i",
+  code = names(value.i),
+  definition = unname(value.i)
+)
+)
+```
+
+Após especificadas as características das variáveis categóricas (as contínuas já estão especificadas na tabela geral de atributos `attributes`), usamos a função `set_attributes` para criar a lista de atributos geral dos dados, onde devemos especificar o tipo de atributo que estamos inserindo (se caracter, se data, se fator etc..)
+
+```{r echo=TRUE,eval=FALSE}
+attributeList <- set_attributes(attributes, factors, col_classes = c("character", "Date", "Date", "Date", "factor", "factor", "factor", "numeric"))
+```
+
+### Construindo as características físicas do dado
+
+Aqui vamos especificar as características físicas do próprio arquivo de dados que utilizamos, ou seja, o formato, o tipo de compressão do arquivo, o separador etc. Resumindo, aqui é especificado a **característica do arquivo**. Isso é feito facilmente com a função `set_physical`. Se estivermos utilizando um arquivo .csv a função já extrai automaticamente a maior parte das características relevantes do arquivo de dados.
+
+```{r echo=TRUE,eval=FALSE}
+physical <- set_physical(here::here("data", "hf205-01-TPexp1-EML-Exemple.csv"))
+```
+
+### Juntando Atributos e Características físicas
+
+Com o objeto de atributos e o objeto de características físicas temos o essencial para descrever o nosso conjunto de dados. Agora vamos juntar ambos com mais algumas informações em uma única lista e denominar isso como sendo o nosso `dataTable`
+
+```{r echo=TRUE,eval=FALSE}
+
+dataTable <- list(
+                 entityName = "hf205-01-TPexp1.csv",
+                 entityDescription = "tipping point experiment 1",
+                 physical = physical,
+                 attributeList = attributeList)
+```
+
+### Características adicionais - extensão geográfica, métodos e outros
+
+
+```{r echo=TRUE,eval=FALSE}
+geographicDescription <- "Harvard Forest Greenhouse, Tom Swamp Tract (Harvard Forest)"
+
+
+coverage <- 
+  set_coverage(begin = '2012-06-01', end = '2013-12-31',
+               sci_names = "Sarracenia purpurea",
+               geographicDescription = geographicDescription,
+               west = -122.44, east = -117.15, 
+               north = 37.38, south = 30.00,
+               altitudeMin = 160, altitudeMaximum = 330,
+               altitudeUnits = "meter")
+
+
+```
+
+
+Para descrever os métodos em metadados
+
+```{r echo=TRUE,eval=FALSE}
+
+methods_file <- here::here("data", "hf205-methods.docx")
+methods <- set_methods(methods_file)
+```
+
+Identificação dos indivíduos endereço e outras informações sobre contatos
+
+```{r echo=TRUE,eval=FALSE}
+R_person <- person("Aaron", "Ellison", ,"fakeaddress@email.com", "cre", 
+                  c(ORCID = "0000-0003-4151-6081"))
+aaron <- as_emld(R_person)
+others <- c(as.person("Benjamin Baiser"), as.person("Jennifer Sirota"))
+associatedParty <- as_emld(others)
+associatedParty[[1]]$role <- "Researcher"
+associatedParty[[2]]$role <- "Researcher"
+
+HF_address <- list(
+                  deliveryPoint = "324 North Main Street",
+                  city = "Petersham",
+                  administrativeArea = "MA",
+                  postalCode = "01366",
+                  country = "USA")
+
+publisher <- list(
+                 organizationName = "Harvard Forest",
+                 address = HF_address)
+
+
+contact <- 
+  list(
+    individualName = aaron$individualName,
+    electronicMailAddress = aaron$electronicMailAddress,
+    address = HF_address,
+    organizationName = "Harvard Forest",
+    phone = "000-000-0000")
+```
+
+
+criando keywords para os dados
+
+```{r echo=TRUE,eval=FALSE}
+keywordSet <- list(
+    list(
+        keywordThesaurus = "LTER controlled vocabulary",
+        keyword = list("bacteria",
+                    "carnivorous plants",
+                    "genetics",
+                    "thresholds")
+        ),
+    list(
+        keywordThesaurus = "LTER core area",
+        keyword =  list("populations", "inorganic nutrients", "disturbance")
+        ),
+    list(
+        keywordThesaurus = "HFR default",
+        keyword = list("Harvard Forest", "HFR", "LTER", "USA")
+        ))
+```
+Outras informações relevantes como abstract etc
+
+```{r echo=TRUE,eval=FALSE}
+pubDate <- "2012" 
+
+title <- "Thresholds and Tipping Points in a Sarracenia 
+Microecosystem at Harvard Forest since 2012"
+
+abstract <- "The primary goal of this project is to determine
+  experimentally the amount of lead time required to prevent a state
+change. To achieve this goal, we will (1) experimentally induce state
+changes in a natural aquatic ecosystem - the Sarracenia microecosystem;
+(2) use proteomic analysis to identify potential indicators of states
+and state changes; and (3) test whether we can forestall state changes
+by experimentally intervening in the system. This work uses state-of-the
+art molecular tools to identify early warning indicators in the field
+of aerobic to anaerobic state changes driven by nutrient enrichment
+in an aquatic ecosystem. The study tests two general hypotheses: (1)
+proteomic biomarkers can function as reliable indicators of impending
+state changes and may give early warning before increasing variances
+and statistical flickering of monitored variables; and (2) well-timed
+intervention based on proteomic biomarkers can avert future state changes
+in ecological systems."  
+
+intellectualRights <- "This dataset is released to the public and may be freely
+  downloaded. Please keep the designated Contact person informed of any
+plans to use the dataset. Consultation or collaboration with the original
+investigators is strongly encouraged. Publications and data products
+that make use of the dataset must include proper acknowledgement. For
+more information on LTER Network data access and use policies, please
+see: http://www.lternet.edu/data/netpolicy.html."
+```
+
+### Criando o arquivo XML
+
+Agora que todas as informações foram criadas (atributos, dados físicos do arquivo, coverage, dados de contato), precisamos juntar todas elas em uma única lista.
+
+```{r echo=TRUE,eval=FALSE}
+dataset <- list(
+               title = title,
+               creator = aaron,
+               pubDate = pubDate,
+               intellectualRights = intellectualRights,
+               abstract = abstract,
+               associatedParty = associatedParty,
+               keywordSet = keywordSet,
+               coverage = coverage,
+               contact = contact,
+               methods = methods,
+               dataTable = dataTable)
+```
+
+Antes de criar o arquivo XML é importante criar um uuid para o arquivo, que nada mais é que um identificador que qualquer um pode criar, como demonstrado a seguir. Para mais informações sobre o que é um uuid ver [esta explicação no Wikipedia](https://en.wikipedia.org/wiki/Universally_unique_identifier)
+
+```{r echo=TRUE,eval=FALSE}
+eml <- list(
+           packageId = uuid::UUIDgenerate(),
+           system = "uuid", # type of identifier
+           dataset = dataset)
+```
+
+Finalmente criando o arquivo XML e validando.
+
+```{r echo=TRUE,eval=FALSE}
+write_eml(eml, here::here("data", "eml_tutorialHF205.xml"))
+eml_validate(here::here("data", "eml_tutorialHF205.xml"))
+```
+
+
+<!-- aqui a seção de metadata para dados de biodiversidade usando DwCore -->
+
+```{r child="Darwin-core-LNP.Rmd",eval=TRUE}
+```
+
+
+# Atividade
+
+Para fixar os conceitos apresentados sobre metadados, vamos treinar um pouco mais utilizando um outro conjunto de dados. 
+
+Produza um arquivo `.xml` utilizando os dados `iris` do pacote `{ggplot}`. Algumas informações nós não temos, por exemplo, a cobertura de coleta, ano de coleta etc. Mas para fins de prática vamos inventar essas informações no momento de fazer o metadado.
+
+Para acessar os dados:
+
+```{r echo=TRUE,eval=FALSE}
+library(ggplot2)
+data("iris")
+```
+
+
+
+

@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Gabriel Nakamura" />
+
+<meta name="date" content="2023-10-30" />
+
+<title>Pipelines com targets</title>
+
+<script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<script src="site_libs/navigation-1.1/sourceembed.js"></script>
+<script src="site_libs/clipboard-1.7.1/clipboard.min.js"></script>
+<link href="site_libs/primer-tooltips-1.4.0/build.css" rel="stylesheet" />
+<link href="site_libs/klippy-0.0.0.9500/css/klippy.min.css" rel="stylesheet" />
+<script src="site_libs/klippy-0.0.0.9500/js/klippy.min.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #204a87; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #204a87; font-weight: bold; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #ce5c00; font-weight: bold; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+<style type="text/css">
+#rmd-source-code {
+  display: none;
+}
+</style>
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Reprodutibilidade Computacional e Organização de Dados em Ecologia e Evolução</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Início</a>
+</li>
+<li>
+  <a href="intro_ciencia_aberta.html">O que é ciência aberta?</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Dados abertos
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="dados_abertos.html">O que são dados abertos?</a>
+    </li>
+    <li>
+      <a href="metadata_EML.html">Metadados</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="Organizacao_dir_local.html">Organização local</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Versionamento
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="basics_git.html">ABC do versionamento</a>
+    </li>
+    <li>
+      <a href="commits-travel.html">Viajando no tempo</a>
+    </li>
+    <li>
+      <a href="colabs_github.html">Trabalho colaborativo</a>
+    </li>
+    <li>
+      <a href="gitgnore.html">Ignorando arquivos</a>
+    </li>
+    <li>
+      <a href="conflitos.html">Resolvendo conflitos</a>
+    </li>
+    <li class="dropdown-header">Releasing - retrato permanente</li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Programação letrada
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="rmarkdown-basics.html">Rmarkdown</a>
+    </li>
+    <li>
+      <a href="sites-basics.html">Sites</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Avançado
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="renv-basics.html">Pacote `{renv}`</a>
+    </li>
+    <li class="dropdown-header">Pacote `{groundhog}`</li>
+    <li>
+      <a href="rocker-basics.html">Containers</a>
+    </li>
+    <li>
+      <a href="targets_basics.html">Pipelines com Targets</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-download-source" href="#">Download Rmd</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Pipelines com targets</h1>
+<h4 class="author">Gabriel Nakamura</h4>
+<h4 class="date">2023-10-30</h4>
+
+</div>
+
+
+<script>
+  addClassKlippyTo("pre.r, pre.markdown");
+  addKlippy('left', 'top', 'auto', '1', 'Copy code', 'Copied!');
+</script>
+<div id="apresentação" class="section level1">
+<h1>Apresentação</h1>
+<p>Algumas análises são extremamente demoradas para rodar, mas um
+trabalho reprodutível computacionamente requer que estas análises rodem
+repetidamente, porém isso pode custar muitas horas, ou até mesmo dias
+para rodar algumas rotinas. Uma solução para otimizar a sequência de
+trabalho é o pacote <code>{targets}</code></p>
+</div>
+<div id="targets" class="section level1">
+<h1><code>{targets}</code></h1>
+<p>O pacote <code>{targets}</code> possibilita otimizar a sequência de
+trabalho (pipeline) por organizar esta sequência e identificar ações na
+pipeline que devem ou não devem ser realizadas.</p>
+<div id="exemplo" class="section level2">
+<h2>Exemplo</h2>
+<p>Para ilustrar o uso do pacote targets vamos utilizar um exemplo
+contido na própria <a
+href="https://books.ropensci.org/targets/">documentação do
+pacote</a>.</p>
+<p>Neste exemplo vamos analisar a relação entre quantidade de ozônio e
+temperatura em um conjunto de dados presentes no próprio R base chamado
+<code>airquality</code>. Para tanto precisamos seguir uma sequência de
+análise de dados, que, basicamente, consiste em:</p>
+<ol style="list-style-type: decimal">
+<li><p>Ler e manipular a tabela de dados</p></li>
+<li><p>Rodar um modelo relacionando ozônio e temperatura</p></li>
+<li><p>Gerar resultados gráficos (figuras) para o modelo
+ajustado</p></li>
+</ol>
+<p>A base de dados pode ser lida da seguinte forma</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">data</span>(airquality)</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>airquality</span></code></pre></div>
+<p>Imagine que estes dados estão organizados em um diretório local
+inicializado a partir de um .Rproject e ele apresenta a seguinte
+estrutura:</p>
+<ul>
+<li><p>Uma pasta <code>data</code> contendo os dados</p></li>
+<li><p>Uma pasta R contendo:</p>
+<ul>
+<li>script com a leitura e transformação dos dados</li>
+<li>script com o modelo</li>
+<li>script com funções para plotar os resultados do modelo ajustado</li>
+</ul></li>
+</ul>
+<p>Esta seria uma pasta organizada, tal como vimos durante as aulas.
+Porém, para que o pacote targets funciona precisamos transformar esta
+estrutura de acordo com um pipeline targets, que por sua vez necessita
+da seguinte estrutura:</p>
+<p><img src="figs/dir_targets.png" width="682" style="display: block; margin: auto;" /></p>
+<p>Neste diretório precisamos transformar a sequência apresentada
+anteriormente em uma sequência de funções. Portanto os scripts na pasta
+R serão transformados em funções que serão colocadas dentro da pasta R,
+com o nome de <code>functions.R</code>, e que apresentará a seguinte
+forma:</p>
+<p><img src="figs/pipeline-target.png" width="647" style="display: block; margin: auto;" /></p>
+<p>Veja que a mesma sequência de análise está agora representada como
+funções, naquilo que chamamos de uma <em>pipeline function</em>. Este
+formato é necessário pois apenas assim o targets irá funcionar.</p>
+<p>Uma vez organizado assim, devemos utilizar uma função do pacote
+targets para gerar um workflow do tipo target. Isso será feito da
+seguinte maneira:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>targets<span class="sc">::</span><span class="fu">use_targets</span>()</span></code></pre></div>
+<p>Isso criará um documento na raiz do seu projeto denominado
+<code>_targets.R</code>, como ilustrado na figura abaixo, que representa
+um diretório que segue um workflow do targets</p>
+<p><img src="figs/target_target-file.png" width="1274" style="display: block; margin: auto;" /></p>
+<p>O documento criado informará a sequência do workflow de análise que o
+pacote targets deve seguir. Após editar o documento para este exemplo
+ele ficará da seguinte forma</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="co"># _targets.R file</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="fu">library</span>(targets)</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;R/functions.R&quot;</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="fu">tar_option_set</span>(<span class="at">packages =</span> <span class="fu">c</span>(<span class="st">&quot;readr&quot;</span>, <span class="st">&quot;dplyr&quot;</span>, <span class="st">&quot;ggplot2&quot;</span>))</span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="fu">list</span>(</span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a>  <span class="fu">tar_target</span>(file, <span class="st">&quot;data.csv&quot;</span>, <span class="at">format =</span> <span class="st">&quot;file&quot;</span>),</span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a>  <span class="fu">tar_target</span>(data, <span class="fu">get_data</span>(file)),</span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a>  <span class="fu">tar_target</span>(model, <span class="fu">fit_model</span>(data)),</span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a>  <span class="fu">tar_target</span>(plot, <span class="fu">plot_model</span>(model, data))</span>
+<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a>)</span></code></pre></div>
+<p>Neste exemplo o arquivo apresenta os seguintes componentes:</p>
+<ul>
+<li><p>As funções necessárias para rodar o workflow</p></li>
+<li><p>os pacotes necessários</p></li>
+<li><p>uma lista que indica a sequência que o workflow deve
+obedecer</p></li>
+</ul>
+<p>Para rodar o workflow via targets usamos a seguinte função</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>targets<span class="sc">::</span><span class="fu">tar_make</span>()</span></code></pre></div>
+<p>A sequência do workflow vai iniciar e o tempo decorrido vai aparecer
+no console</p>
+<p><img src="figs/target_run.png" width="663" style="display: block; margin: auto;" /></p>
+<div id="visualizando-o-workflow" class="section level3">
+<h3>Visualizando o workflow</h3>
+<p>Uma das vantagens do target é que podemos visualizar a sequência do
+workflow e se ele está atualizado ou não. Para isso usamos a seguinte
+função</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>targets<span class="sc">::</span><span class="fu">tar_visnetwork</span>()</span></code></pre></div>
+<p>Esta função vai produzir um gráfico como mostrado nesta figura</p>
+<p><img src="figs/target_viz.png" width="1275" style="display: block; margin: auto;" /></p>
+<p>Podemos também acessar o output do workflow</p>
+<p><img src="figs/target_viz_2.png" width="1275" style="display: block; margin: auto;" /></p>
+</div>
+<div id="identificando-mudanças-no-workflow" class="section level3">
+<h3>Identificando mudanças no workflow</h3>
+<p>Uma das maiores potencialidades do targets é identificar de maneira
+eficiente partes do workflow que precisam ser rodadas novamente após
+realizarmos mudanças na nossa pipeline. Por exemplo, vamos supor que
+modificamos apenas um parâmetro que afeta a estética do plot final dos
+resultados do modelo. Não necessitamos rodar tudo de novo, apenas a
+figura resultante do modelo. O targets identifica onde esta modificação
+foi feita e aponta a parte do workflow que precisa ser rodado novamente.
+Podemos identificar isso através da função <code>tar_viznetwork()</code>
+que vai gerar a seguinte figura (dado a situação descrita acima)</p>
+<p><img src="figs/target_mudanca.png" width="1276" style="display: block; margin: auto;" /></p>
+<p>A identificação do local exato de mudança do workflow é possível
+graças ao target, evitando que tenhamos que rodar todo o workflow do
+início ao fim, prática que é chamada de <a
+href="https://www.worldhistory.org/sisyphus/">loop Sisypheano</a></p>
+<p><img src="figs/Sisyphus.jpeg" width="125" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+</div>
+
+<div id="rmd-source-code">LS0tCnRpdGxlOiAnUGlwZWxpbmVzIGNvbSB0YXJnZXRzJwphdXRob3I6ICJHYWJyaWVsIE5ha2FtdXJhIgpkYXRlOiAiYHIgU3lzLkRhdGUoKWAiCm91dHB1dDogaHRtbF9kb2N1bWVudAotLS0KCmBgYHtyIHNldHVwLCBpbmNsdWRlPUZBTFNFfQprbml0cjo6b3B0c19jaHVuayRzZXQoZWNobyA9IFRSVUUsIGZpZy5hbGlnbiA9ICJjZW50ZXIiKQpgYGAKCmBgYHtyIGtsaXBweSwgZWNobz1GQUxTRSwgaW5jbHVkZT1UUlVFfQprbGlwcHk6OmtsaXBweSgpCmBgYAoKIyBBcHJlc2VudGHDp8OjbwoKQWxndW1hcyBhbsOhbGlzZXMgc8OjbyBleHRyZW1hbWVudGUgZGVtb3JhZGFzIHBhcmEgcm9kYXIsIG1hcyB1bSB0cmFiYWxobyByZXByb2R1dMOtdmVsIGNvbXB1dGFjaW9uYW1lbnRlIHJlcXVlciBxdWUgZXN0YXMgYW7DoWxpc2VzIHJvZGVtIHJlcGV0aWRhbWVudGUsIHBvcsOpbSBpc3NvIHBvZGUgY3VzdGFyIG11aXRhcyBob3Jhcywgb3UgYXTDqSBtZXNtbyBkaWFzIHBhcmEgcm9kYXIgYWxndW1hcyByb3RpbmFzLiBVbWEgc29sdcOnw6NvIHBhcmEgb3RpbWl6YXIgYSBzZXF1w6puY2lhIGRlIHRyYWJhbGhvIMOpIG8gcGFjb3RlIGB7dGFyZ2V0c31gCgoKIyBge3RhcmdldHN9YAoKTyBwYWNvdGUgYHt0YXJnZXRzfWAgcG9zc2liaWxpdGEgb3RpbWl6YXIgYSBzZXF1w6puY2lhIGRlIHRyYWJhbGhvIChwaXBlbGluZSkgcG9yIG9yZ2FuaXphciBlc3RhIHNlcXXDqm5jaWEgZSBpZGVudGlmaWNhciBhw6fDtWVzIG5hIHBpcGVsaW5lIHF1ZSBkZXZlbSBvdSBuw6NvIGRldmVtIHNlciByZWFsaXphZGFzLgoKIyMgRXhlbXBsbwoKUGFyYSBpbHVzdHJhciBvIHVzbyBkbyBwYWNvdGUgdGFyZ2V0cyB2YW1vcyB1dGlsaXphciB1bSBleGVtcGxvIGNvbnRpZG8gbmEgcHLDs3ByaWEgW2RvY3VtZW50YcOnw6NvIGRvIHBhY290ZV0oaHR0cHM6Ly9ib29rcy5yb3BlbnNjaS5vcmcvdGFyZ2V0cy8pLgoKTmVzdGUgZXhlbXBsbyB2YW1vcyBhbmFsaXNhciBhIHJlbGHDp8OjbyBlbnRyZSBxdWFudGlkYWRlIGRlIG96w7RuaW8gZSB0ZW1wZXJhdHVyYSBlbSB1bSBjb25qdW50byBkZSBkYWRvcyBwcmVzZW50ZXMgbm8gcHLDs3ByaW8gUiBiYXNlIGNoYW1hZG8gYGFpcnF1YWxpdHlgLiBQYXJhIHRhbnRvIHByZWNpc2Ftb3Mgc2VndWlyIHVtYSBzZXF1w6puY2lhIGRlIGFuw6FsaXNlIGRlIGRhZG9zLCBxdWUsIGJhc2ljYW1lbnRlLCBjb25zaXN0ZSBlbToKCjEuICBMZXIgZSBtYW5pcHVsYXIgYSB0YWJlbGEgZGUgZGFkb3MKCjIuIFJvZGFyIHVtIG1vZGVsbyByZWxhY2lvbmFuZG8gb3rDtG5pbyBlIHRlbXBlcmF0dXJhCgozLiBHZXJhciByZXN1bHRhZG9zIGdyw6FmaWNvcyAoZmlndXJhcykgcGFyYSBvIG1vZGVsbyBhanVzdGFkbwoKQSBiYXNlIGRlIGRhZG9zIHBvZGUgc2VyIGxpZGEgZGEgc2VndWludGUgZm9ybWEKCmBgYHtyIGV2YWw9RkFMU0UsZWNobz1UUlVFfQpkYXRhKGFpcnF1YWxpdHkpCmFpcnF1YWxpdHkKYGBgCgpJbWFnaW5lIHF1ZSBlc3RlcyBkYWRvcyBlc3TDo28gb3JnYW5pemFkb3MgZW0gdW0gZGlyZXTDs3JpbyBsb2NhbCBpbmljaWFsaXphZG8gYSBwYXJ0aXIgZGUgdW0gLlJwcm9qZWN0IGUgZWxlIGFwcmVzZW50YSBhIHNlZ3VpbnRlIGVzdHJ1dHVyYToKCi0gVW1hIHBhc3RhIGBkYXRhYCBjb250ZW5kbyBvcyBkYWRvcwoKLSBVbWEgcGFzdGEgUiBjb250ZW5kbzoKICAgICsgc2NyaXB0IGNvbSBhIGxlaXR1cmEgZSB0cmFuc2Zvcm1hw6fDo28gZG9zIGRhZG9zCiAgICArIHNjcmlwdCBjb20gbyBtb2RlbG8KICAgICsgc2NyaXB0IGNvbSBmdW7Dp8O1ZXMgcGFyYSBwbG90YXIgb3MgcmVzdWx0YWRvcyBkbyBtb2RlbG8gYWp1c3RhZG8gCiAgICAKRXN0YSBzZXJpYSB1bWEgcGFzdGEgb3JnYW5pemFkYSwgdGFsIGNvbW8gdmltb3MgZHVyYW50ZSBhcyBhdWxhcy4gUG9yw6ltLCBwYXJhIHF1ZSBvIHBhY290ZSB0YXJnZXRzIGZ1bmNpb25hIHByZWNpc2Ftb3MgdHJhbnNmb3JtYXIgZXN0YSBlc3RydXR1cmEgZGUgYWNvcmRvIGNvbSB1bSBwaXBlbGluZSB0YXJnZXRzLCBxdWUgcG9yIHN1YSB2ZXogbmVjZXNzaXRhIGRhIHNlZ3VpbnRlIGVzdHJ1dHVyYToKCmBgYHtyIGVjaG89RkFMU0UsZXZhbD1UUlVFfQprbml0cjo6aW5jbHVkZV9ncmFwaGljcygiZmlncy9kaXJfdGFyZ2V0cy5wbmciKQpgYGAKCk5lc3RlIGRpcmV0w7NyaW8gcHJlY2lzYW1vcyB0cmFuc2Zvcm1hciBhIHNlcXXDqm5jaWEgYXByZXNlbnRhZGEgYW50ZXJpb3JtZW50ZSBlbSB1bWEgc2VxdcOqbmNpYSBkZSBmdW7Dp8O1ZXMuIFBvcnRhbnRvIG9zIHNjcmlwdHMgbmEgcGFzdGEgUiBzZXLDo28gdHJhbnNmb3JtYWRvcyBlbSBmdW7Dp8O1ZXMgcXVlIHNlcsOjbyBjb2xvY2FkYXMgZGVudHJvIGRhIHBhc3RhIFIsIGNvbSBvIG5vbWUgZGUgYGZ1bmN0aW9ucy5SYCwgZSBxdWUgYXByZXNlbnRhcsOhIGEgc2VndWludGUgZm9ybWE6CgpgYGB7ciBlY2hvPUZBTFNFLGV2YWw9VFJVRX0Ka25pdHI6OmluY2x1ZGVfZ3JhcGhpY3MoImZpZ3MvcGlwZWxpbmUtdGFyZ2V0LnBuZyIpCmBgYAoKVmVqYSBxdWUgYSBtZXNtYSBzZXF1w6puY2lhIGRlIGFuw6FsaXNlIGVzdMOhIGFnb3JhIHJlcHJlc2VudGFkYSBjb21vIGZ1bsOnw7VlcywgbmFxdWlsbyBxdWUgY2hhbWFtb3MgZGUgdW1hICpwaXBlbGluZSBmdW5jdGlvbiouIEVzdGUgZm9ybWF0byDDqSBuZWNlc3PDoXJpbyBwb2lzIGFwZW5hcyBhc3NpbSBvIHRhcmdldHMgaXLDoSBmdW5jaW9uYXIuCgpVbWEgdmV6IG9yZ2FuaXphZG8gYXNzaW0sIGRldmVtb3MgdXRpbGl6YXIgdW1hIGZ1bsOnw6NvIGRvIHBhY290ZSB0YXJnZXRzIHBhcmEgZ2VyYXIgdW0gd29ya2Zsb3cgZG8gdGlwbyB0YXJnZXQuIElzc28gc2Vyw6EgZmVpdG8gZGEgc2VndWludGUgbWFuZWlyYToKCmBgYHtyIGVjaG89VFJVRSxldmFsPUZBTFNFfQp0YXJnZXRzOjp1c2VfdGFyZ2V0cygpCmBgYAoKSXNzbyBjcmlhcsOhIHVtIGRvY3VtZW50byBuYSByYWl6IGRvIHNldSBwcm9qZXRvIGRlbm9taW5hZG8gYF90YXJnZXRzLlJgLCBjb21vIGlsdXN0cmFkbyBuYSBmaWd1cmEgYWJhaXhvLCBxdWUgcmVwcmVzZW50YSB1bSBkaXJldMOzcmlvIHF1ZSBzZWd1ZSB1bSB3b3JrZmxvdyBkbyB0YXJnZXRzCgpgYGB7ciBlY2hvPUZBTFNFLGV2YWw9VFJVRX0Ka25pdHI6OmluY2x1ZGVfZ3JhcGhpY3MoImZpZ3MvdGFyZ2V0X3RhcmdldC1maWxlLnBuZyIpCmBgYAoKTyBkb2N1bWVudG8gY3JpYWRvIGluZm9ybWFyw6EgYSBzZXF1w6puY2lhIGRvIHdvcmtmbG93IGRlIGFuw6FsaXNlIHF1ZSBvIHBhY290ZSB0YXJnZXRzIGRldmUgc2VndWlyLiBBcMOzcyBlZGl0YXIgbyBkb2N1bWVudG8gcGFyYSBlc3RlIGV4ZW1wbG8gZWxlIGZpY2Fyw6EgZGEgc2VndWludGUgZm9ybWEKCmBgYHtyIGVjaG89VFJVRSxldmFsPUZBTFNFfQojIF90YXJnZXRzLlIgZmlsZQpsaWJyYXJ5KHRhcmdldHMpCnNvdXJjZSgiUi9mdW5jdGlvbnMuUiIpCnRhcl9vcHRpb25fc2V0KHBhY2thZ2VzID0gYygicmVhZHIiLCAiZHBseXIiLCAiZ2dwbG90MiIpKQpsaXN0KAogIHRhcl90YXJnZXQoZmlsZSwgImRhdGEuY3N2IiwgZm9ybWF0ID0gImZpbGUiKSwKICB0YXJfdGFyZ2V0KGRhdGEsIGdldF9kYXRhKGZpbGUpKSwKICB0YXJfdGFyZ2V0KG1vZGVsLCBmaXRfbW9kZWwoZGF0YSkpLAogIHRhcl90YXJnZXQocGxvdCwgcGxvdF9tb2RlbChtb2RlbCwgZGF0YSkpCikKYGBgCgpOZXN0ZSBleGVtcGxvIG8gYXJxdWl2byBhcHJlc2VudGEgb3Mgc2VndWludGVzIGNvbXBvbmVudGVzOiAKCi0gQXMgZnVuw6fDtWVzIG5lY2Vzc8OhcmlhcyBwYXJhIHJvZGFyIG8gd29ya2Zsb3cKCi0gb3MgcGFjb3RlcyBuZWNlc3PDoXJpb3MKCi0gdW1hIGxpc3RhIHF1ZSBpbmRpY2EgYSBzZXF1w6puY2lhIHF1ZSBvIHdvcmtmbG93IGRldmUgb2JlZGVjZXIKCgpQYXJhIHJvZGFyIG8gd29ya2Zsb3cgdmlhIHRhcmdldHMgdXNhbW9zIGEgc2VndWludGUgZnVuw6fDo28KCmBgYHtyIGVjaG89VFJVRSxldmFsPUZBTFNFfQp0YXJnZXRzOjp0YXJfbWFrZSgpCmBgYAoKQSBzZXF1w6puY2lhIGRvIHdvcmtmbG93IHZhaSBpbmljaWFyIGUgbyB0ZW1wbyBkZWNvcnJpZG8gdmFpIGFwYXJlY2VyIG5vIGNvbnNvbGUKCmBgYHtyIGVjaG89RkFMU0UsZXZhbD1UUlVFfQprbml0cjo6aW5jbHVkZV9ncmFwaGljcygiZmlncy90YXJnZXRfcnVuLnBuZyIpCmBgYAoKIyMjIFZpc3VhbGl6YW5kbyBvIHdvcmtmbG93CgpVbWEgZGFzIHZhbnRhZ2VucyBkbyB0YXJnZXQgw6kgcXVlIHBvZGVtb3MgdmlzdWFsaXphciBhIHNlcXXDqm5jaWEgZG8gd29ya2Zsb3cgZSBzZSBlbGUgZXN0w6EgYXR1YWxpemFkbyBvdSBuw6NvLiBQYXJhIGlzc28gdXNhbW9zIGEgc2VndWludGUgZnVuw6fDo28KCmBgYHtyIGVjaG89VFJVRSxldmFsPUZBTFNFfQp0YXJnZXRzOjp0YXJfdmlzbmV0d29yaygpCmBgYAoKRXN0YSBmdW7Dp8OjbyB2YWkgcHJvZHV6aXIgdW0gZ3LDoWZpY28gY29tbyBtb3N0cmFkbyBuZXN0YSBmaWd1cmEKCmBgYHtyIGVjaG89RkFMU0UsZXZhbD1UUlVFfQprbml0cjo6aW5jbHVkZV9ncmFwaGljcygiZmlncy90YXJnZXRfdml6LnBuZyIpCmBgYAoKUG9kZW1vcyB0YW1iw6ltIGFjZXNzYXIgbyBvdXRwdXQgZG8gd29ya2Zsb3cKCmBgYHtyIGVjaG89RkFMU0UsZXZhbD1UUlVFfQprbml0cjo6aW5jbHVkZV9ncmFwaGljcygiZmlncy90YXJnZXRfdml6XzIucG5nIikKYGBgCgojIyMgSWRlbnRpZmljYW5kbyBtdWRhbsOnYXMgbm8gd29ya2Zsb3cKClVtYSBkYXMgbWFpb3JlcyBwb3RlbmNpYWxpZGFkZXMgZG8gdGFyZ2V0cyDDqSBpZGVudGlmaWNhciBkZSBtYW5laXJhIGVmaWNpZW50ZSBwYXJ0ZXMgZG8gd29ya2Zsb3cgcXVlIHByZWNpc2FtIHNlciByb2RhZGFzIG5vdmFtZW50ZSBhcMOzcyByZWFsaXphcm1vcyBtdWRhbsOnYXMgbmEgbm9zc2EgcGlwZWxpbmUuIFBvciBleGVtcGxvLCB2YW1vcyBzdXBvciBxdWUgbW9kaWZpY2Ftb3MgYXBlbmFzIHVtIHBhcsOibWV0cm8gcXVlIGFmZXRhIGEgZXN0w6l0aWNhIGRvIHBsb3QgZmluYWwgZG9zIHJlc3VsdGFkb3MgZG8gbW9kZWxvLiBOw6NvIG5lY2Vzc2l0YW1vcyByb2RhciB0dWRvIGRlIG5vdm8sIGFwZW5hcyBhIGZpZ3VyYSByZXN1bHRhbnRlIGRvIG1vZGVsby4gTyB0YXJnZXRzIGlkZW50aWZpY2Egb25kZSBlc3RhIG1vZGlmaWNhw6fDo28gZm9pIGZlaXRhIGUgYXBvbnRhIGEgcGFydGUgZG8gd29ya2Zsb3cgcXVlIHByZWNpc2Egc2VyIHJvZGFkbyBub3ZhbWVudGUuIFBvZGVtb3MgaWRlbnRpZmljYXIgaXNzbyBhdHJhdsOpcyBkYSBmdW7Dp8OjbyBgdGFyX3Zpem5ldHdvcmsoKWAgcXVlIHZhaSBnZXJhciBhIHNlZ3VpbnRlIGZpZ3VyYSAoZGFkbyBhIHNpdHVhw6fDo28gZGVzY3JpdGEgYWNpbWEpCgpgYGB7ciBlY2hvPUZBTFNFLGV2YWw9VFJVRX0Ka25pdHI6OmluY2x1ZGVfZ3JhcGhpY3MoImZpZ3MvdGFyZ2V0X211ZGFuY2EucG5nIikKYGBgCgpBIGlkZW50aWZpY2HDp8OjbyBkbyBsb2NhbCBleGF0byBkZSBtdWRhbsOnYSBkbyB3b3JrZmxvdyDDqSBwb3Nzw612ZWwgZ3Jhw6dhcyBhbyB0YXJnZXQsIGV2aXRhbmRvIHF1ZSB0ZW5oYW1vcyBxdWUgcm9kYXIgdG9kbyBvIHdvcmtmbG93IGRvIGluw61jaW8gYW8gZmltLCBwcsOhdGljYSBxdWUgw6kgY2hhbWFkYSBkZSBbbG9vcCBTaXN5cGhlYW5vXShodHRwczovL3d3dy53b3JsZGhpc3Rvcnkub3JnL3Npc3lwaHVzLykKCmBgYHtyIGVjaG89RkFMU0UsZXZhbD1UUlVFfQprbml0cjo6aW5jbHVkZV9ncmFwaGljcygiZmlncy9TaXN5cGh1cy5qcGVnIikKYGBgCgo=</div>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeSourceEmbed("targets_basics.Rmd");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

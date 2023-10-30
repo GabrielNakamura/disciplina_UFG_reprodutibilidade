@@ -1,0 +1,17 @@
+---
+title: 'Utilizando o gitignore'
+author: "Gabriel Nakamura"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, fig.align = "center")
+```
+
+```{r klippy, echo=FALSE, include=TRUE}
+klippy::klippy()
+```
+
+# Apresentação
+

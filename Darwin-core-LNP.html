@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Gabriel Nakamura" />
+
+<meta name="date" content="2023-10-30" />
+
+<title>Metadata com Living Norway package</title>
+
+<script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<script src="site_libs/navigation-1.1/sourceembed.js"></script>
+<script src="site_libs/clipboard-1.7.1/clipboard.min.js"></script>
+<link href="site_libs/primer-tooltips-1.4.0/build.css" rel="stylesheet" />
+<link href="site_libs/klippy-0.0.0.9500/css/klippy.min.css" rel="stylesheet" />
+<script src="site_libs/klippy-0.0.0.9500/js/klippy.min.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #204a87; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #204a87; font-weight: bold; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #ce5c00; font-weight: bold; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+<style type="text/css">
+#rmd-source-code {
+  display: none;
+}
+</style>
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Reprodutibilidade Computacional e Organização de Dados em Ecologia e Evolução</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Início</a>
+</li>
+<li>
+  <a href="intro_ciencia_aberta.html">O que é ciência aberta?</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Dados abertos
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="dados_abertos.html">O que são dados abertos?</a>
+    </li>
+    <li>
+      <a href="metadata_EML.html">Metadados</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="Organizacao_dir_local.html">Organização local</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Versionamento
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="basics_git.html">ABC do versionamento</a>
+    </li>
+    <li>
+      <a href="commits-travel.html">Viajando no tempo</a>
+    </li>
+    <li>
+      <a href="colabs_github.html">Trabalho colaborativo</a>
+    </li>
+    <li>
+      <a href="gitgnore.html">Ignorando arquivos</a>
+    </li>
+    <li>
+      <a href="conflitos.html">Resolvendo conflitos</a>
+    </li>
+    <li class="dropdown-header">Releasing - retrato permanente</li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Programação letrada
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="rmarkdown-basics.html">Rmarkdown</a>
+    </li>
+    <li>
+      <a href="sites-basics.html">Sites</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Avançado
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="renv-basics.html">Pacote `{renv}`</a>
+    </li>
+    <li class="dropdown-header">Pacote `{groundhog}`</li>
+    <li>
+      <a href="rocker-basics.html">Containers</a>
+    </li>
+    <li>
+      <a href="targets_basics.html">Pipelines com Targets</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-download-source" href="#">Download Rmd</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Metadata com Living Norway package</h1>
+<h4 class="author">Gabriel Nakamura</h4>
+<h4 class="date">2023-10-30</h4>
+
+</div>
+
+
+<script>
+  addClassKlippyTo("pre.r, pre.markdown");
+  addKlippy('left', 'top', 'auto', '1', 'Copy code', 'Copied!');
+</script>
+<div id="metadados-para-dados-de-biodiversidade" class="section level1">
+<h1>Metadados para dados de biodiversidade</h1>
+<p>Se você ainda não passou pela seção de metadados usando o pacote EML,
+volte um pouco, por favor. Lá apresento uma introdução geral sobre
+metadados em XML e como montá-los usando o pacote EML no R. Aqui
+abordarei especificamente como montar arquivos com metadados para dados
+de biodiversidade (ocorrência, lista de espécies, pontos etc).</p>
+<div id="leituras-sugeridas" class="section level2">
+<h2>Leituras sugeridas</h2>
+<p>Esta seção é baseada no documento produzido pelo <a
+href="https://livingnorway.github.io/LivingNorwayR/articles/LNWorkshopExample_TOV-E.html">Living
+Norway Project</a>, que também oferece uma introdução muito interessante
+sobre Darwin Core e metadados para biodiversidade.</p>
+</div>
+<div id="exemplos-de-metadados-de-biodiversidade"
+class="section level2">
+<h2>Exemplos de metadados de biodiversidade</h2>
+<p>O melhor exemplo de esturutura digital que utiliza metadados de
+biodiversidade construídos desta maneira que mostrarei é o <a
+href="https://www.gbif.org/">GBIF</a>.</p>
+</div>
+</div>
+<div id="metadados-na-prática---utilizando-o-pacote-livingnorwayr"
+class="section level1">
+<h1>Metadados na prática - utilizando o pacote
+<code>{LivingNorwayR}</code></h1>
+<div id="instalação-e-dados" class="section level2">
+<h2>Instalação e dados</h2>
+<p>Primeiro vamos instalar o pacote</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;https://github.com/LivingNorway/LivingNorwayR&quot;</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">library</span>(LivingNorwayR)</span></code></pre></div>
+<p>Aqui os dados que serão utilizados no exemplo. Estes são os mesmos
+dados utilizados no tuturial do Living Norway R. Para mais detalhes
+visite a <a
+href="https://livingnorway.github.io/LivingNorwayR/articles/LNWorkshopExample_TOV-E.html">página
+deles</a>.</p>
+<p>Vamos utilizar um conjunto de dados que fizemos o download e está
+dentro da nossa pasta do curso para criar nosso arquivo Darwin Core.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="co"># Lendo o arquivo core</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>TOVEEventTableDF <span class="ot">&lt;-</span> <span class="fu">read.table</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;TOVEData&quot;</span>, <span class="st">&quot;event.txt&quot;</span>), <span class="at">sep =</span> <span class="st">&quot;</span><span class="sc">\t</span><span class="st">&quot;</span>, <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="fu">head</span>(TOVEEventTableDF)</span></code></pre></div>
+<p>Obtendo os arquivos extendidos, neste caso o arquivo de ocorrência de
+espécies. Podemos ver que se trata de um simples data frame onde os
+nomes das colunas seguem os códigos do Darwin Core</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>TOVEOccTable <span class="ot">&lt;-</span> <span class="fu">read.table</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;TOVEData&quot;</span>, <span class="st">&quot;occurrence.txt&quot;</span>), <span class="at">sep =</span> <span class="st">&quot;</span><span class="sc">\t</span><span class="st">&quot;</span>, <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="fu">head</span>(TOVEOccTable)</span></code></pre></div>
+</div>
+<div id="construindo-um-xml-baseado-em-darwin-core"
+class="section level2">
+<h2>Construindo um XML baseado em Darwin Core</h2>
+<p>Agora que temos nossos dados podemos construir um arquivo do tipo
+Darwin Core</p>
+<div id="construindo-o-metadado-para-a-tabela-de-eventos-core"
+class="section level3">
+<h3>Construindo o metadado para a tabela de eventos
+<strong>core</strong></h3>
+<p>Primeiro precisamos definir o que será a tabela <strong>core</strong>
+e o que serão as suas <strong>extensões</strong>, que por sua vez podem
+ser mapeadas a partir de atributos comuns presentes em ambas as tabelas
+(neste caso o ID).</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="co"># 1. Inicializando automaticamente - só funciona caso os nomes já estejam de acordo com o Darwin Core</span></span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>newTOVEEventTable <span class="ot">&lt;-</span> <span class="fu">initializeGBIFEvent</span>(TOVEEventTableDF, <span class="st">&quot;id&quot;</span>, <span class="at">nameAutoMap =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a><span class="co"># 2. Iniciando manualmente - podemos usar o nome dos atributos que correspondem a cada categoria do Darwin Core. </span></span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a>    <span class="co"># podemos usar o nome ou o número da coluna</span></span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a>newTOVEEventTable <span class="ot">&lt;-</span> <span class="fu">initializeGBIFEvent</span>(TOVEEventTableDF, <span class="st">&quot;id&quot;</span>,</span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;type&quot;</span>,</span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a>  <span class="at">modified =</span> <span class="st">&quot;modified&quot;</span>,</span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a>  <span class="at">datasetName =</span> <span class="st">&quot;datasetName&quot;</span>,</span>
+<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a>  <span class="at">ownerInstitutionCode =</span> <span class="st">&quot;ownerInstitutionCode&quot;</span>,</span>
+<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a>  <span class="at">informationWithheld =</span> <span class="st">&quot;informationWithheld&quot;</span>,</span>
+<span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a>  <span class="at">dataGeneralizations =</span> <span class="st">&quot;dataGeneralizations&quot;</span>,</span>
+<span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a>  <span class="at">eventID =</span> <span class="st">&quot;eventID&quot;</span>,</span>
+<span id="cb4-14"><a href="#cb4-14" tabindex="-1"></a>  <span class="at">samplingProtocol =</span> <span class="st">&quot;samplingProtocol&quot;</span>,</span>
+<span id="cb4-15"><a href="#cb4-15" tabindex="-1"></a>  <span class="at">sampleSizeValue =</span> <span class="st">&quot;sampleSizeValue&quot;</span>,</span>
+<span id="cb4-16"><a href="#cb4-16" tabindex="-1"></a>  <span class="at">sampleSizeUnit =</span> <span class="st">&quot;sampleSizeUnit&quot;</span>,</span>
+<span id="cb4-17"><a href="#cb4-17" tabindex="-1"></a>  <span class="at">samplingEffort =</span> <span class="st">&quot;samplingEffort&quot;</span>,</span>
+<span id="cb4-18"><a href="#cb4-18" tabindex="-1"></a>  <span class="at">eventDate =</span> <span class="st">&quot;eventDate&quot;</span>,</span>
+<span id="cb4-19"><a href="#cb4-19" tabindex="-1"></a>  <span class="at">eventTime =</span> <span class="st">&quot;eventTime&quot;</span>,</span>
+<span id="cb4-20"><a href="#cb4-20" tabindex="-1"></a>  <span class="at">year =</span> <span class="st">&quot;year&quot;</span>,</span>
+<span id="cb4-21"><a href="#cb4-21" tabindex="-1"></a>  <span class="at">month =</span> <span class="st">&quot;month&quot;</span>,</span>
+<span id="cb4-22"><a href="#cb4-22" tabindex="-1"></a>  <span class="at">day =</span> <span class="st">&quot;day&quot;</span>,</span>
+<span id="cb4-23"><a href="#cb4-23" tabindex="-1"></a>  <span class="at">locationID =</span> <span class="st">&quot;locationID&quot;</span>,</span>
+<span id="cb4-24"><a href="#cb4-24" tabindex="-1"></a>  <span class="at">country =</span> <span class="st">&quot;country&quot;</span>,</span>
+<span id="cb4-25"><a href="#cb4-25" tabindex="-1"></a>  <span class="at">countryCode =</span> <span class="st">&quot;countryCode&quot;</span>,</span>
+<span id="cb4-26"><a href="#cb4-26" tabindex="-1"></a>  <span class="at">stateProvince =</span> <span class="st">&quot;stateProvince&quot;</span>,</span>
+<span id="cb4-27"><a href="#cb4-27" tabindex="-1"></a>  <span class="at">municipality =</span> <span class="st">&quot;municipality&quot;</span>,</span>
+<span id="cb4-28"><a href="#cb4-28" tabindex="-1"></a>  <span class="at">locality =</span> <span class="st">&quot;locality&quot;</span>,</span>
+<span id="cb4-29"><a href="#cb4-29" tabindex="-1"></a>  <span class="at">minimumElevationInMeters =</span> <span class="st">&quot;minimumElevationInMeters&quot;</span>,</span>
+<span id="cb4-30"><a href="#cb4-30" tabindex="-1"></a>  <span class="at">maximumElevationInMeters =</span> <span class="st">&quot;maximumElevationInMeters&quot;</span>,</span>
+<span id="cb4-31"><a href="#cb4-31" tabindex="-1"></a>  <span class="at">decimalLatitude =</span> <span class="st">&quot;decimalLatitude&quot;</span>,</span>
+<span id="cb4-32"><a href="#cb4-32" tabindex="-1"></a>  <span class="at">decimalLongitude =</span> <span class="st">&quot;decimalLongitude&quot;</span>,</span>
+<span id="cb4-33"><a href="#cb4-33" tabindex="-1"></a>  <span class="at">geodeticDatum =</span> <span class="st">&quot;geodeticDatum&quot;</span>,</span>
+<span id="cb4-34"><a href="#cb4-34" tabindex="-1"></a>  <span class="at">coordinateUncertaintyInMeters =</span> <span class="st">&quot;coordinateUncertaintyInMeters&quot;</span>)</span>
+<span id="cb4-35"><a href="#cb4-35" tabindex="-1"></a></span>
+<span id="cb4-36"><a href="#cb4-36" tabindex="-1"></a><span class="co"># Podemos checar se o mapeamento dos termos se deu corretamente</span></span>
+<span id="cb4-37"><a href="#cb4-37" tabindex="-1"></a>newTOVEEventTable<span class="sc">$</span><span class="fu">getTermMapping</span>()</span></code></pre></div>
+</div>
+<div id="construindo-os-metadados-para-as-extensões-da-tabela-core"
+class="section level3">
+<h3>Construindo os metadados para as extensões da tabela core</h3>
+<p>Neste caso a tabela a extensão que temos da tabela chave é a tabela
+de ocorrência de espécies. Vamos mapear ela da mesma forma que fizemos
+para a tabela core</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="co"># Função para inicialização da tabela</span></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>newTOVEOccTable <span class="ot">&lt;-</span> <span class="fu">initializeGBIFOccurrence</span>(TOVEOccTable, <span class="st">&quot;id&quot;</span>, <span class="at">nameAutoMap =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a><span class="co"># Checando quais eventos foram mapeados na tabela, o que aparece com NA não foi mapeado, ou porque não existe ou porque tem o nome incorreto</span></span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>newTOVEOccTable<span class="sc">$</span><span class="fu">getTermMapping</span>()</span></code></pre></div>
+</div>
+<div id="construindo-o-eml" class="section level3">
+<h3>Construindo o EML</h3>
+<p>O último elemento que precisamos para construir nossos metadados para
+os arquivos de biodiversidade que estamos utilizando é o arquivo EML,
+que vocês já conhecem. O EML pode ser criado de várias formas. Vimos
+anteriormente como criar um EML usando o pacote <code>{EML}</code>. O
+pacote <code>{LivingNorwayR}</code> oferece uma maneira simples de criar
+um arquivo XML usando um arquivo <code>.Rmd</code>, ou seja, usando o
+Rmarkdown. Vamos entender os detalhes de um arquivo do tipo Rmd mais
+adiante, por hora precisamos apenas saber que ele é um arquivo que
+permite mesclar textos e códigos, além de possibilitar criar tags para
+seções (Como os títulos num documento Word). Essas tags são utilizadas
+pelas funções do LivingNorwayR para criar o arquivo XML. Vale notar que
+isso é mais limitante que criar um XML usando o EML, mas para questões
+didáticas vamos usar um arquivo .Rmd pronto, que está na pasta de dados
+deste diretório.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>createdTOVEMetadata <span class="ot">&lt;-</span> <span class="fu">initializeDwCMetadata</span>(<span class="at">fileLocation =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;TOVEData&quot;</span>, <span class="st">&quot;LNWorkshopExample_Metadata.rmd&quot;</span>), <span class="at">fileType =</span> <span class="st">&quot;rmarkdown&quot;</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a><span class="co"># Exportando o EML</span></span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>createdTOVEMetadata<span class="sc">$</span><span class="fu">exportToEML</span>(<span class="fu">file.path</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;TOVEData&quot;</span>), <span class="st">&quot;newMetadata.xml&quot;</span>))</span></code></pre></div>
+<p>Este novo metadado precisa ser lido para o R e assim podemos juntá-lo
+com os outros arquivos</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>newTOVEMetadata <span class="ot">&lt;-</span> <span class="fu">initializeDwCMetadata</span>(<span class="fu">file.path</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;TOVEData&quot;</span>), <span class="st">&quot;newMetadata.xml&quot;</span>),</span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>  <span class="at">fileType =</span> <span class="st">&quot;eml&quot;</span> <span class="co"># This line is not required if the file has the &quot;.xml&quot; file extension</span></span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>)</span></code></pre></div>
+</div>
+</div>
+<div id="juntando-todos-os-arquivos" class="section level2">
+<h2>Juntando todos os arquivos</h2>
+<p>Agora temos os arquivos necessários para juntar em um único arquivo
+zipado que pode ser guardado localmente ou submetido em alguma
+plataforma de dados, por exemplo, GBIF, como ilustrado abaixo</p>
+<p><img src="figs/gibif-upload-zip.png" width="1275" /></p>
+<p>Para juntar todos os arquivos criados precisamos usar a seguinte
+função</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="co"># criando um único arquivo com todos os objetos criados anteriormente</span></span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>newTOVEArchive <span class="ot">&lt;-</span> <span class="fu">initializeDwCArchive</span>(newTOVEEventTable, <span class="fu">list</span>(newTOVEOccTable), newTOVEMetadata)</span></code></pre></div>
+<p>Para salvar o objeto .zip, que agora é nosso Darwin Core Archive,
+podemos fazer o seguinte</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>newTOVEArchive<span class="sc">$</span><span class="fu">exportAsDwCArchive</span>(<span class="fu">file.path</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;NEWTOVEData&quot;</span>), <span class="st">&quot;newDwCArchive.zip&quot;</span>))</span></code></pre></div>
+</div>
+<div id="explorando-o-darwin-core-archive" class="section level2">
+<h2>Explorando o Darwin Core Archive</h2>
+<p>Uma vez criado o arquivo no formato Darwin Core Archive podemos fazer
+o caminho inverso e obter as tabelas a partir do arquivo que
+criamos.</p>
+<p>Para tanto podemos usar as funções do pacote LivingNorwayR para ler o
+arquivo zip e extrair as tabelas, incluindo os metadados.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a>localDataLoc2 <span class="ot">&lt;-</span> <span class="fu">file.path</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;NEWTOVEData&quot;</span>), <span class="st">&quot;newDwCArchive.zip&quot;</span>) </span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>NEWTOVEArchive <span class="ot">&lt;-</span> <span class="fu">initializeDwCArchive</span>(localDataLoc2, <span class="st">&quot;UTF-8&quot;</span>)</span></code></pre></div>
+<p>Podemos agora explorar os dados dentro do arquivo Darwin Core criado
+nos passos anteriores. Ou seja, podemos retomar os dados e importar para
+dentro do R para fazer, por exemplo, novas análises</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="co"># obtendo o dado</span></span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a>NEWTOVEEventTable <span class="ot">&lt;-</span> NEWTOVEArchive<span class="sc">$</span><span class="fu">getCoreTable</span>()</span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a><span class="fu">class</span>(NEWTOVEEventTable)</span>
+<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a><span class="co"># Podemos exportar como um dataframe</span></span>
+<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a>NEWTOVEEventTableDF <span class="ot">&lt;-</span> NEWTOVEEventTable<span class="sc">$</span><span class="fu">exportAsDataFrame</span>()</span>
+<span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a></span>
+<span id="cb11-8"><a href="#cb11-8" tabindex="-1"></a><span class="co"># obtendo dados da tabela extendida</span></span>
+<span id="cb11-9"><a href="#cb11-9" tabindex="-1"></a>NEWTOVEEventTableDF <span class="ot">&lt;-</span> NEWTOVEEventTable<span class="sc">$</span><span class="fu">exportAsDataFrame</span>()</span>
+<span id="cb11-10"><a href="#cb11-10" tabindex="-1"></a><span class="co"># exportando como dataframe</span></span>
+<span id="cb11-11"><a href="#cb11-11" tabindex="-1"></a><span class="fu">head</span>(NEWTOVEEventTableDF)</span></code></pre></div>
+</div>
+</div>
+
+<div id="rmd-source-code">LS0tCnRpdGxlOiAnTWV0YWRhdGEgY29tIExpdmluZyBOb3J3YXkgcGFja2FnZScKYXV0aG9yOiAiR2FicmllbCBOYWthbXVyYSIKZGF0ZTogImByIFN5cy5EYXRlKClgIgpvdXRwdXQ6IGh0bWxfZG9jdW1lbnQKLS0tCgpgYGB7ciBlY2hvPUZBTFNFLCBpbmNsdWRlPVRSVUV9CmtsaXBweTo6a2xpcHB5KCkKYGBgCgojIE1ldGFkYWRvcyBwYXJhIGRhZG9zIGRlIGJpb2RpdmVyc2lkYWRlCgpTZSB2b2PDqiBhaW5kYSBuw6NvIHBhc3NvdSBwZWxhIHNlw6fDo28gZGUgbWV0YWRhZG9zIHVzYW5kbyBvIHBhY290ZSBFTUwsIHZvbHRlIHVtIHBvdWNvLCBwb3IgZmF2b3IuIEzDoSBhcHJlc2VudG8gdW1hIGludHJvZHXDp8OjbyBnZXJhbCBzb2JyZSBtZXRhZGFkb3MgZW0gWE1MIGUgY29tbyBtb250w6EtbG9zIHVzYW5kbyBvIHBhY290ZSBFTUwgbm8gUi4gQXF1aSBhYm9yZGFyZWkgZXNwZWNpZmljYW1lbnRlIGNvbW8gbW9udGFyIGFycXVpdm9zIGNvbSBtZXRhZGFkb3MgcGFyYSBkYWRvcyBkZSBiaW9kaXZlcnNpZGFkZSAob2NvcnLDqm5jaWEsIGxpc3RhIGRlIGVzcMOpY2llcywgcG9udG9zIGV0YykuCgojIyBMZWl0dXJhcyBzdWdlcmlkYXMKCkVzdGEgc2XDp8OjbyDDqSBiYXNlYWRhIG5vIGRvY3VtZW50byBwcm9kdXppZG8gcGVsbyBbTGl2aW5nIE5vcndheSBQcm9qZWN0XShodHRwczovL2xpdmluZ25vcndheS5naXRodWIuaW8vTGl2aW5nTm9yd2F5Ui9hcnRpY2xlcy9MTldvcmtzaG9wRXhhbXBsZV9UT1YtRS5odG1sKSwgcXVlIHRhbWLDqW0gb2ZlcmVjZSB1bWEgaW50cm9kdcOnw6NvIG11aXRvIGludGVyZXNzYW50ZSBzb2JyZSBEYXJ3aW4gQ29yZSBlIG1ldGFkYWRvcyBwYXJhIGJpb2RpdmVyc2lkYWRlLgoKIyMgRXhlbXBsb3MgZGUgbWV0YWRhZG9zIGRlIGJpb2RpdmVyc2lkYWRlCgpPIG1lbGhvciBleGVtcGxvIGRlIGVzdHVydXR1cmEgZGlnaXRhbCBxdWUgdXRpbGl6YSBtZXRhZGFkb3MgZGUgYmlvZGl2ZXJzaWRhZGUgY29uc3RydcOtZG9zIGRlc3RhIG1hbmVpcmEgcXVlIG1vc3RyYXJlaSDDqSBvIFtHQklGXShodHRwczovL3d3dy5nYmlmLm9yZy8pLgoKIyBNZXRhZGFkb3MgbmEgcHLDoXRpY2EgLSB1dGlsaXphbmRvIG8gcGFjb3RlIGB7TGl2aW5nTm9yd2F5Un1gCgojIyBJbnN0YWxhw6fDo28gZSBkYWRvcwoKUHJpbWVpcm8gdmFtb3MgaW5zdGFsYXIgbyBwYWNvdGUKCmBgYHtyIGVjaG89VFJVRSxldmFsPUZBTFNFfQpkZXZ0b29sczo6aW5zdGFsbF9naXRodWIoImh0dHBzOi8vZ2l0aHViLmNvbS9MaXZpbmdOb3J3YXkvTGl2aW5nTm9yd2F5UiIpCmxpYnJhcnkoTGl2aW5nTm9yd2F5UikKYGBgCgpBcXVpIG9zIGRhZG9zIHF1ZSBzZXLDo28gdXRpbGl6YWRvcyBubyBleGVtcGxvLiBFc3RlcyBzw6NvIG9zIG1lc21vcyBkYWRvcyB1dGlsaXphZG9zIG5vIHR1dHVyaWFsIGRvIExpdmluZyBOb3J3YXkgUi4gUGFyYSBtYWlzIGRldGFsaGVzIHZpc2l0ZSBhIFtww6FnaW5hIGRlbGVzXShodHRwczovL2xpdmluZ25vcndheS5naXRodWIuaW8vTGl2aW5nTm9yd2F5Ui9hcnRpY2xlcy9MTldvcmtzaG9wRXhhbXBsZV9UT1YtRS5odG1sKS4KCgpgYGB7ciBlY2hvPUZBTFNFLGV2YWw9RkFMU0V9CmRhdGFzZXRVUkwgPC0gImh0dHBzOi8vaXB0Lm5pbmEubm8vYXJjaGl2ZS5kbz9yPXRvdmVfYmlyZHNhbXBsaW5nIgpsb2NhbERhdGFMb2MgPC0gZmlsZS5wYXRoKGhlcmU6OmhlcmUoImRhdGEiKSwgIlRPVkVEYXRhLnppcCIpIApkb3dubG9hZC5maWxlKGRhdGFzZXRVUkwsIGxvY2FsRGF0YUxvYywgbW9kZSA9ICJ3YiIpICMgbyBhcnF1aXZvIGZvaSBwYXJhIGEgcGFzdGEgZXNjb2xoaWRhCmBgYAoKVmFtb3MgdXRpbGl6YXIgdW0gY29uanVudG8gZGUgZGFkb3MgcXVlIGZpemVtb3MgbyBkb3dubG9hZCBlIGVzdMOhIGRlbnRybyBkYSBub3NzYSBwYXN0YSBkbyBjdXJzbyBwYXJhIGNyaWFyIG5vc3NvIGFycXVpdm8gRGFyd2luIENvcmUuCgpgYGB7ciBlY2hvPVRSVUUsZXZhbD1GQUxTRX0KIyBMZW5kbyBvIGFycXVpdm8gY29yZQpUT1ZFRXZlbnRUYWJsZURGIDwtIHJlYWQudGFibGUoaGVyZTo6aGVyZSgiZGF0YSIsICJUT1ZFRGF0YSIsICJldmVudC50eHQiKSwgc2VwID0gIlx0IiwgaGVhZGVyID0gVFJVRSkKaGVhZChUT1ZFRXZlbnRUYWJsZURGKQpgYGAKCk9idGVuZG8gb3MgYXJxdWl2b3MgZXh0ZW5kaWRvcywgbmVzdGUgY2FzbyBvIGFycXVpdm8gZGUgb2NvcnLDqm5jaWEgZGUgZXNww6ljaWVzLiBQb2RlbW9zIHZlciBxdWUgc2UgdHJhdGEgZGUgdW0gc2ltcGxlcyBkYXRhIGZyYW1lIG9uZGUgb3Mgbm9tZXMgZGFzIGNvbHVuYXMgc2VndWVtIG9zIGPDs2RpZ29zIGRvIERhcndpbiBDb3JlIAoKYGBge3IgZWNobz1UUlVFLGV2YWw9RkFMU0V9ClRPVkVPY2NUYWJsZSA8LSByZWFkLnRhYmxlKGhlcmU6OmhlcmUoImRhdGEiLCAiVE9WRURhdGEiLCAib2NjdXJyZW5jZS50eHQiKSwgc2VwID0gIlx0IiwgaGVhZGVyID0gVFJVRSkKaGVhZChUT1ZFT2NjVGFibGUpCmBgYAoKCiMjIENvbnN0cnVpbmRvIHVtIFhNTCBiYXNlYWRvIGVtIERhcndpbiBDb3JlCgpBZ29yYSBxdWUgdGVtb3Mgbm9zc29zIGRhZG9zIHBvZGVtb3MgY29uc3RydWlyIHVtIGFycXVpdm8gZG8gdGlwbyBEYXJ3aW4gQ29yZQoKIyMjIENvbnN0cnVpbmRvIG8gbWV0YWRhZG8gcGFyYSBhIHRhYmVsYSBkZSBldmVudG9zICoqY29yZSoqCgpQcmltZWlybyBwcmVjaXNhbW9zIGRlZmluaXIgbyBxdWUgc2Vyw6EgYSB0YWJlbGEgKipjb3JlKiogZSBvIHF1ZSBzZXLDo28gYXMgc3VhcyAqKmV4dGVuc8O1ZXMqKiwgcXVlIHBvciBzdWEgdmV6IHBvZGVtIHNlciBtYXBlYWRhcyBhIHBhcnRpciBkZSBhdHJpYnV0b3MgY29tdW5zIHByZXNlbnRlcyBlbSBhbWJhcyBhcyB0YWJlbGFzIChuZXN0ZSBjYXNvIG8gSUQpLgoKYGBge3IgZWNobz1UUlVFLGV2YWw9RkFMU0V9CgojIDEuIEluaWNpYWxpemFuZG8gYXV0b21hdGljYW1lbnRlIC0gc8OzIGZ1bmNpb25hIGNhc28gb3Mgbm9tZXMgasOhIGVzdGVqYW0gZGUgYWNvcmRvIGNvbSBvIERhcndpbiBDb3JlCm5ld1RPVkVFdmVudFRhYmxlIDwtIGluaXRpYWxpemVHQklGRXZlbnQoVE9WRUV2ZW50VGFibGVERiwgImlkIiwgbmFtZUF1dG9NYXAgPSBUUlVFKQoKIyAyLiBJbmljaWFuZG8gbWFudWFsbWVudGUgLSBwb2RlbW9zIHVzYXIgbyBub21lIGRvcyBhdHJpYnV0b3MgcXVlIGNvcnJlc3BvbmRlbSBhIGNhZGEgY2F0ZWdvcmlhIGRvIERhcndpbiBDb3JlLiAKICAgICMgcG9kZW1vcyB1c2FyIG8gbm9tZSBvdSBvIG7Dum1lcm8gZGEgY29sdW5hCm5ld1RPVkVFdmVudFRhYmxlIDwtIGluaXRpYWxpemVHQklGRXZlbnQoVE9WRUV2ZW50VGFibGVERiwgImlkIiwKICB0eXBlID0gInR5cGUiLAogIG1vZGlmaWVkID0gIm1vZGlmaWVkIiwKICBkYXRhc2V0TmFtZSA9ICJkYXRhc2V0TmFtZSIsCiAgb3duZXJJbnN0aXR1dGlvbkNvZGUgPSAib3duZXJJbnN0aXR1dGlvbkNvZGUiLAogIGluZm9ybWF0aW9uV2l0aGhlbGQgPSAiaW5mb3JtYXRpb25XaXRoaGVsZCIsCiAgZGF0YUdlbmVyYWxpemF0aW9ucyA9ICJkYXRhR2VuZXJhbGl6YXRpb25zIiwKICBldmVudElEID0gImV2ZW50SUQiLAogIHNhbXBsaW5nUHJvdG9jb2wgPSAic2FtcGxpbmdQcm90b2NvbCIsCiAgc2FtcGxlU2l6ZVZhbHVlID0gInNhbXBsZVNpemVWYWx1ZSIsCiAgc2FtcGxlU2l6ZVVuaXQgPSAic2FtcGxlU2l6ZVVuaXQiLAogIHNhbXBsaW5nRWZmb3J0ID0gInNhbXBsaW5nRWZmb3J0IiwKICBldmVudERhdGUgPSAiZXZlbnREYXRlIiwKICBldmVudFRpbWUgPSAiZXZlbnRUaW1lIiwKICB5ZWFyID0gInllYXIiLAogIG1vbnRoID0gIm1vbnRoIiwKICBkYXkgPSAiZGF5IiwKICBsb2NhdGlvbklEID0gImxvY2F0aW9uSUQiLAogIGNvdW50cnkgPSAiY291bnRyeSIsCiAgY291bnRyeUNvZGUgPSAiY291bnRyeUNvZGUiLAogIHN0YXRlUHJvdmluY2UgPSAic3RhdGVQcm92aW5jZSIsCiAgbXVuaWNpcGFsaXR5ID0gIm11bmljaXBhbGl0eSIsCiAgbG9jYWxpdHkgPSAibG9jYWxpdHkiLAogIG1pbmltdW1FbGV2YXRpb25Jbk1ldGVycyA9ICJtaW5pbXVtRWxldmF0aW9uSW5NZXRlcnMiLAogIG1heGltdW1FbGV2YXRpb25Jbk1ldGVycyA9ICJtYXhpbXVtRWxldmF0aW9uSW5NZXRlcnMiLAogIGRlY2ltYWxMYXRpdHVkZSA9ICJkZWNpbWFsTGF0aXR1ZGUiLAogIGRlY2ltYWxMb25naXR1ZGUgPSAiZGVjaW1hbExvbmdpdHVkZSIsCiAgZ2VvZGV0aWNEYXR1bSA9ICJnZW9kZXRpY0RhdHVtIiwKICBjb29yZGluYXRlVW5jZXJ0YWludHlJbk1ldGVycyA9ICJjb29yZGluYXRlVW5jZXJ0YWludHlJbk1ldGVycyIpCgojIFBvZGVtb3MgY2hlY2FyIHNlIG8gbWFwZWFtZW50byBkb3MgdGVybW9zIHNlIGRldSBjb3JyZXRhbWVudGUKbmV3VE9WRUV2ZW50VGFibGUkZ2V0VGVybU1hcHBpbmcoKQpgYGAKCiMjIyBDb25zdHJ1aW5kbyBvcyBtZXRhZGFkb3MgcGFyYSBhcyBleHRlbnPDtWVzIGRhIHRhYmVsYSBjb3JlCgpOZXN0ZSBjYXNvIGEgdGFiZWxhIGEgZXh0ZW5zw6NvIHF1ZSB0ZW1vcyBkYSB0YWJlbGEgY2hhdmUgw6kgYSB0YWJlbGEgZGUgb2NvcnLDqm5jaWEgZGUgZXNww6ljaWVzLiBWYW1vcyBtYXBlYXIgZWxhIGRhIG1lc21hIGZvcm1hIHF1ZSBmaXplbW9zIHBhcmEgYSB0YWJlbGEgY29yZQoKYGBge3IgZWNobz1UUlVFLGV2YWw9RkFMU0V9CiMgRnVuw6fDo28gcGFyYSBpbmljaWFsaXphw6fDo28gZGEgdGFiZWxhCm5ld1RPVkVPY2NUYWJsZSA8LSBpbml0aWFsaXplR0JJRk9jY3VycmVuY2UoVE9WRU9jY1RhYmxlLCAiaWQiLCBuYW1lQXV0b01hcCA9IFRSVUUpCgojIENoZWNhbmRvIHF1YWlzIGV2ZW50b3MgZm9yYW0gbWFwZWFkb3MgbmEgdGFiZWxhLCBvIHF1ZSBhcGFyZWNlIGNvbSBOQSBuw6NvIGZvaSBtYXBlYWRvLCBvdSBwb3JxdWUgbsOjbyBleGlzdGUgb3UgcG9ycXVlIHRlbSBvIG5vbWUgaW5jb3JyZXRvCm5ld1RPVkVPY2NUYWJsZSRnZXRUZXJtTWFwcGluZygpCmBgYAoKIyMjIENvbnN0cnVpbmRvIG8gRU1MCgpPIMO6bHRpbW8gZWxlbWVudG8gcXVlIHByZWNpc2Ftb3MgcGFyYSBjb25zdHJ1aXIgbm9zc29zIG1ldGFkYWRvcyBwYXJhIG9zIGFycXVpdm9zIGRlIGJpb2RpdmVyc2lkYWRlIHF1ZSBlc3RhbW9zIHV0aWxpemFuZG8gw6kgbyBhcnF1aXZvIEVNTCwgcXVlIHZvY8OqcyBqw6EgY29uaGVjZW0uIE8gRU1MIHBvZGUgc2VyIGNyaWFkbyBkZSB2w6FyaWFzIGZvcm1hcy4gVmltb3MgYW50ZXJpb3JtZW50ZSBjb21vIGNyaWFyIHVtIEVNTCB1c2FuZG8gbyBwYWNvdGUgYHtFTUx9YC4gTyBwYWNvdGUgYHtMaXZpbmdOb3J3YXlSfWAgb2ZlcmVjZSB1bWEgbWFuZWlyYSBzaW1wbGVzIGRlIGNyaWFyIHVtIGFycXVpdm8gWE1MIHVzYW5kbyB1bSBhcnF1aXZvIGAuUm1kYCwgb3Ugc2VqYSwgdXNhbmRvIG8gUm1hcmtkb3duLiBWYW1vcyBlbnRlbmRlciBvcyBkZXRhbGhlcyBkZSB1bSBhcnF1aXZvIGRvIHRpcG8gUm1kIG1haXMgYWRpYW50ZSwgcG9yIGhvcmEgcHJlY2lzYW1vcyBhcGVuYXMgc2FiZXIgcXVlIGVsZSDDqSB1bSBhcnF1aXZvIHF1ZSBwZXJtaXRlIG1lc2NsYXIgdGV4dG9zIGUgY8OzZGlnb3MsIGFsw6ltIGRlIHBvc3NpYmlsaXRhciBjcmlhciB0YWdzIHBhcmEgc2XDp8O1ZXMgKENvbW8gb3MgdMOtdHVsb3MgbnVtIGRvY3VtZW50byBXb3JkKS4gRXNzYXMgdGFncyBzw6NvIHV0aWxpemFkYXMgcGVsYXMgZnVuw6fDtWVzIGRvIExpdmluZ05vcndheVIgcGFyYSBjcmlhciBvIGFycXVpdm8gWE1MLiBWYWxlIG5vdGFyIHF1ZSBpc3NvIMOpIG1haXMgbGltaXRhbnRlIHF1ZSBjcmlhciB1bSBYTUwgdXNhbmRvIG8gRU1MLCBtYXMgcGFyYSBxdWVzdMO1ZXMgZGlkw6F0aWNhcyB2YW1vcyB1c2FyIHVtIGFycXVpdm8gLlJtZCBwcm9udG8sIHF1ZSBlc3TDoSBuYSBwYXN0YSBkZSBkYWRvcyBkZXN0ZSBkaXJldMOzcmlvLgoKYGBge3IgZWNobz1UUlVFLGV2YWw9RkFMU0V9CgpjcmVhdGVkVE9WRU1ldGFkYXRhIDwtIGluaXRpYWxpemVEd0NNZXRhZGF0YShmaWxlTG9jYXRpb24gPSBoZXJlOjpoZXJlKCJkYXRhIiwgIlRPVkVEYXRhIiwgIkxOV29ya3Nob3BFeGFtcGxlX01ldGFkYXRhLnJtZCIpLCBmaWxlVHlwZSA9ICJybWFya2Rvd24iKQoKIyBFeHBvcnRhbmRvIG8gRU1MCmNyZWF0ZWRUT1ZFTWV0YWRhdGEkZXhwb3J0VG9FTUwoZmlsZS5wYXRoKGhlcmU6OmhlcmUoImRhdGEiLCAiVE9WRURhdGEiKSwgIm5ld01ldGFkYXRhLnhtbCIpKQpgYGAKCkVzdGUgbm92byBtZXRhZGFkbyBwcmVjaXNhIHNlciBsaWRvIHBhcmEgbyBSIGUgYXNzaW0gcG9kZW1vcyBqdW50w6EtbG8gY29tIG9zIG91dHJvcyBhcnF1aXZvcwoKYGBge3IgZWNobz1UUlVFLGV2YWw9RkFMU0V9Cm5ld1RPVkVNZXRhZGF0YSA8LSBpbml0aWFsaXplRHdDTWV0YWRhdGEoZmlsZS5wYXRoKGhlcmU6OmhlcmUoImRhdGEiLCAiVE9WRURhdGEiKSwgIm5ld01ldGFkYXRhLnhtbCIpLAogIGZpbGVUeXBlID0gImVtbCIgIyBUaGlzIGxpbmUgaXMgbm90IHJlcXVpcmVkIGlmIHRoZSBmaWxlIGhhcyB0aGUgIi54bWwiIGZpbGUgZXh0ZW5zaW9uCikKYGBgCgoKIyMgSnVudGFuZG8gdG9kb3Mgb3MgYXJxdWl2b3MKCkFnb3JhIHRlbW9zIG9zIGFycXVpdm9zIG5lY2Vzc8OhcmlvcyBwYXJhIGp1bnRhciBlbSB1bSDDum5pY28gYXJxdWl2byB6aXBhZG8gcXVlIHBvZGUgc2VyIGd1YXJkYWRvIGxvY2FsbWVudGUgb3Ugc3VibWV0aWRvIGVtIGFsZ3VtYSBwbGF0YWZvcm1hIGRlIGRhZG9zLCBwb3IgZXhlbXBsbywgR0JJRiwgY29tbyBpbHVzdHJhZG8gYWJhaXhvCgpgYGB7ciBlY2hvPUZBTFNFLGV2YWw9VFJVRX0Ka25pdHI6OmluY2x1ZGVfZ3JhcGhpY3MoImZpZ3MvZ2liaWYtdXBsb2FkLXppcC5wbmciKQpgYGAKClBhcmEganVudGFyIHRvZG9zIG9zIGFycXVpdm9zIGNyaWFkb3MgcHJlY2lzYW1vcyB1c2FyIGEgc2VndWludGUgZnVuw6fDo28KCmBgYHtyIGVjaG89VFJVRSxldmFsPUZBTFNFfQojIGNyaWFuZG8gdW0gw7puaWNvIGFycXVpdm8gY29tIHRvZG9zIG9zIG9iamV0b3MgY3JpYWRvcyBhbnRlcmlvcm1lbnRlCm5ld1RPVkVBcmNoaXZlIDwtIGluaXRpYWxpemVEd0NBcmNoaXZlKG5ld1RPVkVFdmVudFRhYmxlLCBsaXN0KG5ld1RPVkVPY2NUYWJsZSksIG5ld1RPVkVNZXRhZGF0YSkKYGBgCgpQYXJhIHNhbHZhciBvIG9iamV0byAuemlwLCBxdWUgYWdvcmEgw6kgbm9zc28gRGFyd2luIENvcmUgQXJjaGl2ZSwgcG9kZW1vcyBmYXplciBvIHNlZ3VpbnRlCgpgYGB7ciBlY2hvPVRSVUUsZXZhbD1GQUxTRX0KbmV3VE9WRUFyY2hpdmUkZXhwb3J0QXNEd0NBcmNoaXZlKGZpbGUucGF0aChoZXJlOjpoZXJlKCJkYXRhIiwgIk5FV1RPVkVEYXRhIiksICJuZXdEd0NBcmNoaXZlLnppcCIpKQpgYGAKCgojIyBFeHBsb3JhbmRvIG8gRGFyd2luIENvcmUgQXJjaGl2ZQoKVW1hIHZleiBjcmlhZG8gbyBhcnF1aXZvIG5vIGZvcm1hdG8gRGFyd2luIENvcmUgQXJjaGl2ZSBwb2RlbW9zIGZhemVyIG8gY2FtaW5obyBpbnZlcnNvIGUgb2J0ZXIgYXMgdGFiZWxhcyBhIHBhcnRpciBkbyBhcnF1aXZvIHF1ZSBjcmlhbW9zLgoKUGFyYSB0YW50byBwb2RlbW9zIHVzYXIgYXMgZnVuw6fDtWVzIGRvIHBhY290ZSBMaXZpbmdOb3J3YXlSIHBhcmEgbGVyIG8gYXJxdWl2byB6aXAgZSBleHRyYWlyIGFzIHRhYmVsYXMsIGluY2x1aW5kbyBvcyBtZXRhZGFkb3MuCgpgYGB7ciBlY2hvPVRSVUUsZXZhbD1GQUxTRX0KbG9jYWxEYXRhTG9jMiA8LSBmaWxlLnBhdGgoaGVyZTo6aGVyZSgiZGF0YSIsICJORVdUT1ZFRGF0YSIpLCAibmV3RHdDQXJjaGl2ZS56aXAiKSAKTkVXVE9WRUFyY2hpdmUgPC0gaW5pdGlhbGl6ZUR3Q0FyY2hpdmUobG9jYWxEYXRhTG9jMiwgIlVURi04IikKYGBgCgpQb2RlbW9zIGFnb3JhIGV4cGxvcmFyIG9zIGRhZG9zIGRlbnRybyBkbyBhcnF1aXZvIERhcndpbiBDb3JlIGNyaWFkbyBub3MgcGFzc29zIGFudGVyaW9yZXMuIE91IHNlamEsIHBvZGVtb3MgcmV0b21hciBvcyBkYWRvcyBlIGltcG9ydGFyIHBhcmEgZGVudHJvIGRvIFIgcGFyYSBmYXplciwgcG9yIGV4ZW1wbG8sIG5vdmFzIGFuw6FsaXNlcwoKYGBge3IgZWNobz1UUlVFLGV2YWw9RkFMU0V9CiMgb2J0ZW5kbyBvIGRhZG8KTkVXVE9WRUV2ZW50VGFibGUgPC0gTkVXVE9WRUFyY2hpdmUkZ2V0Q29yZVRhYmxlKCkKY2xhc3MoTkVXVE9WRUV2ZW50VGFibGUpCgojIFBvZGVtb3MgZXhwb3J0YXIgY29tbyB1bSBkYXRhZnJhbWUKTkVXVE9WRUV2ZW50VGFibGVERiA8LSBORVdUT1ZFRXZlbnRUYWJsZSRleHBvcnRBc0RhdGFGcmFtZSgpCgojIG9idGVuZG8gZGFkb3MgZGEgdGFiZWxhIGV4dGVuZGlkYQpORVdUT1ZFRXZlbnRUYWJsZURGIDwtIE5FV1RPVkVFdmVudFRhYmxlJGV4cG9ydEFzRGF0YUZyYW1lKCkKIyBleHBvcnRhbmRvIGNvbW8gZGF0YWZyYW1lCmhlYWQoTkVXVE9WRUV2ZW50VGFibGVERikKCmBgYAoKCg==</div>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeSourceEmbed("Darwin-core-LNP.Rmd");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

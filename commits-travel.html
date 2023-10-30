@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Gabriel Nakamura" />
+
+<meta name="date" content="2023-10-30" />
+
+<title>Explorando melhor os commits</title>
+
+<script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<script src="site_libs/navigation-1.1/sourceembed.js"></script>
+<script src="site_libs/clipboard-1.7.1/clipboard.min.js"></script>
+<link href="site_libs/primer-tooltips-1.4.0/build.css" rel="stylesheet" />
+<link href="site_libs/klippy-0.0.0.9500/css/klippy.min.css" rel="stylesheet" />
+<script src="site_libs/klippy-0.0.0.9500/js/klippy.min.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #204a87; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #204a87; font-weight: bold; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #ce5c00; font-weight: bold; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+<style type="text/css">
+#rmd-source-code {
+  display: none;
+}
+</style>
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Reprodutibilidade Computacional e Organização de Dados em Ecologia e Evolução</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Início</a>
+</li>
+<li>
+  <a href="intro_ciencia_aberta.html">O que é ciência aberta?</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Dados abertos
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="dados_abertos.html">O que são dados abertos?</a>
+    </li>
+    <li>
+      <a href="metadata_EML.html">Metadados</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="Organizacao_dir_local.html">Organização local</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Versionamento
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="basics_git.html">ABC do versionamento</a>
+    </li>
+    <li>
+      <a href="commits-travel.html">Viajando no tempo</a>
+    </li>
+    <li>
+      <a href="colabs_github.html">Trabalho colaborativo</a>
+    </li>
+    <li>
+      <a href="gitgnore.html">Ignorando arquivos</a>
+    </li>
+    <li>
+      <a href="conflitos.html">Resolvendo conflitos</a>
+    </li>
+    <li class="dropdown-header">Releasing - retrato permanente</li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Programação letrada
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="rmarkdown-basics.html">Rmarkdown</a>
+    </li>
+    <li>
+      <a href="sites-basics.html">Sites</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Avançado
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="renv-basics.html">Pacote `{renv}`</a>
+    </li>
+    <li class="dropdown-header">Pacote `{groundhog}`</li>
+    <li>
+      <a href="rocker-basics.html">Containers</a>
+    </li>
+    <li>
+      <a href="targets_basics.html">Pipelines com Targets</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-download-source" href="#">Download Rmd</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Explorando melhor os commits</h1>
+<h4 class="author">Gabriel Nakamura</h4>
+<h4 class="date">2023-10-30</h4>
+
+</div>
+
+
+<script>
+  addClassKlippyTo("pre.r, pre.markdown");
+  addKlippy('left', 'top', 'auto', '1', 'Copy code', 'Copied!');
+</script>
+<div id="apresentação" class="section level1">
+<h1>Apresentação</h1>
+<p>Nesta seção iremos explorar um pouco mais o poder que os commits nos
+oferecem, incluindo boas práticas para fazer commits nos nossos arquivos
+e como “viajar” entre commits passados e presente. Este momento também
+servirá para ficarmos um pouco mais familiarizados com o uso do git
+através do terminal. Vamos utilizar o teminal visto que algumas coisas
+que faremos aqui não podem ser feitas através do RStudio.</p>
+<p>Sempre ao fazer commits vale lembrar essas palavras:</p>
+<p><img src="figs/commit-safe.png" width="70%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="workflow-para-os-commits" class="section level1">
+<h1>Workflow para os commits</h1>
+<p>Em primeiro lugar sempre cheque se está tudo certo com seu
+repositório, se seu trabalho local está sincronizado com seu trabalho
+remoto. Para tanto pode digitar na linha de comando do terminal</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>git status</span></code></pre></div>
+<p>Se sua <em>working tree</em> estiver no status <em>clean</em>, quer
+dizer que você está sincronizada com o <em>origin</em></p>
+<p>Faça algumas modificações e depois vamos fazer a mesma sequencia de
+ações que fizemos anteriormente (stage, commit, push), mas agora usando
+a linha de comando. Para tanto podemos fazer assim</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>git add .</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>git commit <span class="sc">-</span>m <span class="st">&quot;uma mensagem informativa&quot;</span></span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>git push</span></code></pre></div>
+<p>Pronto, fizemos a mesma coisa que anteriormente, mas agora utilizando
+o terminal :)</p>
+<div id="amend" class="section level2">
+<h2>Amend</h2>
+<p>Lembra que muitos commits podem te deixar muito lento na escalada? E
+poucos commits podem ser pouco informativos caso queira reconstruir o
+que aconteceu com o repositório? Pois então, existe uma estratégia
+interessante para realizar commits, chamada de <code>amend</code></p>
+<p>Em um amend nós basicamente adicionamos um commit a um outro já
+existente. Por exemplo, imagine que fez apenas algumas poucas
+modificações de código que não necessitam necessariamente de um commit
+dedicada exclusivamente para tais, você pode fazer o seguinte:</p>
+<p>1 - stage o arquivo que modificou</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>git add path<span class="sc">/</span>to<span class="sc">/</span>file</span></code></pre></div>
+<p>2 - faça um commit</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>git commit <span class="sc">-</span>m <span class="st">&quot;WIP&quot;</span></span></code></pre></div>
+<p>Note que coloquei <strong>WIP</strong> neste commit, por que? WIP é
+uma sigla usada comumente no versionamente para Working In Progress.
+Sempre que tiver um commit desse quer dizer que o commit que fez ainda
+está sendo trabalhado.</p>
+<p>Ainda não faça o push. Faça mais algumas modificações, e, digamos que
+agora fez modificações relevantes no código que merecem um commit
+dedicado. Mas lembre-se que o último commit é um WIP. O que fazemos
+agora é um amend ao WIP</p>
+<p>3 - faça um amend</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>git commit <span class="sc">--</span>amend <span class="sc">-</span>m <span class="st">&quot;Aqui um commit com uma mensagem informativa, como sempre&quot;</span></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>git push</span></code></pre></div>
+<p>Pronto, agora temos uma mensagem informativa que foi adicionada ao
+WIP e não precisamos fazer um push do passo intermediário (WIP),
+deixando nossa escalada mais rápida</p>
+</div>
+<div id="viajando-entre-commits" class="section level2">
+<h2>Viajando entre commits</h2>
+<p>Uma das maiores potencialidades dos commits é a possibilidade que
+podemos navegar entre commits. Ou seja, podemos navegar entre estados
+distintos do nosso trabalho a medida que ele é desenvolvido. Podemos
+checar esse histórico tanto na nossa página do repositório no GitHub
+quanto usando o RStudio, como mostrado na imagem a seguir</p>
+<p><img src="figs/github-history.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Para tanto você precisa apenas abrir a aba do Git no RStudio, como
+vimos anteriormente, e clicar em <strong>History</strong> no canto
+superior esquerdo da janela de revisões. Tudo o que vemos são todos os
+commits que foram realizados desde que esse repositório foi formado pela
+primeira vez.</p>
+</div>
+<div id="elementos-importantes-do-commit" class="section level2">
+<h2>Elementos importantes do commit</h2>
+<p>Alguns elementos presentes no commit são importantes. O principal
+deles é a chave SHA-1. Esta se trata de um identificador único do
+commit. Com ela podemos viajar entre commits, ou referenciar um dado
+commit em uma discussão no github. Por exemplo, supondo que estamos
+trabalhando colaborativamente (como nesse site :)), e eu gostei
+particularmente mais da versão do site que está há alguns commits atrás.
+Uma opção é abrir uma Issue (veremos isso mais tarde), e referenciar
+esse número. Ou simplesmente dizer para meu colaborador “Hey dê uma
+olhada no commit número XXXXXX”. Na imagem abaixo está em destaque a
+chave SHA.</p>
+<p><img src="figs/git-sha-key.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Você pode abrir o arquivo no estado em que ele se encontrava em um
+dado commit clicando no arquivo modificado naquele commit selecionado.
+Por exemplo, digamos que eu queira ver o arquivo chamado
+<code>rmarkdown-basics</code> deste site editado dia 02 de Agosto, só
+precisamos clicar no arquivo, como mostrado na imagem abaixo:</p>
+<p><img src="figs/git-history-file.png" width="70%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="atividade" class="section level2">
+<h2>Atividade</h2>
+<p>Explore um pouco os commits que realizaram. Abra a página do github e
+também através do Rstudio, veja as diferenças, as vantangens e
+desvantagens de cada uma das abordagens</p>
+</div>
+<div id="throwback-commit" class="section level2">
+<h2>Throwback Commit</h2>
+<p>Vamos supor que realizamos um commit errado, e agora queremos voltar
+ao commit anterior, mas sem perder o trabalho que fizemos nos arquivos.
+Para isso podemos usar a abordagem anterior, navegando entre os arquivos
+e selecionando o arquivo que queremos em um determinado estado,
+substituimos pelo arquivo atual e fazemos um novo commit. Esta opção
+pode ser a mais segura se estamos começando a mexer no versionamento.
+Outra opção é explorar as funções do git chamadas <code>reset</code>. As
+funções reset basicamente move o HEAD do seu diretório para um commit no
+passado. Esta abordagem pode causar algumas dores de cabeça no início,
+portanto recomendo usa-lá com cautela. Para mais informações sobre isso
+dê uma olhada <a
+href="https://devconnected.com/how-to-git-reset-to-head/#:~:text=To%20hard%20reset%20files%20to,option%20and%20specify%20the%20HEAD.&amp;text=The%20purpose%20of%20the%20%E2%80%9Cgit,before%20HEAD%20and%20so%20on">nesse
+site</a>.)</p>
+</div>
+</div>
+
+<div id="rmd-source-code">LS0tCnRpdGxlOiAnRXhwbG9yYW5kbyBtZWxob3Igb3MgY29tbWl0cycKYXV0aG9yOiAiR2FicmllbCBOYWthbXVyYSIKZGF0ZTogImByIFN5cy5EYXRlKClgIgpvdXRwdXQ6IGh0bWxfZG9jdW1lbnQKLS0tCgpgYGB7ciBzZXR1cCwgaW5jbHVkZT1GQUxTRX0Ka25pdHI6Om9wdHNfY2h1bmskc2V0KGVjaG8gPSBUUlVFLCBmaWcuYWxpZ24gPSAiY2VudGVyIikKYGBgCgpgYGB7ciBrbGlwcHksIGVjaG89RkFMU0UsIGluY2x1ZGU9VFJVRX0Ka2xpcHB5OjprbGlwcHkoKQpgYGAKCiMgQXByZXNlbnRhw6fDo28KCk5lc3RhIHNlw6fDo28gaXJlbW9zIGV4cGxvcmFyIHVtIHBvdWNvIG1haXMgbyBwb2RlciBxdWUgb3MgY29tbWl0cyBub3Mgb2ZlcmVjZW0sIGluY2x1aW5kbyBib2FzIHByw6F0aWNhcyBwYXJhIGZhemVyIGNvbW1pdHMgbm9zIG5vc3NvcyBhcnF1aXZvcyBlIGNvbW8gInZpYWphciIgZW50cmUgY29tbWl0cyBwYXNzYWRvcyBlIHByZXNlbnRlLiBFc3RlIG1vbWVudG8gdGFtYsOpbSBzZXJ2aXLDoSBwYXJhIGZpY2FybW9zIHVtIHBvdWNvIG1haXMgZmFtaWxpYXJpemFkb3MgY29tIG8gdXNvIGRvIGdpdCBhdHJhdsOpcyBkbyB0ZXJtaW5hbC4gVmFtb3MgdXRpbGl6YXIgbyB0ZW1pbmFsIHZpc3RvIHF1ZSBhbGd1bWFzIGNvaXNhcyBxdWUgZmFyZW1vcyBhcXVpIG7Do28gcG9kZW0gc2VyIGZlaXRhcyBhdHJhdsOpcyBkbyBSU3R1ZGlvLgoKU2VtcHJlIGFvIGZhemVyIGNvbW1pdHMgdmFsZSBsZW1icmFyIGVzc2FzIHBhbGF2cmFzOgoKYGBge3IgZWNobz1GQUxTRSwgZXZhbD1UUlVFLG91dC53aWR0aD0iNzAlIn0Ka25pdHI6OmluY2x1ZGVfZ3JhcGhpY3MoaGVyZTo6aGVyZSgiZmlncyIsICJjb21taXQtc2FmZS5wbmciKSkKYGBgCgojIFdvcmtmbG93IHBhcmEgb3MgY29tbWl0cyAKCkVtIHByaW1laXJvIGx1Z2FyIHNlbXByZSBjaGVxdWUgc2UgZXN0w6EgdHVkbyBjZXJ0byBjb20gc2V1IHJlcG9zaXTDs3Jpbywgc2Ugc2V1IHRyYWJhbGhvIGxvY2FsIGVzdMOhIHNpbmNyb25pemFkbyBjb20gc2V1IHRyYWJhbGhvIHJlbW90by4gUGFyYSB0YW50byBwb2RlIGRpZ2l0YXIgbmEgbGluaGEgZGUgY29tYW5kbyBkbyB0ZXJtaW5hbAoKYGBge3IgZWNobz1ULGV2YWw9RkFMU0V9CmdpdCBzdGF0dXMKYGBgCgpTZSBzdWEgKndvcmtpbmcgdHJlZSogZXN0aXZlciBubyBzdGF0dXMgKmNsZWFuKiwgcXVlciBkaXplciBxdWUgdm9jw6ogZXN0w6Egc2luY3Jvbml6YWRhIGNvbSBvICpvcmlnaW4qCgpGYcOnYSBhbGd1bWFzIG1vZGlmaWNhw6fDtWVzIGUgZGVwb2lzIHZhbW9zIGZhemVyIGEgbWVzbWEgc2VxdWVuY2lhIGRlIGHDp8O1ZXMgcXVlIGZpemVtb3MgYW50ZXJpb3JtZW50ZSAoc3RhZ2UsIGNvbW1pdCwgcHVzaCksIG1hcyBhZ29yYSB1c2FuZG8gYSBsaW5oYSBkZSBjb21hbmRvLiBQYXJhIHRhbnRvIHBvZGVtb3MgZmF6ZXIgYXNzaW0KCmBgYHtyIGVjaG89VFJVRSxldmFsPUZBTFNFfQpnaXQgYWRkIC4KZ2l0IGNvbW1pdCAtbSAidW1hIG1lbnNhZ2VtIGluZm9ybWF0aXZhIgpnaXQgcHVzaApgYGAKClByb250bywgZml6ZW1vcyBhIG1lc21hIGNvaXNhIHF1ZSBhbnRlcmlvcm1lbnRlLCBtYXMgYWdvcmEgdXRpbGl6YW5kbyBvIHRlcm1pbmFsIDopCgojIyBBbWVuZAoKTGVtYnJhIHF1ZSBtdWl0b3MgY29tbWl0cyBwb2RlbSB0ZSBkZWl4YXIgbXVpdG8gbGVudG8gbmEgZXNjYWxhZGE/IEUgcG91Y29zIGNvbW1pdHMgcG9kZW0gc2VyIHBvdWNvIGluZm9ybWF0aXZvcyBjYXNvIHF1ZWlyYSByZWNvbnN0cnVpciBvIHF1ZSBhY29udGVjZXUgY29tIG8gcmVwb3NpdMOzcmlvPyBQb2lzIGVudMOjbywgZXhpc3RlIHVtYSBlc3RyYXTDqWdpYSBpbnRlcmVzc2FudGUgcGFyYSByZWFsaXphciBjb21taXRzLCBjaGFtYWRhIGRlIGBhbWVuZGAKCkVtIHVtIGFtZW5kIG7Ds3MgYmFzaWNhbWVudGUgYWRpY2lvbmFtb3MgdW0gY29tbWl0IGEgdW0gb3V0cm8gasOhIGV4aXN0ZW50ZS4gUG9yIGV4ZW1wbG8sIGltYWdpbmUgcXVlIGZleiBhcGVuYXMgYWxndW1hcyBwb3VjYXMgbW9kaWZpY2HDp8O1ZXMgZGUgY8OzZGlnbyBxdWUgbsOjbyBuZWNlc3NpdGFtIG5lY2Vzc2FyaWFtZW50ZSBkZSB1bSBjb21taXQgZGVkaWNhZGEgZXhjbHVzaXZhbWVudGUgcGFyYSB0YWlzLCB2b2PDqiBwb2RlIGZhemVyIG8gc2VndWludGU6CgoxIC0gc3RhZ2UgbyBhcnF1aXZvIHF1ZSBtb2RpZmljb3UKCmBgYHtyIGVjaG89VFJVRSxldmFsPUZBTFNFfQpnaXQgYWRkIHBhdGgvdG8vZmlsZQpgYGAKCjIgLSBmYcOnYSB1bSBjb21taXQgCgpgYGB7ciBlY2hvPVRSVUUsZXZhbD1GQUxTRX0KZ2l0IGNvbW1pdCAtbSAiV0lQIgpgYGAKCk5vdGUgcXVlIGNvbG9xdWVpICoqV0lQKiogbmVzdGUgY29tbWl0LCBwb3IgcXVlPyBXSVAgw6kgdW1hIHNpZ2xhIHVzYWRhIGNvbXVtZW50ZSBubyB2ZXJzaW9uYW1lbnRlIHBhcmEgV29ya2luZyBJbiBQcm9ncmVzcy4gU2VtcHJlIHF1ZSB0aXZlciB1bSBjb21taXQgZGVzc2UgcXVlciBkaXplciBxdWUgbyBjb21taXQgcXVlIGZleiBhaW5kYSBlc3TDoSBzZW5kbyB0cmFiYWxoYWRvLgoKQWluZGEgbsOjbyBmYcOnYSBvIHB1c2guIEZhw6dhIG1haXMgYWxndW1hcyBtb2RpZmljYcOnw7VlcywgZSwgZGlnYW1vcyBxdWUgYWdvcmEgZmV6IG1vZGlmaWNhw6fDtWVzIHJlbGV2YW50ZXMgbm8gY8OzZGlnbyBxdWUgbWVyZWNlbSB1bSBjb21taXQgZGVkaWNhZG8uIE1hcyBsZW1icmUtc2UgcXVlIG8gw7psdGltbyBjb21taXQgw6kgdW0gV0lQLiBPIHF1ZSBmYXplbW9zIGFnb3JhIMOpIHVtIGFtZW5kIGFvIFdJUAoKMyAtIGZhw6dhIHVtIGFtZW5kCgpgYGB7ciBlY2hvPVRSVUUsZXZhbD1GQUxTRX0KZ2l0IGNvbW1pdCAtLWFtZW5kIC1tICJBcXVpIHVtIGNvbW1pdCBjb20gdW1hIG1lbnNhZ2VtIGluZm9ybWF0aXZhLCBjb21vIHNlbXByZSIKZ2l0IHB1c2gKYGBgCgpQcm9udG8sIGFnb3JhIHRlbW9zIHVtYSBtZW5zYWdlbSBpbmZvcm1hdGl2YSBxdWUgZm9pIGFkaWNpb25hZGEgYW8gV0lQIGUgbsOjbyBwcmVjaXNhbW9zIGZhemVyIHVtIHB1c2ggZG8gcGFzc28gaW50ZXJtZWRpw6FyaW8gKFdJUCksIGRlaXhhbmRvIG5vc3NhIGVzY2FsYWRhIG1haXMgcsOhcGlkYQoKIyMgVmlhamFuZG8gZW50cmUgY29tbWl0cwoKVW1hIGRhcyBtYWlvcmVzIHBvdGVuY2lhbGlkYWRlcyBkb3MgY29tbWl0cyDDqSBhIHBvc3NpYmlsaWRhZGUgcXVlIHBvZGVtb3MgbmF2ZWdhciBlbnRyZSBjb21taXRzLiBPdSBzZWphLCBwb2RlbW9zIG5hdmVnYXIgZW50cmUgZXN0YWRvcyBkaXN0aW50b3MgZG8gbm9zc28gdHJhYmFsaG8gYSBtZWRpZGEgcXVlIGVsZSDDqSBkZXNlbnZvbHZpZG8uIFBvZGVtb3MgY2hlY2FyIGVzc2UgaGlzdMOzcmljbyB0YW50byBuYSBub3NzYSBww6FnaW5hIGRvIHJlcG9zaXTDs3JpbyBubyBHaXRIdWIgcXVhbnRvIHVzYW5kbyBvIFJTdHVkaW8sIGNvbW8gbW9zdHJhZG8gbmEgaW1hZ2VtIGEgc2VndWlyCgpgYGB7ciBlY2hvPUZBTFNFLCBldmFsPVRSVUUsb3V0LndpZHRoPSI3MCUifQprbml0cjo6aW5jbHVkZV9ncmFwaGljcyhoZXJlOjpoZXJlKCJmaWdzIiwgImdpdGh1Yi1oaXN0b3J5LnBuZyIpKQpgYGAKClBhcmEgdGFudG8gdm9jw6ogcHJlY2lzYSBhcGVuYXMgYWJyaXIgYSBhYmEgZG8gR2l0IG5vIFJTdHVkaW8sIGNvbW8gdmltb3MgYW50ZXJpb3JtZW50ZSwgZSBjbGljYXIgZW0gKipIaXN0b3J5Kiogbm8gY2FudG8gc3VwZXJpb3IgZXNxdWVyZG8gZGEgamFuZWxhIGRlIHJldmlzw7Vlcy4gVHVkbyBvIHF1ZSB2ZW1vcyBzw6NvIHRvZG9zIG9zIGNvbW1pdHMgcXVlIGZvcmFtIHJlYWxpemFkb3MgZGVzZGUgcXVlIGVzc2UgcmVwb3NpdMOzcmlvIGZvaSBmb3JtYWRvIHBlbGEgcHJpbWVpcmEgdmV6LgoKIyMgRWxlbWVudG9zIGltcG9ydGFudGVzIGRvIGNvbW1pdAoKQWxndW5zIGVsZW1lbnRvcyBwcmVzZW50ZXMgbm8gY29tbWl0IHPDo28gaW1wb3J0YW50ZXMuIE8gcHJpbmNpcGFsIGRlbGVzIMOpIGEgY2hhdmUgU0hBLTEuIEVzdGEgc2UgdHJhdGEgZGUgdW0gaWRlbnRpZmljYWRvciDDum5pY28gZG8gY29tbWl0LiBDb20gZWxhIHBvZGVtb3MgdmlhamFyIGVudHJlIGNvbW1pdHMsIG91IHJlZmVyZW5jaWFyIHVtIGRhZG8gY29tbWl0IGVtIHVtYSBkaXNjdXNzw6NvIG5vIGdpdGh1Yi4gUG9yIGV4ZW1wbG8sIHN1cG9uZG8gcXVlIGVzdGFtb3MgdHJhYmFsaGFuZG8gY29sYWJvcmF0aXZhbWVudGUgKGNvbW8gbmVzc2Ugc2l0ZSA6KSksIGUgZXUgZ29zdGVpIHBhcnRpY3VsYXJtZW50ZSBtYWlzIGRhIHZlcnPDo28gZG8gc2l0ZSBxdWUgZXN0w6EgaMOhIGFsZ3VucyBjb21taXRzIGF0csOhcy4gVW1hIG9ww6fDo28gw6kgYWJyaXIgdW1hIElzc3VlICh2ZXJlbW9zIGlzc28gbWFpcyB0YXJkZSksIGUgcmVmZXJlbmNpYXIgZXNzZSBuw7ptZXJvLiBPdSBzaW1wbGVzbWVudGUgZGl6ZXIgcGFyYSBtZXUgY29sYWJvcmFkb3IgIkhleSBkw6ogdW1hIG9saGFkYSBubyBjb21taXQgbsO6bWVybyBYWFhYWFgiLiBOYSBpbWFnZW0gYWJhaXhvIGVzdMOhIGVtIGRlc3RhcXVlIGEgY2hhdmUgU0hBLgoKYGBge3IgZWNobz1GQUxTRSwgZXZhbD1UUlVFLG91dC53aWR0aD0iNzAlIn0Ka25pdHI6OmluY2x1ZGVfZ3JhcGhpY3MoaGVyZTo6aGVyZSgiZmlncyIsICJnaXQtc2hhLWtleS5wbmciKSkKYGBgCgpWb2PDqiBwb2RlIGFicmlyIG8gYXJxdWl2byBubyBlc3RhZG8gZW0gcXVlIGVsZSBzZSBlbmNvbnRyYXZhIGVtIHVtIGRhZG8gY29tbWl0IGNsaWNhbmRvIG5vIGFycXVpdm8gbW9kaWZpY2FkbyBuYXF1ZWxlIGNvbW1pdCBzZWxlY2lvbmFkby4gUG9yIGV4ZW1wbG8sIGRpZ2Ftb3MgcXVlIGV1IHF1ZWlyYSB2ZXIgbyBhcnF1aXZvIGNoYW1hZG8gYHJtYXJrZG93bi1iYXNpY3NgIGRlc3RlIHNpdGUgZWRpdGFkbyBkaWEgMDIgZGUgQWdvc3RvLCBzw7MgcHJlY2lzYW1vcyBjbGljYXIgbm8gYXJxdWl2bywgY29tbyBtb3N0cmFkbyBuYSBpbWFnZW0gYWJhaXhvOgoKYGBge3IgZWNobz1GQUxTRSwgZXZhbD1UUlVFLG91dC53aWR0aD0iNzAlIn0Ka25pdHI6OmluY2x1ZGVfZ3JhcGhpY3MoaGVyZTo6aGVyZSgiZmlncyIsICJnaXQtaGlzdG9yeS1maWxlLnBuZyIpKQpgYGAKCiMjIEF0aXZpZGFkZQoKRXhwbG9yZSB1bSBwb3VjbyBvcyBjb21taXRzIHF1ZSByZWFsaXphcmFtLiBBYnJhIGEgcMOhZ2luYSBkbyBnaXRodWIgZSB0YW1iw6ltIGF0cmF2w6lzIGRvIFJzdHVkaW8sIHZlamEgYXMgZGlmZXJlbsOnYXMsIGFzIHZhbnRhbmdlbnMgZSBkZXN2YW50YWdlbnMgZGUgY2FkYSB1bWEgZGFzIGFib3JkYWdlbnMKCgojIyBUaHJvd2JhY2sgQ29tbWl0CgpWYW1vcyBzdXBvciBxdWUgcmVhbGl6YW1vcyB1bSBjb21taXQgZXJyYWRvLCBlIGFnb3JhIHF1ZXJlbW9zIHZvbHRhciBhbyBjb21taXQgYW50ZXJpb3IsIG1hcyBzZW0gcGVyZGVyIG8gdHJhYmFsaG8gcXVlIGZpemVtb3Mgbm9zIGFycXVpdm9zLiBQYXJhIGlzc28gcG9kZW1vcyB1c2FyIGEgYWJvcmRhZ2VtIGFudGVyaW9yLCBuYXZlZ2FuZG8gZW50cmUgb3MgYXJxdWl2b3MgZSBzZWxlY2lvbmFuZG8gbyBhcnF1aXZvIHF1ZSBxdWVyZW1vcyBlbSB1bSBkZXRlcm1pbmFkbyBlc3RhZG8sIHN1YnN0aXR1aW1vcyBwZWxvIGFycXVpdm8gYXR1YWwgZSBmYXplbW9zIHVtIG5vdm8gY29tbWl0LiBFc3RhIG9ww6fDo28gcG9kZSBzZXIgYSBtYWlzIHNlZ3VyYSBzZSBlc3RhbW9zIGNvbWXDp2FuZG8gYSBtZXhlciBubyB2ZXJzaW9uYW1lbnRvLiBPdXRyYSBvcMOnw6NvIMOpIGV4cGxvcmFyIGFzIGZ1bsOnw7VlcyBkbyBnaXQgY2hhbWFkYXMgYHJlc2V0YC4gQXMgZnVuw6fDtWVzIHJlc2V0IGJhc2ljYW1lbnRlIG1vdmUgbyBIRUFEIGRvIHNldSBkaXJldMOzcmlvIHBhcmEgdW0gY29tbWl0IG5vIHBhc3NhZG8uIEVzdGEgYWJvcmRhZ2VtIHBvZGUgY2F1c2FyIGFsZ3VtYXMgZG9yZXMgZGUgY2FiZcOnYSBubyBpbsOtY2lvLCBwb3J0YW50byByZWNvbWVuZG8gdXNhLWzDoSBjb20gY2F1dGVsYS4gUGFyYSBtYWlzIGluZm9ybWHDp8O1ZXMgc29icmUgaXNzbyBkw6ogdW1hIG9saGFkYSBbbmVzc2Ugc2l0ZV0oaHR0cHM6Ly9kZXZjb25uZWN0ZWQuY29tL2hvdy10by1naXQtcmVzZXQtdG8taGVhZC8jOn46dGV4dD1UbyUyMGhhcmQlMjByZXNldCUyMGZpbGVzJTIwdG8sb3B0aW9uJTIwYW5kJTIwc3BlY2lmeSUyMHRoZSUyMEhFQUQuJnRleHQ9VGhlJTIwcHVycG9zZSUyMG9mJTIwdGhlJTIwJUUyJTgwJTlDZ2l0LGJlZm9yZSUyMEhFQUQlMjBhbmQlMjBzbyUyMG9uKS4pCgo=</div>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeSourceEmbed("commits-travel.Rmd");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

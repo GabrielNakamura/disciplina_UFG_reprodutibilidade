@@ -1,0 +1,258 @@
+<eml:eml xmlns:eml="eml://ecoinformatics.org/eml-2.1.1"
+         xmlns:dc="http://purl.org/dc/terms/"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="eml://ecoinformatics.org/eml-2.1.1 http://rs.gbif.org/schema/eml-gbif-profile/1.1/eml.xsd"
+         packageId="4a00502d-6342-4294-aad1-9727e5c24041/v1.7" system="http://gbif.org" scope="system"
+         xml:lang="eng">
+
+<dataset>
+  <alternateIdentifier>4a00502d-6342-4294-aad1-9727e5c24041</alternateIdentifier>
+  <alternateIdentifier>https://ipt.nina.no/resource?r=tove_birdsampling</alternateIdentifier>
+  <title xml:lang="eng">Norwegian breeding bird monitoring scheme</title>
+      <creator>
+    <individualName>
+        <givenName>John Atle</givenName>
+      <surName>Kålås</surName>
+    </individualName>
+    <organizationName>Norwegian Institute for Nature Research</organizationName>
+    <positionName>Senior Researcher</positionName>
+    <address>
+        <deliveryPoint>Postboks 5685 Sluppen</deliveryPoint>
+        <city>Trondheim</city>
+        <postalCode>7485</postalCode>
+        <country>NO</country>
+    </address>
+    <electronicMailAddress>john.kalas@nina.no</electronicMailAddress>
+          <userId directory="http://orcid.org/">0000-0002-2126-0261</userId>
+      </creator>
+      <creator>
+    <individualName>
+        <givenName>Ingar Jostein</givenName>
+      <surName>Øien</surName>
+    </individualName>
+    <organizationName>Birdlife Norway</organizationName>
+    <positionName>Fagsjef</positionName>
+    <address>
+        <deliveryPoint>Sandgata 30 B</deliveryPoint>
+        <city>Trondheim</city>
+        <postalCode>7012</postalCode>
+        <country>NO</country>
+    </address>
+    <electronicMailAddress>ingar@birdlife.no</electronicMailAddress>
+      </creator>
+      <creator>
+    <individualName>
+        <givenName>Bård</givenName>
+      <surName>Stokke</surName>
+    </individualName>
+    <organizationName>Norwegian Institute for Nature Research</organizationName>
+    <positionName>Senior Researcher</positionName>
+    <address>
+        <deliveryPoint>Postboks 5685 Sluppen</deliveryPoint>
+        <city>Trondheim</city>
+        <postalCode>7485</postalCode>
+        <country>NO</country>
+    </address>
+    <electronicMailAddress>bard.stokke@nina.no</electronicMailAddress>
+          <userId directory="http://orcid.org/">0000-0001-5589-6738</userId>
+      </creator>
+      <creator>
+    <individualName>
+        <givenName>Roald</givenName>
+      <surName>Vang</surName>
+    </individualName>
+    <organizationName>Norwegian Institute for Nature Research</organizationName>
+    <positionName>Data manager</positionName>
+    <address>
+        <deliveryPoint>Postboks 5685 Sluppen</deliveryPoint>
+        <city>Trondheim</city>
+        <postalCode>7485</postalCode>
+        <country>NO</country>
+    </address>
+    <electronicMailAddress>roald.vang@nina.no</electronicMailAddress>
+          <userId directory="http://orcid.org/">0000-0002-4006-8689</userId>
+      </creator>
+      <metadataProvider>
+    <individualName>
+        <givenName>Roald</givenName>
+      <surName>Vang</surName>
+    </individualName>
+    <organizationName>Norwegian Institute for Nature Research</organizationName>
+    <positionName>Data manager</positionName>
+    <electronicMailAddress>roald.vang@nina.no</electronicMailAddress>
+          <userId directory="http://orcid.org/">0000-0002-4006-8689</userId>
+      </metadataProvider>
+      <associatedParty>
+    <individualName>
+        <givenName>Ingar Jostein</givenName>
+      <surName>Øien</surName>
+    </individualName>
+    <organizationName>Birdlife Norway</organizationName>
+    <address>
+        <country>NO</country>
+    </address>
+    <electronicMailAddress>ingar@birdlife.no</electronicMailAddress>
+    <role>contentProvider</role>
+      </associatedParty>
+  <pubDate>
+      2022-12-13
+  </pubDate>
+  <language>eng</language>
+  <abstract>
+    <para>Data from the Norwegian breeding bird monitoring scheme from 2006 up until today. The project is carried out in cooperation between BirdLife Norway, Norwegian Institute for Nature Research (NINA) and the Norwegian Environment Agency, and is the most important project for monitoring population trends for Norwegian bird species on land.</para>
+  </abstract>
+      <keywordSet>
+            <keyword>Samplingevent</keyword>
+        <keywordThesaurus>GBIF Dataset Type Vocabulary: http://rs.gbif.org/vocabulary/gbif/dataset_type_2015-07-10.xml</keywordThesaurus>
+      </keywordSet>
+      <keywordSet>
+            <keyword>breeding birds</keyword>
+            <keyword>Norwegian breeding bird monitoring scheme</keyword>
+        <keywordThesaurus>n/a</keywordThesaurus>
+      </keywordSet>
+  <additionalInfo>
+    <para>Precise information for the observation site for endangered species are not available with in this dataset.</para>
+  </additionalInfo>
+  <intellectualRights>
+    <para>This work is licensed under a <ulink url="http://creativecommons.org/licenses/by/4.0/legalcode"><citetitle>Creative Commons Attribution (CC-BY) 4.0 License</citetitle></ulink>.</para>
+  </intellectualRights>
+  <distribution scope="document">
+    <online>
+      <url function="information">https://hekkefuglovervakingen.nina.no/</url>
+    </online>
+  </distribution>
+  <coverage>
+      <geographicCoverage>
+          <geographicDescription>Norway</geographicDescription>
+        <boundingCoordinates>
+          <westBoundingCoordinate>5.007</westBoundingCoordinate>
+          <eastBoundingCoordinate>30.615</eastBoundingCoordinate>
+          <northBoundingCoordinate>71.006</northBoundingCoordinate>
+          <southBoundingCoordinate>58.061</southBoundingCoordinate>
+        </boundingCoordinates>
+      </geographicCoverage>
+          <taxonomicCoverage>
+              <generalTaxonomicCoverage>Birds</generalTaxonomicCoverage>
+              <taxonomicClassification>
+                  <taxonRankName>class</taxonRankName>
+                <taxonRankValue>Aves</taxonRankValue>
+                  <commonName>Birds</commonName>
+              </taxonomicClassification>
+          </taxonomicCoverage>
+  </coverage>
+  <purpose>
+    <para>New data will be made available after quality control is finished, normally at the start of the following year.</para>
+  </purpose>
+  <maintenance>
+    <description>
+      <para></para>
+    </description>
+    <maintenanceUpdateFrequency>annually</maintenanceUpdateFrequency>
+  </maintenance>
+
+      <contact>
+    <individualName>
+        <givenName>Bård</givenName>
+      <surName>Stokke</surName>
+    </individualName>
+    <organizationName>Norwegian Institute for Nature Research</organizationName>
+    <positionName>Senior Researcher</positionName>
+    <address>
+        <deliveryPoint>Postboks 5685 Sluppen</deliveryPoint>
+        <city>Trondheim</city>
+        <postalCode>7485</postalCode>
+        <country>NO</country>
+    </address>
+    <electronicMailAddress>bard.stokke@nina.no</electronicMailAddress>
+          <userId directory="http://orcid.org/">0000-0001-5589-6738</userId>
+      </contact>
+  <methods>
+        <methodStep>
+          <description>
+            <para>https://hekkefuglovervakingen.nina.no/Fugl/public/papirskjema/MethodologyEng.pdf</para>
+          </description>
+        </methodStep>
+      <sampling>
+        <studyExtent>
+          <description>
+            <para>The samples are made in grids with 20 counting points (some grids have fewer points due to lack of accessibility to points, first-year sampling have determined any points which should be excluded). Counting points are found by the use of a GPS. The exact counting point used should be chosen within a distance of up to 20 m to the point that the GPS indicates. A selection of species are also counted when moving between counting points.</para>
+          </description>
+        </studyExtent>
+        <samplingDescription>
+          <para>Exactly 5 minutes registration is made at each point. Counting of birds starts after the observer is in place at the point and things have calmed down. Birds frightened away by the observer shall not be recorded at the sampling point if they are not observed within the five minutes the registration takes place. Such cases are recorded in the line sampling if the species is relevant there.</para>
+        </samplingDescription>
+      </sampling>
+      <qualityControl>
+        <description>
+          <para>By regional contacts in Birdlife Norway and by project coordinator in NINA</para>
+        </description>
+      </qualityControl>
+  </methods>
+  <project >
+    <title>Norwegian breeding bird monitoring scheme</title>
+      <personnel>
+        <individualName>
+            <givenName>John Atle</givenName>
+          <surName>Kålås</surName>
+        </individualName>
+              <userId directory="http://orcid.org/">0000-0002-2126-0261</userId>
+        <role>author</role>
+      </personnel>
+      <personnel>
+        <individualName>
+            <givenName>Bård</givenName>
+          <surName>Stokke</surName>
+        </individualName>
+              <userId directory="http://orcid.org/">0000-0001-5589-6738</userId>
+        <role>author</role>
+      </personnel>
+      <abstract>
+        <para>As part of the work to safeguard biological diversity in Norway, nesting populations of terrestrial bird species are monitored in a network of localities that are distributed throughout Norway (Framstad &amp; Kålås 2001).
+The main reason why a random network of counting sites has been established is the need to have representative targets for changes that take place in Norwegian nature. As a basis for this work, a pilot project was carried out in 2001 in collaboration between Birdlife Norway and the Norwegian Institute for Nature Research (NINA) with the aim of assessing the possibilities and benefits of establishing bird assessments in an extensive national network of areas. This project concluded that such a network consisting of approx. 500 assessment routes would capture national population changes in a representative way for a whole range of our more common terrestrial breeding bird species (Kålås &amp; Husby 2002). The assessment network was established in the period 2005‒2010.</para>
+      </abstract>
+      <funding>
+        <para>Norwegian Environment Agency</para>
+      </funding>
+      <studyAreaDescription>
+        <descriptor name="generic"
+                    citableClassificationSystem="false">
+          <descriptorValue>The sampling routes for Norwegian breeding bird monitoring scheme are laid out in an 18 × 18 km route system in the map projection UTM33 / WGS84. This gives a total of just over 1000 unique routes in Norway. Bird sampling routes have been established in a random selection of half of these. The random sample is made regionally within the six regions: Eastern Norway, Southern Norway, Western Norway, Central Norway, Nordland and Troms, as well as Finnmark.</descriptorValue>
+        </descriptor>
+      </studyAreaDescription>
+      <designDescription>
+        <description>
+          <para>The counts of birds are mainly carried out in the period 23 May – 8. July, and each route has assigned a fixed 14-day period in which the counts are to be performed. The times can be adjusted slightly if the spring is very early or late compared to normal. 
+Method for carrying out these assessments is, in short described: A count of birds according to given guidelines for exactly five minutes at each counting point, and separated between observations closer / further away than 50 m (see Kålås &amp; Husby 2002, as well as separate instructions for field personnel made available on the website https://tov-e.nina.no/Fugl). 
+In addition, observations of a selection of smaller numbers of species are registered when moving between the counting points. GPS is used to find the counting points.</para>
+        </description>
+      </designDescription>
+  </project>
+</dataset>
+  <additionalMetadata>
+    <metadata>
+      <gbif>
+          <dateStamp>2021-05-05T08:24:17.403+00:00</dateStamp>
+          <hierarchyLevel>dataset</hierarchyLevel>
+            <citation>Kålås J A, Øien I J, Stokke B, Vang R (2022): Norwegian breeding bird monitoring scheme. v1.7. Norwegian Institute for Nature Research. Dataset/Samplingevent. https://ipt.nina.no/resource?r=tove_birdsampling&amp;v=1.7</citation>
+            <physical>
+              <objectName>Results</objectName>
+              <characterEncoding>UTF-8</characterEncoding>
+              <dataFormat>
+                <externallyDefinedFormat>
+                  <formatName>html</formatName>
+                    <formatVersion>2022</formatVersion>
+                </externallyDefinedFormat>
+              </dataFormat>
+              <distribution>
+                <online>
+                  <url function="download">https://hekkefuglovervakingen.nina.no/</url>
+                </online>
+              </distribution>
+            </physical>
+          <resourceLogoUrl>https://ipt.nina.no/logo.do?r=tove_birdsampling</resourceLogoUrl>
+            <formationPeriod>2006-current</formationPeriod>
+          <dc:replaces>4a00502d-6342-4294-aad1-9727e5c24041/v1.7.xml</dc:replaces>
+      </gbif>
+    </metadata>
+  </additionalMetadata>
+</eml:eml>

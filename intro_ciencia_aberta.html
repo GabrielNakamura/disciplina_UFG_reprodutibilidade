@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Melina Leite" />
+
+<meta name="date" content="2023-10-30" />
+
+<title>O que é Ciência Aberta?</title>
+
+<script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<script src="site_libs/navigation-1.1/sourceembed.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+
+
+<style type="text/css">
+#rmd-source-code {
+  display: none;
+}
+</style>
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Reprodutibilidade Computacional e Organização de Dados em Ecologia e Evolução</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Início</a>
+</li>
+<li>
+  <a href="intro_ciencia_aberta.html">O que é ciência aberta?</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Dados abertos
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="dados_abertos.html">O que são dados abertos?</a>
+    </li>
+    <li>
+      <a href="metadata_EML.html">Metadados</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="Organizacao_dir_local.html">Organização local</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Versionamento
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="basics_git.html">ABC do versionamento</a>
+    </li>
+    <li>
+      <a href="commits-travel.html">Viajando no tempo</a>
+    </li>
+    <li>
+      <a href="colabs_github.html">Trabalho colaborativo</a>
+    </li>
+    <li>
+      <a href="gitgnore.html">Ignorando arquivos</a>
+    </li>
+    <li>
+      <a href="conflitos.html">Resolvendo conflitos</a>
+    </li>
+    <li class="dropdown-header">Releasing - retrato permanente</li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Programação letrada
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="rmarkdown-basics.html">Rmarkdown</a>
+    </li>
+    <li>
+      <a href="sites-basics.html">Sites</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Avançado
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="renv-basics.html">Pacote `{renv}`</a>
+    </li>
+    <li class="dropdown-header">Pacote `{groundhog}`</li>
+    <li>
+      <a href="rocker-basics.html">Containers</a>
+    </li>
+    <li>
+      <a href="targets_basics.html">Pipelines com Targets</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-download-source" href="#">Download Rmd</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">O que é Ciência Aberta?</h1>
+<h4 class="author">Melina Leite</h4>
+<h4 class="date">2023-10-30</h4>
+
+</div>
+
+
+<p>Nesta primeira aula, navegaremos pelas fascinantes paisagens da
+ciência aberta, avaliando sua origem, histórico e múltiplos
+significados.</p>
+<p>A <strong>ciência aberta</strong> é um movimento dentro da ciência
+que busca a abertura do processo de conhecimento científico, de forma
+que TODAS as atividades científicas, e não só o resultado final, sejam
+praticadas de forma transparente, colaborativa, e que seus resultados
+sejam confiáveis e re-utilizáveis, tanto para outros cientistas quanto
+para a sociedade em geral.</p>
+<p>A grosso modo, podemos dizer a ciência aberta é um grande
+guarda-chuva formado por várias iniciativas de reestruturação da forma
+de fazer ciência, e portanto, recebe influência de diferentes agentes
+como os próprios cientistas, as agências de fomento/financiadores,
+governos, e cidadãos.</p>
+<p>Nesta aula, vamos discutir primeiro o que <strong>não é ciência
+aberta</strong> - má conduta, fraudes, plágio, pesquisa irreprodutível,
+erros não corrigidos - e a importância da <strong>integridade e boas
+práticas científicas.</strong></p>
+<p>Vamos refletir um pouco em como a <strong>má ciência</strong> pode
+estar sendo selecionada no ambiente acadêmico (Smaldino &amp; McElreath
+2016, Ioannidis 2012) devido a incentivos institucionais destorcidos
+voltados para quantidade - “publish-A-LOT-or-perish”, o prestígio
+manipulado por revistas e as métricas de qualidade/quantidade usadas
+para avaliação de revistas, pesquisadores e instituições.</p>
+<p>Discutiremos as principais <strong>dimensões da ciência
+aberta</strong>, taxonomias e esquemas que nos ajudem a entender um
+pouco melhor de quais elementos é feito o movimento da ciência
+aberta.</p>
+<p>Abordaremos algumas <strong>políticas de ciência aberta</strong>,
+focada em iniciativas nacionais e a reflexão sobre os vários discursos
+de ciência aberta dentro destas políticas nacionais, internacionais e
+supra-nacionais.</p>
+<div id="razões-para-a-ciência-aberta" class="section level1">
+<h1>Razões para a Ciência Aberta</h1>
+<p>Abaixo, 10 razões para praticarmos e nos importamos com uma ciência
+mais aberta (retirado do <a
+href="https://campusvirtual.fiocruz.br/portal/node/38010">curso da
+FioCruz sobre ciência aberta</a>, recomendo fazer!):</p>
+<ol style="list-style-type: decimal">
+<li><p>Preserva, valoriza e partilha a produção científica.</p></li>
+<li><p>Promove o Acesso Aberto aos dados e publicações
+científicas.</p></li>
+<li><p>Protege e valoriza a propriedade intelectual.</p></li>
+<li><p>Promove a eficiência do processo científico.</p></li>
+<li><p>Aumenta a visibilidade e reconhecimento dos investigadores e das
+instituições.</p></li>
+<li><p>Amplifica o impacto da investigação, estimula a criatividade e a
+inovação.</p></li>
+<li><p>Promove a responsabilidade social científica e a apropriação
+social do conhecimento.</p></li>
+<li><p>Promove a transparência e o conhecimento do processo
+científico.</p></li>
+<li><p>Envolve a sociedade no processo de (co)criação e fruição do
+conhecimento.</p></li>
+<li><p>Democratiza o acesso ao conhecimento científico e potencia o
+desenvolvimento.</p></li>
+</ol>
+</div>
+<div id="leituras-recomendadas" class="section level1">
+<h1>Leituras recomendadas</h1>
+<ol style="list-style-type: decimal">
+<li><p>Albornoz D, Huang M, Martin I, Mateus M, Touré A, Chan L (2018)
+Framing Power: Tracing Key Discourses in Open Science Policies.
+ELectronic PUBlishing. <a
+href="https://doi.org/10.4000/proceedings.elpub.2018.23"
+class="uri">https://doi.org/10.4000/proceedings.elpub.2018.23</a></p></li>
+<li><p>Bezjak S, Clyburne-Sherin A, Conzett P, et al (2018) Open Science
+Training Handbook. <a href="https://doi.org/10.5281/zenodo.1212496"
+class="uri">https://doi.org/10.5281/zenodo.1212496</a></p></li>
+<li><p>Brainard J (2023) <a
+href="https://www.science.org/content/article/fake-scientific-papers-are-alarmingly-common">Fake
+scientific papers are alarmingly common</a> Science</p></li>
+<li><p>Brainard J, You J (2018) <a
+href="https://www.science.org/content/article/what-massive-database-retracted-papers-reveals-about-science-publishing-s-death-penalty">What
+a massive database of retracted papers reveals about science
+publishing’s ‘death penalty’</a> Science</p></li>
+<li><p>Costa MPD, Leite FCL (2019) Panorama preliminar do
+desenvolvimento da ciência aberta. <a
+href="https://doi.org/10.26512/9788564593787"
+class="uri">https://doi.org/10.26512/9788564593787</a></p></li>
+<li><p>FAPESP (2014) <a href="https://fapesp.br/boaspraticas/">Código de
+Boas Práticas Científicas</a></p></li>
+<li><p>Ioannidis JPA (2012) Why Science Is Not Necessarily
+Self-Correcting. Perspectives on Psychological Science 7:645–654 <a
+href="https://doi.org/10.1177/1745691612464056"
+class="uri">https://doi.org/10.1177/1745691612464056</a></p></li>
+<li><p>Powers SM, Hampton SE (2019) Open science, reproducibility, and
+transparency in ecology. Ecological Applications 29:e01822. <a
+href="https://doi.org/10.1002/eap.1822"
+class="uri">https://doi.org/10.1002/eap.1822</a></p></li>
+<li><p>Santos-D’amorim K, Correia AEGC, Miranda MKF de O, Santa-Cruz P
+(2021) Reasons and implications of retracted articles in Brazil.
+Transinformação 33:e210001. <a
+href="https://doi.org/10.1590/2318-0889202133e210001"
+class="uri">https://doi.org/10.1590/2318-0889202133e210001</a></p></li>
+<li><p>Smaldino PE, McElreath R (2016) The natural selection of bad
+science. Royal Society Open Science 3:160384. <a
+href="https://doi.org/10.1098/rsos.160384"
+class="uri">https://doi.org/10.1098/rsos.160384</a></p></li>
+<li><p>UNESCO (2021) Recomendação da UNESCO sobre Ciência Aberta. <a
+href="https://doi.org/10.54677/XFFX3334"
+class="uri">https://doi.org/10.54677/XFFX3334</a></p></li>
+<li><p>USP (2023) <a
+href="https://prp.usp.br/wp-content/uploads/sites/649/2016/05/PRP_Guia-de-Boas-Pr%C3%A1ticas-Cientificas_2019_2-1.pdf">Guia
+de Boas Práticas Científicas</a>.</p></li>
+<li><p><a
+href="https://cienciaaberta.usp.br/declaracao-usp-de-apoio-a-ciencia-aberta/">Declaração
+USP de Apoio à Ciência Aberta</a> – Ciência Aberta USP.</p></li>
+<li><p>Inovação e governo aberto na ciência - Monitoramento e Execução.
+In: Controladoria-Geral da União. <a
+href="https://www.gov.br/cgu/pt-br/governo-aberto/a-ogp/planos-de-acao/4o-plano-de-acao-brasileiro/compromisso-3-docs/inovacao-e-governo-aberto-na-ciencia-monitoramento-e-execucao."
+class="uri">https://www.gov.br/cgu/pt-br/governo-aberto/a-ogp/planos-de-acao/4o-plano-de-acao-brasileiro/compromisso-3-docs/inovacao-e-governo-aberto-na-ciencia-monitoramento-e-execucao.</a>
+Accessed 4 Aug 2023</p></li>
+<li><p>Open Government Declaration. In: Open Government Partnership. <a
+href="https://www.opengovpartnership.org/process/joining-ogp/open-government-declaration/.">https://www.opengovpartnership.org/process/joining-ogp/open-government-declaration/</a></p></li>
+<li><p>Transparência em Ciência: novos mecanismos de avaliação para o
+avanço da Ciência Aberta - Monitoramento e Execução. In:
+Controladoria-Geral da União. <a
+href="https://www.gov.br/cgu/pt-br/governo-aberto/a-ogp/planos-de-acao/5o-plano-de-acao-brasileiro/compromisso-8-transparencia-em-ciencia-novos-mecanismos-de-avaliacao-para-o-avanco-da-ciencia-aberta/meio-ambiente-e-floresta-monitoramento-e-execucao."
+class="uri">https://www.gov.br/cgu/pt-br/governo-aberto/a-ogp/planos-de-acao/5o-plano-de-acao-brasileiro/compromisso-8-transparencia-em-ciencia-novos-mecanismos-de-avaliacao-para-o-avanco-da-ciencia-aberta/meio-ambiente-e-floresta-monitoramento-e-execucao.</a></p>
+<h1 id="sites-de-interesse">Sites de interesse</h1></li>
+<li><p>Society for Open, Reliable and Transparent Ecology and
+Evolutionary Biology. In: SORTEE. <a href="https://www.sortee.org/."
+class="uri">https://www.sortee.org/.</a></p></li>
+<li><p>Iniciativa Brasileira de Reprodutibilidade. <a
+href="https://www.reprodutibilidade.bio.br."
+class="uri">https://www.reprodutibilidade.bio.br.</a></p></li>
+<li><p>Research Data Alliance | RDA. <a
+href="https://www.rd-alliance.org/about-rda."
+class="uri">https://www.rd-alliance.org/about-rda.</a></p></li>
+<li><p>AIMOS. <a href="https://aimos.community."
+class="uri">https://aimos.community.</a></p></li>
+<li><p>OpenAIRE. <a href="https://www.openaire.eu/."
+class="uri">https://www.openaire.eu/.</a></p></li>
+<li><p>Center for Open Science. <a href="https://www.cos.io."
+class="uri">https://www.cos.io.</a></p></li>
+<li><p>LA Referencia. <a
+href="https://www.lareferencia.info/en/.">https://www.lareferencia.info/en/</a></p></li>
+<li><p>Novo curso da Fiocruz trata da gestão e compartilhamento de dados
+abertos de pesquisa. In: Portal de Periódicos - Fiocruz. <a
+href="https://periodicos.fiocruz.br/node/1063.">https://periodicos.fiocruz.br/node/1063</a></p></li>
+<li><p>O que é Ciência Aberta? - 1º Oferta. In: Campus Virtual Fiocruz.
+<a
+href="https://campusvirtual.fiocruz.br/portal/?q=node/38010.">https://campusvirtual.fiocruz.br/portal/?q=node/38010</a></p></li>
+<li><p>Open Science @ FAPESP. <a
+href="https://fapesp.br/openscience/.">https://fapesp.br/openscience/</a></p></li>
+<li><p>Rede Brasileira De Reprodutibilidade. <a
+href="https://www.reprodutibilidade.org.">https://www.reprodutibilidade.org</a></p></li>
+<li><p>ReproducibiliTea. <a
+href="https://reproducibilitea.org/.">https://reproducibilitea.org/</a></p></li>
+<li><p>SciELO - Brazil. <a
+href="https://www.scielo.br/.">https://www.scielo.br/</a></p></li>
+</ol>
+</div>
+
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiTyBxdWUgw6kgQ2nDqm5jaWEgQWJlcnRhPyIKYXV0aG9yOiAiTWVsaW5hIExlaXRlIgpkYXRlOiAiYHIgU3lzLkRhdGUoKWAiCm91dHB1dDogaHRtbF9kb2N1bWVudAotLS0KCk5lc3RhIHByaW1laXJhIGF1bGEsIG5hdmVnYXJlbW9zIHBlbGFzIGZhc2NpbmFudGVzIHBhaXNhZ2VucyBkYSBjacOqbmNpYSBhYmVydGEsIGF2YWxpYW5kbyBzdWEgb3JpZ2VtLCBoaXN0w7NyaWNvIGUgbcO6bHRpcGxvcyBzaWduaWZpY2Fkb3MuCgpBICoqY2nDqm5jaWEgYWJlcnRhKiogw6kgdW0gbW92aW1lbnRvIGRlbnRybyBkYSBjacOqbmNpYSBxdWUgYnVzY2EgYSBhYmVydHVyYSBkbyBwcm9jZXNzbyBkZSBjb25oZWNpbWVudG8gY2llbnTDrWZpY28sIGRlIGZvcm1hIHF1ZSBUT0RBUyBhcyBhdGl2aWRhZGVzIGNpZW50w61maWNhcywgZSBuw6NvIHPDsyBvIHJlc3VsdGFkbyBmaW5hbCwgc2VqYW0gcHJhdGljYWRhcyBkZSBmb3JtYSB0cmFuc3BhcmVudGUsIGNvbGFib3JhdGl2YSwgZSBxdWUgc2V1cyByZXN1bHRhZG9zIHNlamFtIGNvbmZpw6F2ZWlzIGUgcmUtdXRpbGl6w6F2ZWlzLCB0YW50byBwYXJhIG91dHJvcyBjaWVudGlzdGFzIHF1YW50byBwYXJhIGEgc29jaWVkYWRlIGVtIGdlcmFsLgoKQSBncm9zc28gbW9kbywgcG9kZW1vcyBkaXplciBhIGNpw6puY2lhIGFiZXJ0YSDDqSB1bSBncmFuZGUgZ3VhcmRhLWNodXZhIGZvcm1hZG8gcG9yIHbDoXJpYXMgaW5pY2lhdGl2YXMgZGUgcmVlc3RydXR1cmHDp8OjbyBkYSBmb3JtYSBkZSBmYXplciBjacOqbmNpYSwgZSBwb3J0YW50bywgcmVjZWJlIGluZmx1w6puY2lhIGRlIGRpZmVyZW50ZXMgYWdlbnRlcyBjb21vIG9zIHByw7NwcmlvcyBjaWVudGlzdGFzLCBhcyBhZ8OqbmNpYXMgZGUgZm9tZW50by9maW5hbmNpYWRvcmVzLCBnb3Zlcm5vcywgZSBjaWRhZMOjb3MuCgpOZXN0YSBhdWxhLCB2YW1vcyBkaXNjdXRpciBwcmltZWlybyBvIHF1ZSAqKm7Do28gw6kgY2nDqm5jaWEgYWJlcnRhKiogLSBtw6EgY29uZHV0YSwgZnJhdWRlcywgcGzDoWdpbywgcGVzcXVpc2EgaXJyZXByb2R1dMOtdmVsLCBlcnJvcyBuw6NvIGNvcnJpZ2lkb3MgLSBlIGEgaW1wb3J0w6JuY2lhIGRhICoqaW50ZWdyaWRhZGUgZSBib2FzIHByw6F0aWNhcyBjaWVudMOtZmljYXMuKioKClZhbW9zIHJlZmxldGlyIHVtIHBvdWNvIGVtIGNvbW8gYSAqKm3DoSBjacOqbmNpYSoqIHBvZGUgZXN0YXIgc2VuZG8gc2VsZWNpb25hZGEgbm8gYW1iaWVudGUgYWNhZMOqbWljbyAoU21hbGRpbm8gJiBNY0VscmVhdGggMjAxNiwgSW9hbm5pZGlzIDIwMTIpIGRldmlkbyBhIGluY2VudGl2b3MgaW5zdGl0dWNpb25haXMgZGVzdG9yY2lkb3Mgdm9sdGFkb3MgcGFyYSBxdWFudGlkYWRlIC0gInB1Ymxpc2gtQS1MT1Qtb3ItcGVyaXNoIiwgbyBwcmVzdMOtZ2lvIG1hbmlwdWxhZG8gcG9yIHJldmlzdGFzIGUgYXMgbcOpdHJpY2FzIGRlIHF1YWxpZGFkZS9xdWFudGlkYWRlIHVzYWRhcyBwYXJhIGF2YWxpYcOnw6NvIGRlIHJldmlzdGFzLCBwZXNxdWlzYWRvcmVzIGUgaW5zdGl0dWnDp8O1ZXMuCgpEaXNjdXRpcmVtb3MgYXMgcHJpbmNpcGFpcyAqKmRpbWVuc8O1ZXMgZGEgY2nDqm5jaWEgYWJlcnRhKiosIHRheG9ub21pYXMgZSBlc3F1ZW1hcyBxdWUgbm9zIGFqdWRlbSBhIGVudGVuZGVyIHVtIHBvdWNvIG1lbGhvciBkZSBxdWFpcyBlbGVtZW50b3Mgw6kgZmVpdG8gbyBtb3ZpbWVudG8gZGEgY2nDqm5jaWEgYWJlcnRhLgoKQWJvcmRhcmVtb3MgYWxndW1hcyAqKnBvbMOtdGljYXMgZGUgY2nDqm5jaWEgYWJlcnRhKiosIGZvY2FkYSBlbSBpbmljaWF0aXZhcyBuYWNpb25haXMgZSBhIHJlZmxleMOjbyBzb2JyZSBvcyB2w6FyaW9zIGRpc2N1cnNvcyBkZSBjacOqbmNpYSBhYmVydGEgZGVudHJvIGRlc3RhcyBwb2zDrXRpY2FzIG5hY2lvbmFpcywgaW50ZXJuYWNpb25haXMgZSBzdXByYS1uYWNpb25haXMuCgojIFJhesO1ZXMgcGFyYSBhIENpw6puY2lhIEFiZXJ0YQoKQWJhaXhvLCAxMCByYXrDtWVzIHBhcmEgcHJhdGljYXJtb3MgZSBub3MgaW1wb3J0YW1vcyBjb20gdW1hIGNpw6puY2lhIG1haXMgYWJlcnRhIChyZXRpcmFkbyBkbyBbY3Vyc28gZGEgRmlvQ3J1eiBzb2JyZSBjacOqbmNpYSBhYmVydGFdKGh0dHBzOi8vY2FtcHVzdmlydHVhbC5maW9jcnV6LmJyL3BvcnRhbC9ub2RlLzM4MDEwKSwgcmVjb21lbmRvIGZhemVyISk6CgoxLiAgUHJlc2VydmEsIHZhbG9yaXphIGUgcGFydGlsaGEgYSBwcm9kdcOnw6NvIGNpZW50w61maWNhLgoKMi4gIFByb21vdmUgbyBBY2Vzc28gQWJlcnRvIGFvcyBkYWRvcyBlIHB1YmxpY2HDp8O1ZXMgY2llbnTDrWZpY2FzLgoKMy4gIFByb3RlZ2UgZSB2YWxvcml6YSBhIHByb3ByaWVkYWRlIGludGVsZWN0dWFsLgoKNC4gIFByb21vdmUgYSBlZmljacOqbmNpYSBkbyBwcm9jZXNzbyBjaWVudMOtZmljby4KCjUuICBBdW1lbnRhIGEgdmlzaWJpbGlkYWRlIGUgcmVjb25oZWNpbWVudG8gZG9zIGludmVzdGlnYWRvcmVzIGUgZGFzIGluc3RpdHVpw6fDtWVzLgoKNi4gIEFtcGxpZmljYSBvIGltcGFjdG8gZGEgaW52ZXN0aWdhw6fDo28sIGVzdGltdWxhIGEgY3JpYXRpdmlkYWRlIGUgYSBpbm92YcOnw6NvLgoKNy4gIFByb21vdmUgYSByZXNwb25zYWJpbGlkYWRlIHNvY2lhbCBjaWVudMOtZmljYSBlIGEgYXByb3ByaWHDp8OjbyBzb2NpYWwgZG8gY29uaGVjaW1lbnRvLgoKOC4gIFByb21vdmUgYSB0cmFuc3BhcsOqbmNpYSBlIG8gY29uaGVjaW1lbnRvIGRvIHByb2Nlc3NvIGNpZW50w61maWNvLgoKOS4gIEVudm9sdmUgYSBzb2NpZWRhZGUgbm8gcHJvY2Vzc28gZGUgKGNvKWNyaWHDp8OjbyBlIGZydWnDp8OjbyBkbyBjb25oZWNpbWVudG8uCgoxMC4gRGVtb2NyYXRpemEgbyBhY2Vzc28gYW8gY29uaGVjaW1lbnRvIGNpZW50w61maWNvIGUgcG90ZW5jaWEgbyBkZXNlbnZvbHZpbWVudG8uCgojIExlaXR1cmFzIHJlY29tZW5kYWRhcwoKMS4gIEFsYm9ybm96IEQsIEh1YW5nIE0sIE1hcnRpbiBJLCBNYXRldXMgTSwgVG91csOpIEEsIENoYW4gTCAoMjAxOCkgRnJhbWluZyBQb3dlcjogVHJhY2luZyBLZXkgRGlzY291cnNlcyBpbiBPcGVuIFNjaWVuY2UgUG9saWNpZXMuIEVMZWN0cm9uaWMgUFVCbGlzaGluZy4gPGh0dHBzOi8vZG9pLm9yZy8xMC40MDAwL3Byb2NlZWRpbmdzLmVscHViLjIwMTguMjM+CgoyLiAgQmV6amFrIFMsIENseWJ1cm5lLVNoZXJpbiBBLCBDb256ZXR0IFAsIGV0IGFsICgyMDE4KSBPcGVuIFNjaWVuY2UgVHJhaW5pbmcgSGFuZGJvb2suIDxodHRwczovL2RvaS5vcmcvMTAuNTI4MS96ZW5vZG8uMTIxMjQ5Nj4KCjMuICBCcmFpbmFyZCBKICgyMDIzKSBbRmFrZSBzY2llbnRpZmljIHBhcGVycyBhcmUgYWxhcm1pbmdseSBjb21tb25dKGh0dHBzOi8vd3d3LnNjaWVuY2Uub3JnL2NvbnRlbnQvYXJ0aWNsZS9mYWtlLXNjaWVudGlmaWMtcGFwZXJzLWFyZS1hbGFybWluZ2x5LWNvbW1vbikgU2NpZW5jZQoKNC4gIEJyYWluYXJkIEosIFlvdSBKICgyMDE4KSBbV2hhdCBhIG1hc3NpdmUgZGF0YWJhc2Ugb2YgcmV0cmFjdGVkIHBhcGVycyByZXZlYWxzIGFib3V0IHNjaWVuY2UgcHVibGlzaGluZydzICdkZWF0aCBwZW5hbHR5J10oaHR0cHM6Ly93d3cuc2NpZW5jZS5vcmcvY29udGVudC9hcnRpY2xlL3doYXQtbWFzc2l2ZS1kYXRhYmFzZS1yZXRyYWN0ZWQtcGFwZXJzLXJldmVhbHMtYWJvdXQtc2NpZW5jZS1wdWJsaXNoaW5nLXMtZGVhdGgtcGVuYWx0eSkgU2NpZW5jZQoKNS4gIENvc3RhIE1QRCwgTGVpdGUgRkNMICgyMDE5KSBQYW5vcmFtYSBwcmVsaW1pbmFyIGRvIGRlc2Vudm9sdmltZW50byBkYSBjacOqbmNpYSBhYmVydGEuIDxodHRwczovL2RvaS5vcmcvMTAuMjY1MTIvOTc4ODU2NDU5Mzc4Nz4KCjYuICBGQVBFU1AgKDIwMTQpIFtDw7NkaWdvIGRlIEJvYXMgUHLDoXRpY2FzIENpZW50w61maWNhc10oaHR0cHM6Ly9mYXBlc3AuYnIvYm9hc3ByYXRpY2FzLykKCjcuICBJb2FubmlkaXMgSlBBICgyMDEyKSBXaHkgU2NpZW5jZSBJcyBOb3QgTmVjZXNzYXJpbHkgU2VsZi1Db3JyZWN0aW5nLiBQZXJzcGVjdGl2ZXMgb24gUHN5Y2hvbG9naWNhbCBTY2llbmNlIDc6NjQ1LS02NTQgPGh0dHBzOi8vZG9pLm9yZy8xMC4xMTc3LzE3NDU2OTE2MTI0NjQwNTY+Cgo4LiAgUG93ZXJzIFNNLCBIYW1wdG9uIFNFICgyMDE5KSBPcGVuIHNjaWVuY2UsIHJlcHJvZHVjaWJpbGl0eSwgYW5kIHRyYW5zcGFyZW5jeSBpbiBlY29sb2d5LiBFY29sb2dpY2FsIEFwcGxpY2F0aW9ucyAyOTplMDE4MjIuIDxodHRwczovL2RvaS5vcmcvMTAuMTAwMi9lYXAuMTgyMj4KCjkuICBTYW50b3MtRCdhbW9yaW0gSywgQ29ycmVpYSBBRUdDLCBNaXJhbmRhIE1LRiBkZSBPLCBTYW50YS1DcnV6IFAgKDIwMjEpIFJlYXNvbnMgYW5kIGltcGxpY2F0aW9ucyBvZiByZXRyYWN0ZWQgYXJ0aWNsZXMgaW4gQnJhemlsLiBUcmFuc2luZm9ybWHDp8OjbyAzMzplMjEwMDAxLiA8aHR0cHM6Ly9kb2kub3JnLzEwLjE1OTAvMjMxOC0wODg5MjAyMTMzZTIxMDAwMT4KCjEwLiBTbWFsZGlubyBQRSwgTWNFbHJlYXRoIFIgKDIwMTYpIFRoZSBuYXR1cmFsIHNlbGVjdGlvbiBvZiBiYWQgc2NpZW5jZS4gUm95YWwgU29jaWV0eSBPcGVuIFNjaWVuY2UgMzoxNjAzODQuIDxodHRwczovL2RvaS5vcmcvMTAuMTA5OC9yc29zLjE2MDM4ND4KCjExLiBVTkVTQ08gKDIwMjEpIFJlY29tZW5kYcOnw6NvIGRhIFVORVNDTyBzb2JyZSBDacOqbmNpYSBBYmVydGEuIDxodHRwczovL2RvaS5vcmcvMTAuNTQ2NzcvWEZGWDMzMzQ+CgoxMi4gVVNQICgyMDIzKSBbR3VpYSBkZSBCb2FzIFByw6F0aWNhcyBDaWVudMOtZmljYXNdKGh0dHBzOi8vcHJwLnVzcC5ici93cC1jb250ZW50L3VwbG9hZHMvc2l0ZXMvNjQ5LzIwMTYvMDUvUFJQX0d1aWEtZGUtQm9hcy1QciVDMyVBMXRpY2FzLUNpZW50aWZpY2FzXzIwMTlfMi0xLnBkZikuCgoxMy4gW0RlY2xhcmHDp8OjbyBVU1AgZGUgQXBvaW8gw6AgQ2nDqm5jaWEgQWJlcnRhXShodHRwczovL2NpZW5jaWFhYmVydGEudXNwLmJyL2RlY2xhcmFjYW8tdXNwLWRlLWFwb2lvLWEtY2llbmNpYS1hYmVydGEvKSAtLSBDacOqbmNpYSBBYmVydGEgVVNQLgoKMTQuIElub3Zhw6fDo28gZSBnb3Zlcm5vIGFiZXJ0byBuYSBjacOqbmNpYSAtIE1vbml0b3JhbWVudG8gZSBFeGVjdcOnw6NvLiBJbjogQ29udHJvbGFkb3JpYS1HZXJhbCBkYSBVbmnDo28uIDxodHRwczovL3d3dy5nb3YuYnIvY2d1L3B0LWJyL2dvdmVybm8tYWJlcnRvL2Etb2dwL3BsYW5vcy1kZS1hY2FvLzRvLXBsYW5vLWRlLWFjYW8tYnJhc2lsZWlyby9jb21wcm9taXNzby0zLWRvY3MvaW5vdmFjYW8tZS1nb3Zlcm5vLWFiZXJ0by1uYS1jaWVuY2lhLW1vbml0b3JhbWVudG8tZS1leGVjdWNhby4+IEFjY2Vzc2VkIDQgQXVnIDIwMjMKCjE1LiBPcGVuIEdvdmVybm1lbnQgRGVjbGFyYXRpb24uIEluOiBPcGVuIEdvdmVybm1lbnQgUGFydG5lcnNoaXAuIFtodHRwczovL3d3dy5vcGVuZ292cGFydG5lcnNoaXAub3JnL3Byb2Nlc3Mvam9pbmluZy1vZ3Avb3Blbi1nb3Zlcm5tZW50LWRlY2xhcmF0aW9uL10oaHR0cHM6Ly93d3cub3BlbmdvdnBhcnRuZXJzaGlwLm9yZy9wcm9jZXNzL2pvaW5pbmctb2dwL29wZW4tZ292ZXJubWVudC1kZWNsYXJhdGlvbi8uKQoKMTYuIFRyYW5zcGFyw6puY2lhIGVtIENpw6puY2lhOiBub3ZvcyBtZWNhbmlzbW9zIGRlIGF2YWxpYcOnw6NvIHBhcmEgbyBhdmFuw6dvIGRhIENpw6puY2lhIEFiZXJ0YSAtIE1vbml0b3JhbWVudG8gZSBFeGVjdcOnw6NvLiBJbjogQ29udHJvbGFkb3JpYS1HZXJhbCBkYSBVbmnDo28uIDxodHRwczovL3d3dy5nb3YuYnIvY2d1L3B0LWJyL2dvdmVybm8tYWJlcnRvL2Etb2dwL3BsYW5vcy1kZS1hY2FvLzVvLXBsYW5vLWRlLWFjYW8tYnJhc2lsZWlyby9jb21wcm9taXNzby04LXRyYW5zcGFyZW5jaWEtZW0tY2llbmNpYS1ub3Zvcy1tZWNhbmlzbW9zLWRlLWF2YWxpYWNhby1wYXJhLW8tYXZhbmNvLWRhLWNpZW5jaWEtYWJlcnRhL21laW8tYW1iaWVudGUtZS1mbG9yZXN0YS1tb25pdG9yYW1lbnRvLWUtZXhlY3VjYW8uPgoKICAgICMgU2l0ZXMgZGUgaW50ZXJlc3NlCgoxNy4gU29jaWV0eSBmb3IgT3BlbiwgUmVsaWFibGUgYW5kIFRyYW5zcGFyZW50IEVjb2xvZ3kgYW5kIEV2b2x1dGlvbmFyeSBCaW9sb2d5LiBJbjogU09SVEVFLiA8aHR0cHM6Ly93d3cuc29ydGVlLm9yZy8uPgoKMTguIEluaWNpYXRpdmEgQnJhc2lsZWlyYSBkZSBSZXByb2R1dGliaWxpZGFkZS4gPGh0dHBzOi8vd3d3LnJlcHJvZHV0aWJpbGlkYWRlLmJpby5ici4+CgoxOS4gUmVzZWFyY2ggRGF0YSBBbGxpYW5jZSBcfCBSREEuIDxodHRwczovL3d3dy5yZC1hbGxpYW5jZS5vcmcvYWJvdXQtcmRhLj4KCjIwLiBBSU1PUy4gPGh0dHBzOi8vYWltb3MuY29tbXVuaXR5Lj4KCjIxLiBPcGVuQUlSRS4gPGh0dHBzOi8vd3d3Lm9wZW5haXJlLmV1Ly4+CgoyMi4gQ2VudGVyIGZvciBPcGVuIFNjaWVuY2UuIDxodHRwczovL3d3dy5jb3MuaW8uPgoKMjMuIExBIFJlZmVyZW5jaWEuIFtodHRwczovL3d3dy5sYXJlZmVyZW5jaWEuaW5mby9lbi9dKGh0dHBzOi8vd3d3LmxhcmVmZXJlbmNpYS5pbmZvL2VuLy4pCgoyNC4gTm92byBjdXJzbyBkYSBGaW9jcnV6IHRyYXRhIGRhIGdlc3TDo28gZSBjb21wYXJ0aWxoYW1lbnRvIGRlIGRhZG9zIGFiZXJ0b3MgZGUgcGVzcXVpc2EuIEluOiBQb3J0YWwgZGUgUGVyacOzZGljb3MgLSBGaW9jcnV6LiBbaHR0cHM6Ly9wZXJpb2RpY29zLmZpb2NydXouYnIvbm9kZS8xMDYzXShodHRwczovL3BlcmlvZGljb3MuZmlvY3J1ei5ici9ub2RlLzEwNjMuKQoKMjUuIE8gcXVlIMOpIENpw6puY2lhIEFiZXJ0YT8gLSAxwrogT2ZlcnRhLiBJbjogQ2FtcHVzIFZpcnR1YWwgRmlvY3J1ei4gW2h0dHBzOi8vY2FtcHVzdmlydHVhbC5maW9jcnV6LmJyL3BvcnRhbC8/cT1ub2RlLzM4MDEwXShodHRwczovL2NhbXB1c3ZpcnR1YWwuZmlvY3J1ei5ici9wb3J0YWwvP3E9bm9kZS8zODAxMC4pCgoyNi4gT3BlbiBTY2llbmNlIFxAIEZBUEVTUC4gW2h0dHBzOi8vZmFwZXNwLmJyL29wZW5zY2llbmNlL10oaHR0cHM6Ly9mYXBlc3AuYnIvb3BlbnNjaWVuY2UvLikKCjI3LiBSZWRlIEJyYXNpbGVpcmEgRGUgUmVwcm9kdXRpYmlsaWRhZGUuIFtodHRwczovL3d3dy5yZXByb2R1dGliaWxpZGFkZS5vcmddKGh0dHBzOi8vd3d3LnJlcHJvZHV0aWJpbGlkYWRlLm9yZy4pCgoyOC4gUmVwcm9kdWNpYmlsaVRlYS4gW2h0dHBzOi8vcmVwcm9kdWNpYmlsaXRlYS5vcmcvXShodHRwczovL3JlcHJvZHVjaWJpbGl0ZWEub3JnLy4pCgoyOS4gU2NpRUxPIC0gQnJhemlsLiBbaHR0cHM6Ly93d3cuc2NpZWxvLmJyL10oaHR0cHM6Ly93d3cuc2NpZWxvLmJyLy4pCg==</div>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeSourceEmbed("intro_ciencia_aberta.Rmd");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Melina Leite" />
+
+<meta name="date" content="2023-10-30" />
+
+<title>Dados abertos</title>
+
+<script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<script src="site_libs/navigation-1.1/sourceembed.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+
+
+<style type="text/css">
+#rmd-source-code {
+  display: none;
+}
+</style>
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Reprodutibilidade Computacional e Organização de Dados em Ecologia e Evolução</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Início</a>
+</li>
+<li>
+  <a href="intro_ciencia_aberta.html">O que é ciência aberta?</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Dados abertos
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="dados_abertos.html">O que são dados abertos?</a>
+    </li>
+    <li>
+      <a href="metadata_EML.html">Metadados</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="Organizacao_dir_local.html">Organização local</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Versionamento
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="basics_git.html">ABC do versionamento</a>
+    </li>
+    <li>
+      <a href="commits-travel.html">Viajando no tempo</a>
+    </li>
+    <li>
+      <a href="colabs_github.html">Trabalho colaborativo</a>
+    </li>
+    <li>
+      <a href="gitgnore.html">Ignorando arquivos</a>
+    </li>
+    <li>
+      <a href="conflitos.html">Resolvendo conflitos</a>
+    </li>
+    <li class="dropdown-header">Releasing - retrato permanente</li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Programação letrada
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="rmarkdown-basics.html">Rmarkdown</a>
+    </li>
+    <li>
+      <a href="sites-basics.html">Sites</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Avançado
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="renv-basics.html">Pacote `{renv}`</a>
+    </li>
+    <li class="dropdown-header">Pacote `{groundhog}`</li>
+    <li>
+      <a href="rocker-basics.html">Containers</a>
+    </li>
+    <li>
+      <a href="targets_basics.html">Pipelines com Targets</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-download-source" href="#">Download Rmd</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Dados abertos</h1>
+<h4 class="author">Melina Leite</h4>
+<h4 class="date">2023-10-30</h4>
+
+</div>
+
+
+<p>Dados são a <strong>base</strong> de quase toda pesquisa ecológica e
+podem ser de natureza, formatos e tamanhos muito diferentes: tabelas,
+questionários, texto, imagem, áudio, entrevista, simulações, etc…</p>
+<p>Dados são <strong>produto da pesquisa</strong>, assim como teses e
+artigos. Portanto, devemos nos orgulhar dos dados que
+produzimos/coletamos/simulamos/organizamos dentro dos nossos projetos de
+pequisa!</p>
+<p>Nessa aula vamos navegar no universo dos dados ecológicos, discutindo
+um pouco sobre:</p>
+<ul>
+<li><p>Porque precisamos de dados abertos, ou minimamente abertos -
+fraudes como fabricação/falsificação de dados</p></li>
+<li><p>Longevidade dos dados - resgate de dados</p></li>
+<li><p>Plano de gestão de dados</p></li>
+<li><p>Boas práticas de organização e gestão de dados tabulares</p></li>
+<li><p>Importância dos metadados</p></li>
+<li><p>Vantagens em deixar dados abertos</p></li>
+<li><p>Barreiras para o compartilhamento de dados</p></li>
+<li><p>Princípios FAIR (Findable, Accessible, Interoperable and
+Reusable)</p></li>
+<li><p>Publicação de dados em repositórios e/ou revistas
+científicas</p></li>
+<li><p>Tipos de repositórios</p></li>
+<li><p>Licenças</p></li>
+<li><p>Ética na publicação de dados</p></li>
+</ul>
+<div id="algumas-revistas-de-dados" class="section level1">
+<h1>Algumas revistas de dados</h1>
+<p>Base de dados sobre políticas de dados de revistas em Ecologia e
+evolução:</p>
+<ul>
+<li>Berberi I, Roche D (2021) Living database of journal data policies
+in E&amp;E. <a href="https://doi.org/10.17605/OSF.IO/D6SP3"
+class="uri">https://doi.org/10.17605/OSF.IO/D6SP3</a></li>
+</ul>
+<p>Listas de revistas de dados (<em>Data journals</em>):</p>
+<ul>
+<li><p><a href="https://zenodo.org/record/7082126"
+class="uri">https://zenodo.org/record/7082126</a></p></li>
+<li><p><a href="https://libguides.wmich.edu/datasci/datajournals"
+class="uri">https://libguides.wmich.edu/datasci/datajournals</a></p></li>
+</ul>
+<p>Algumas revistas que publicam dados ou metadados extendidos de
+pesquisas</p>
+<ul>
+<li><p><a href="https://esapubs.org/archive/">Data Papers</a> nas
+revistas da ESA (Ecological Society of America)</p></li>
+<li><p><a href="https://www.journals.elsevier.com/data-in-brief">Data in
+Brief</a> (da Elsevier): várias disciplinas</p></li>
+<li><p><a href="https://www.nature.com/sdata/">Scientific Data</a> (da
+Springer Nature): várias disciplinas</p></li>
+</ul>
+<p>Exemplo de <em>data papers</em> em ecologia: 15 artigos de dados
+sobre biodiversidade da Mata Altântica publicados na
+<em>Ecology:</em></p>
+<ul>
+<li><a
+href="https://esajournals.onlinelibrary.wiley.com/doi/toc/10.1002/(ISSN)1939-9170.AtlanticPapers">ATLANTIC:
+Data Papers from a biodiversity hotspot</a></li>
+</ul>
+</div>
+<div id="alguns-repositórios-de-dados" class="section level1">
+<h1>Alguns repositórios de dados</h1>
+<p>Listas de vários repositórios de dados:</p>
+<ul>
+<li><p><a href="https://oad.simmons.edu/oadwiki/Data_repositories"
+class="uri">https://oad.simmons.edu/oadwiki/Data_repositories</a></p></li>
+<li><p><a
+href="https://clarivate.com/webofsciencegroup/master-data-repository-list/"
+class="uri">https://clarivate.com/webofsciencegroup/master-data-repository-list/</a></p></li>
+</ul>
+<div id="temáticos" class="section level3">
+<h3>Temáticos</h3>
+<ul>
+<li><p><a href="https://www.gbif.org/">Movebank</a>: dados de movimento
+animal</p></li>
+<li><p><a href="https://www.gbif.org/">GBIF</a></p></li>
+<li><p><a href="https://knb.ecoinformatics.org/">KNB</a> (Knowledge
+Network for Biocomplexity)</p></li>
+<li><p><a href="https://biotime.st-andrews.ac.uk/">bioTIME</a>: global
+database of assemblage time series for quantifying and understanding
+biodiversity change</p></li>
+<li><p>[Environmental Data Initiative](+(<a
+href="https://edirepository.org/"
+class="uri">https://edirepository.org/</a>)</p></li>
+</ul>
+</div>
+<div id="genéricosgerais" class="section level3">
+<h3>Genéricos/gerais:</h3>
+<ul>
+<li><p><a href="https://figshare.com/">Figshare</a></p></li>
+<li><p><a href="https://zenodo.org/">Zenodo</a></p></li>
+<li><p><a href="https://datadryad.org/stash">Dryad</a></p></li>
+<li><p><a href="https://data.mendeley.com/">Mendeley Data</a></p></li>
+<li><p><a href="https://osf.io/">Open Science Framework</a></p></li>
+<li><p><a href="http://dataverse.org/">Dataverse</a></p></li>
+<li><p><a href="https://eudat.eu/">Eudat</a></p></li>
+</ul>
+</div>
+<div id="institucionais" class="section level3">
+<h3>Institucionais</h3>
+<ul>
+<li><a
+href="https://repositorio.uspdigital.usp.br/?codmnu=9980">USP</a></li>
+</ul>
+</div>
+<div id="redes-de-pesquisapesquisadores" class="section level3">
+<h3>Redes de pesquisa/pesquisadores</h3>
+<p>Alguns exemplos em ecologia de florestas quem mantém estrutura de
+dados compartilhados entre membros da rede (e externos mediante certas
+condições).</p>
+<ul>
+<li><p><a href="https://forestgeo.si.edu/">ForestGEO</a>: dados de
+algumas parcelas são abertos (ex: Barro Colorado Island), outros você
+solicita mediante prenchimento de formulário no site, outros diretamente
+com os PI (principal investigators)</p></li>
+<li><p><a
+href="https://sites.google.com/naturalis.nl/amazon-tree-diversity-network/about-us">Amazon
+Tree Diversity Network</a></p></li>
+<li><p><a href="https://forestplots.net/">ForestPlots.Net</a></p></li>
+</ul>
+</div>
+</div>
+<div id="buscadoresagregadores-de-dados" class="section level1">
+<h1>Buscadores/agregadores de dados</h1>
+<ul>
+<li><p><a
+href="https://metabuscador.uspdigital.usp.br/">Metabuscador</a> das
+instituições do estado de São Paulo.</p></li>
+<li><p><a href="https://www.re3data.org/">re3data</a> (Registry of
+Research data Repositories)</p></li>
+<li><p><a
+href="https://www.dataone.org/what-dataone">DataONE</a></p></li>
+<li><p><a href="https://commons.datacite.org/">DataCite</a></p></li>
+<li><p><a href="https://datasetsearch.research.google.com/">Google
+Dataset Search</a></p></li>
+<li><p><a
+href="https://explore.openaire.eu/search/find/research-outcomes?type=%22datasets%22">OpenAIRE
+Explore</a></p></li>
+</ul>
+</div>
+<div id="leituras-recomendadas" class="section level1">
+<h1>Leituras recomendadas</h1>
+<div id="geral" class="section level2">
+<h2>Geral</h2>
+<ul>
+<li><p>Bledsoe E, Burant J, Higino G, Roche D, Binning S, Finlay K,
+Pither J, Pollock L, Sunday J, Srivastava D (2021) Data rescue: saving
+environmental data from extinction. <a
+href="https://doi.org/10.32942/osf.io/ra6ze"
+class="uri">https://doi.org/10.32942/osf.io/ra6ze</a></p></li>
+<li><p>Caetano DS, Aisenberg A (2014) Forgotten treasures: the fate of
+data in animal behaviour studies. Animal Behaviour 98:1–5. <a
+href="https://doi.org/10.1016/j.anbehav.2014.09.025"
+class="uri">https://doi.org/10.1016/j.anbehav.2014.09.025</a></p></li>
+<li><p>Colavizza G, Hrynaszkiewicz I, Staden I, Whitaker K, McGillivray
+B (2020) The citation advantage of linking publications to research
+data. PLOS ONE 15:e0230416. <a
+href="https://doi.org/10.1371/journal.pone.0230416"
+class="uri">https://doi.org/10.1371/journal.pone.0230416</a></p></li>
+<li><p>Culina A, Baglioni M, Crowther TW, Visser ME,
+Woutersen-Windhouwer S, Manghi P (2018) Navigating the unfolding open
+data landscape in ecology and evolution. Nat Ecol Evol 2:420–426. <a
+href="https://doi.org/10.1038/s41559-017-0458-2"
+class="uri">https://doi.org/10.1038/s41559-017-0458-2</a></p></li>
+<li><p>Gomes DGE, Pottier P, Crystal-Ornelas R, et al (2022) Why don’t
+we share data and code? Perceived barriers and benefits to public
+archiving practices. Proceedings of the Royal Society B: Biological
+Sciences 289:20221113. <a href="https://doi.org/10.1098/rspb.2022.1113"
+class="uri">https://doi.org/10.1098/rspb.2022.1113</a></p></li>
+<li><p>Gurstein MB (2011) Open data: Empowering the empowered or
+effective data use for everyone? First Monday. <a
+href="https://doi.org/10.5210/fm.v16i2.3316"
+class="uri">https://doi.org/10.5210/fm.v16i2.3316</a></p></li>
+<li><p>Lima RAF, Phillips OL, Duque A, et al (2022) Making forest data
+fair and open. Nat Ecol Evol 1–3. <a
+href="https://doi.org/10.1038/s41559-022-01738-7"
+class="uri">https://doi.org/10.1038/s41559-022-01738-7</a></p></li>
+<li><p>McIntosh ACS, Cushing JB, Nadkarni NM, Zeman L (2007) Database
+design for ecologists: Composing core entities with observations.
+Ecological Informatics 2:224–236. <a
+href="https://doi.org/10.1016/j.ecoinf.2007.07.003"
+class="uri">https://doi.org/10.1016/j.ecoinf.2007.07.003</a></p></li>
+<li><p>Mello M (2017) O que é um data paper? – Sobrevivendo na Ciência.
+<a href="https://marcoarmello.wordpress.com/2017/09/11/datapaper/"
+class="uri">https://marcoarmello.wordpress.com/2017/09/11/datapaper/</a></p></li>
+<li><p>Perkel J (2016) Democratic databases: science on GitHub. Nature
+538:127–128. <a href="https://doi.org/10.1038/538127a"
+class="uri">https://doi.org/10.1038/538127a</a></p></li>
+<li><p>Roche DG, Berberi I, Dhane F, Lauzon F, Soeharjono S, Dakin R,
+Binning SA (2022) Slow improvement to the archiving quality of open
+datasets shared by researchers in ecology and evolution. Proceedings of
+the Royal Society B: Biological Sciences 289:20212780. <a
+href="https://doi.org/10.1098/rspb.2021.2780"
+class="uri">https://doi.org/10.1098/rspb.2021.2780</a></p></li>
+<li><p>Roche DG, Kruuk LEB, Lanfear R, Binning SA (2015) Public Data
+Archiving in Ecology and Evolution: How Well Are We Doing? PLoS Biol
+13:e1002295. <a href="https://doi.org/10.1371/journal.pbio.1002295"
+class="uri">https://doi.org/10.1371/journal.pbio.1002295</a></p></li>
+<li><p>Vanz SA de S, Passos PCSJ, Caregnato SE, Pavão CMG, Borges EN,
+Rocha RP da, Gabriel Junior RF, Azambuja LAB (2018) Acesso aberto a
+dados de pesquisa no Brasil : práticas e percepções dos pesquisadores:
+relatório 2018. Universidade Federal do Rio Grande do Sul. <a
+href="https://lume.ufrgs.br/handle/10183/185195"
+class="uri">https://lume.ufrgs.br/handle/10183/185195</a></p></li>
+<li><p>Vines TH, Albert AYK, Andrew RL, Débarre F, Bock DG, Franklin MT,
+Gilbert KJ, Moore J-S, Renaut S, Rennison DJ (2014) The Availability of
+Research Data Declines Rapidly with Article Age. Current Biology
+24:94–97. <a href="https://doi.org/10.1016/j.cub.2013.11.014"
+class="uri">https://doi.org/10.1016/j.cub.2013.11.014</a></p></li>
+<li><p>Westoby M, Falster DS, Schrader J (2021) Motivating data
+contributions via a distinct career currency. Proceedings of the Royal
+Society B: Biological Sciences 288:20202830. <a
+href="https://doi.org/10.1098/rspb.2020.2830"
+class="uri">https://doi.org/10.1098/rspb.2020.2830</a></p></li>
+<li><p>Wilkinson MD, Dumontier M, Aalbersberg IjJ, et al (2016) The FAIR
+Guiding Principles for scientific data management and stewardship. Sci
+Data 3:160018. <a href="https://doi.org/10.1038/sdata.2016.18"
+class="uri">https://doi.org/10.1038/sdata.2016.18</a></p></li>
+<li><p>Global Indigenous Data Alliance (2023) CARE Principles. In:
+Global Indigenous Data Alliance. <a
+href="https://www.gida-global.org/care."
+class="uri">https://www.gida-global.org/care.</a> Accessed 6 Aug
+2023</p></li>
+</ul>
+</div>
+<div id="plano-de-gestão-e-gestão-de-dados" class="section level2">
+<h2>Plano de gestão e gestão de dados</h2>
+<ul>
+<li><p>British Ecological Society (2014) <a
+href="http://www.britishecologicalsociety.org/wp-content/uploads/Publ_Data-Management-Booklet.pdf">A
+guide to data management in ecology and evolution.</a></p></li>
+<li><p>Data Carpentry Data Carpentry Workshops in Ecology. In: Data
+Carpentry. <a href="https://datacarpentry.org/lessons/."
+class="uri">https://datacarpentry.org/lessons/.</a> Accessed 7 Aug
+2023</p></li>
+<li><p>Michener WK (2015) Ten Simple Rules for Creating a Good Data
+Management Plan. PLOS Computational Biology 11:e1004525. <a
+href="https://doi.org/10.1371/journal.pcbi.1004525"
+class="uri">https://doi.org/10.1371/journal.pcbi.1004525</a></p></li>
+<li><p>Strasser C, Cook R, Michener W, Budden A (2012) Primer on Data
+Management: What You Always Wanted to Know. <a
+href="https://doi.org/10.5060/D2251G48"
+class="uri">https://doi.org/10.5060/D2251G48</a></p></li>
+</ul>
+</div>
+<div id="organização-de-dados" class="section level2">
+<h2>Organização de dados</h2>
+<ul>
+<li><p>Broman KW, Woo KH (2017) Data organization in spreadsheets. The
+American Statistician <a
+href="https://doi.org/10.1080/00031305.2017.1375989"
+class="uri">https://doi.org/10.1080/00031305.2017.1375989</a></p></li>
+<li><p>Wickham H (2014) Tidy Data. Journal o Statistical Software 59. <a
+href="https://www.jstatsoft.org/article/view/v059i10/v59i10.pdf"
+class="uri">https://www.jstatsoft.org/article/view/v059i10/v59i10.pdf</a></p></li>
+</ul>
+</div>
+<div id="metadados" class="section level2">
+<h2>Metadados</h2>
+<ul>
+<li><p>Boettiger C, Jones M (2022) EML: Read and Write Ecological
+Metadata Language Files. <a href="https://docs.ropensci.org/EML/"
+class="uri">https://docs.ropensci.org/EML/</a></p></li>
+<li><p>Jones MB, Schildhauer MP, Reichman OJ, Bowers S (2006) The New
+Bioinformatics: Integrating Ecological Data from the Gene to the
+Biosphere. Annu Rev Ecol Evol Syst 37:519–544. <a
+href="https://doi.org/10.1146/annurev.ecolsys.37.091305.110031"
+class="uri">https://doi.org/10.1146/annurev.ecolsys.37.091305.110031</a></p></li>
+<li><p>Jones M, O’Brien M, Mecum B, Boettiger C, Schildhauer M, Maier M,
+Whiteaker T, Earl S, Chong S (2019) Ecological Metadata Language version
+2.2.0. <a href="https://doi.org/10.5063/f11834t2"
+class="uri">https://doi.org/10.5063/f11834t2</a></p></li>
+<li><p>Lortie CJ, Vargas Poulsen C, Brun J, Kui L (2022) Tabular
+strategies for metadata in ecology, evolution, and the environmental
+sciences. Ecology and Evolution 12:e9245. <a
+href="https://doi.org/10.1002/ece3.9245"
+class="uri">https://doi.org/10.1002/ece3.9245</a></p></li>
+<li><p>Video YouTube sobre conversão metadados em tabela <a
+href="https://www.youtube.com/watch?v=rn8Uee49LsM">Excel para EML</a>
+(Kui Li)</p></li>
+<li><p>Smith C (2022) EMLassemblyline: A tool kit for building EML
+metadata workflows. <a
+href="https://ediorg.github.io/EMLassemblyline/index.html"
+class="uri">https://ediorg.github.io/EMLassemblyline/index.html</a></p></li>
+</ul>
+</div>
+</div>
+
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiRGFkb3MgYWJlcnRvcyIKYXV0aG9yOiAiTWVsaW5hIExlaXRlIgpkYXRlOiAiYHIgU3lzLkRhdGUoKWAiCm91dHB1dDogaHRtbF9kb2N1bWVudAotLS0KCkRhZG9zIHPDo28gYSAqKmJhc2UqKiBkZSBxdWFzZSB0b2RhIHBlc3F1aXNhIGVjb2zDs2dpY2EgZSBwb2RlbSBzZXIgZGUgbmF0dXJlemEsIGZvcm1hdG9zIGUgdGFtYW5ob3MgbXVpdG8gZGlmZXJlbnRlczogdGFiZWxhcywgcXVlc3Rpb27DoXJpb3MsIHRleHRvLCBpbWFnZW0sIMOhdWRpbywgZW50cmV2aXN0YSwgc2ltdWxhw6fDtWVzLCBldGMuLi4KCkRhZG9zIHPDo28gKipwcm9kdXRvIGRhIHBlc3F1aXNhKiosIGFzc2ltIGNvbW8gdGVzZXMgZSBhcnRpZ29zLiBQb3J0YW50bywgZGV2ZW1vcyBub3Mgb3JndWxoYXIgZG9zIGRhZG9zIHF1ZSBwcm9kdXppbW9zL2NvbGV0YW1vcy9zaW11bGFtb3Mvb3JnYW5pemFtb3MgZGVudHJvIGRvcyBub3Nzb3MgcHJvamV0b3MgZGUgcGVxdWlzYSEKCk5lc3NhIGF1bGEgdmFtb3MgbmF2ZWdhciBubyB1bml2ZXJzbyBkb3MgZGFkb3MgZWNvbMOzZ2ljb3MsIGRpc2N1dGluZG8gdW0gcG91Y28gc29icmU6CgotICAgUG9ycXVlIHByZWNpc2Ftb3MgZGUgZGFkb3MgYWJlcnRvcywgb3UgbWluaW1hbWVudGUgYWJlcnRvcyAtIGZyYXVkZXMgY29tbyBmYWJyaWNhw6fDo28vZmFsc2lmaWNhw6fDo28gZGUgZGFkb3MKCi0gICBMb25nZXZpZGFkZSBkb3MgZGFkb3MgLSByZXNnYXRlIGRlIGRhZG9zCgotICAgUGxhbm8gZGUgZ2VzdMOjbyBkZSBkYWRvcwoKLSAgIEJvYXMgcHLDoXRpY2FzIGRlIG9yZ2FuaXphw6fDo28gZSBnZXN0w6NvIGRlIGRhZG9zIHRhYnVsYXJlcwoKLSAgIEltcG9ydMOibmNpYSBkb3MgbWV0YWRhZG9zCgotICAgVmFudGFnZW5zIGVtIGRlaXhhciBkYWRvcyBhYmVydG9zCgotICAgQmFycmVpcmFzIHBhcmEgbyBjb21wYXJ0aWxoYW1lbnRvIGRlIGRhZG9zCgotICAgUHJpbmPDrXBpb3MgRkFJUiAoRmluZGFibGUsIEFjY2Vzc2libGUsIEludGVyb3BlcmFibGUgYW5kIFJldXNhYmxlKQoKLSAgIFB1YmxpY2HDp8OjbyBkZSBkYWRvcyBlbSByZXBvc2l0w7NyaW9zIGUvb3UgcmV2aXN0YXMgY2llbnTDrWZpY2FzCgotICAgVGlwb3MgZGUgcmVwb3NpdMOzcmlvcwoKLSAgIExpY2Vuw6dhcwoKLSAgIMOJdGljYSBuYSBwdWJsaWNhw6fDo28gZGUgZGFkb3MKCiMgQWxndW1hcyByZXZpc3RhcyBkZSBkYWRvcwoKQmFzZSBkZSBkYWRvcyBzb2JyZSBwb2zDrXRpY2FzIGRlIGRhZG9zIGRlIHJldmlzdGFzIGVtIEVjb2xvZ2lhIGUgZXZvbHXDp8OjbzoKCi0gICBCZXJiZXJpIEksIFJvY2hlIEQgKDIwMjEpIExpdmluZyBkYXRhYmFzZSBvZiBqb3VybmFsIGRhdGEgcG9saWNpZXMgaW4gRSZFLiA8aHR0cHM6Ly9kb2kub3JnLzEwLjE3NjA1L09TRi5JTy9ENlNQMz4KCkxpc3RhcyBkZSByZXZpc3RhcyBkZSBkYWRvcyAoKkRhdGEgam91cm5hbHMqKToKCi0gICA8aHR0cHM6Ly96ZW5vZG8ub3JnL3JlY29yZC83MDgyMTI2PgoKLSAgIDxodHRwczovL2xpYmd1aWRlcy53bWljaC5lZHUvZGF0YXNjaS9kYXRham91cm5hbHM+CgpBbGd1bWFzIHJldmlzdGFzIHF1ZSBwdWJsaWNhbSBkYWRvcyBvdSBtZXRhZGFkb3MgZXh0ZW5kaWRvcyBkZSBwZXNxdWlzYXMKCi0gICBbRGF0YSBQYXBlcnNdKGh0dHBzOi8vZXNhcHVicy5vcmcvYXJjaGl2ZS8pIG5hcyByZXZpc3RhcyBkYSBFU0EgKEVjb2xvZ2ljYWwgU29jaWV0eSBvZiBBbWVyaWNhKQoKLSAgIFtEYXRhIGluIEJyaWVmXShodHRwczovL3d3dy5qb3VybmFscy5lbHNldmllci5jb20vZGF0YS1pbi1icmllZikgKGRhIEVsc2V2aWVyKTogdsOhcmlhcyBkaXNjaXBsaW5hcwoKLSAgIFtTY2llbnRpZmljIERhdGFdKGh0dHBzOi8vd3d3Lm5hdHVyZS5jb20vc2RhdGEvKSAoZGEgU3ByaW5nZXIgTmF0dXJlKTogdsOhcmlhcyBkaXNjaXBsaW5hcwoKRXhlbXBsbyBkZSAqZGF0YSBwYXBlcnMqIGVtIGVjb2xvZ2lhOiAxNSBhcnRpZ29zIGRlIGRhZG9zIHNvYnJlIGJpb2RpdmVyc2lkYWRlIGRhIE1hdGEgQWx0w6JudGljYSBwdWJsaWNhZG9zIG5hICpFY29sb2d5OioKCi0gICBbQVRMQU5USUM6IERhdGEgUGFwZXJzIGZyb20gYSBiaW9kaXZlcnNpdHkgaG90c3BvdF0oaHR0cHM6Ly9lc2Fqb3VybmFscy5vbmxpbmVsaWJyYXJ5LndpbGV5LmNvbS9kb2kvdG9jLzEwLjEwMDIvKElTU04pMTkzOS05MTcwLkF0bGFudGljUGFwZXJzKQoKIyBBbGd1bnMgcmVwb3NpdMOzcmlvcyBkZSBkYWRvcwoKTGlzdGFzIGRlIHbDoXJpb3MgcmVwb3NpdMOzcmlvcyBkZSBkYWRvczoKCi0gICA8aHR0cHM6Ly9vYWQuc2ltbW9ucy5lZHUvb2Fkd2lraS9EYXRhX3JlcG9zaXRvcmllcz4KCi0gICA8aHR0cHM6Ly9jbGFyaXZhdGUuY29tL3dlYm9mc2NpZW5jZWdyb3VwL21hc3Rlci1kYXRhLXJlcG9zaXRvcnktbGlzdC8+CgojIyMgVGVtw6F0aWNvcwoKLSAgIFtNb3ZlYmFua10oaHR0cHM6Ly93d3cuZ2JpZi5vcmcvKTogZGFkb3MgZGUgbW92aW1lbnRvIGFuaW1hbAoKLSAgIFtHQklGXShodHRwczovL3d3dy5nYmlmLm9yZy8pCgotICAgW0tOQl0oaHR0cHM6Ly9rbmIuZWNvaW5mb3JtYXRpY3Mub3JnLykgKEtub3dsZWRnZSBOZXR3b3JrIGZvciBCaW9jb21wbGV4aXR5KQoKLSAgIFtiaW9USU1FXShodHRwczovL2Jpb3RpbWUuc3QtYW5kcmV3cy5hYy51ay8pOiBnbG9iYWwgZGF0YWJhc2Ugb2YgYXNzZW1ibGFnZSB0aW1lIHNlcmllcyBmb3IgcXVhbnRpZnlpbmcgYW5kIHVuZGVyc3RhbmRpbmcgYmlvZGl2ZXJzaXR5IGNoYW5nZQoKLSAgIFtFbnZpcm9ubWVudGFsIERhdGEgSW5pdGlhdGl2ZV0oKyhodHRwczovL2VkaXJlcG9zaXRvcnkub3JnLykKCiMjIyBHZW7DqXJpY29zL2dlcmFpczoKCi0gICBbRmlnc2hhcmVdKGh0dHBzOi8vZmlnc2hhcmUuY29tLykKCi0gICBbWmVub2RvXShodHRwczovL3plbm9kby5vcmcvKQoKLSAgIFtEcnlhZF0oaHR0cHM6Ly9kYXRhZHJ5YWQub3JnL3N0YXNoKQoKLSAgIFtNZW5kZWxleSBEYXRhXShodHRwczovL2RhdGEubWVuZGVsZXkuY29tLykKCi0gICBbT3BlbiBTY2llbmNlIEZyYW1ld29ya10oaHR0cHM6Ly9vc2YuaW8vKQoKLSAgIFtEYXRhdmVyc2VdKGh0dHA6Ly9kYXRhdmVyc2Uub3JnLykKCi0gICBbRXVkYXRdKGh0dHBzOi8vZXVkYXQuZXUvKQoKIyMjIEluc3RpdHVjaW9uYWlzCgotICAgW1VTUF0oaHR0cHM6Ly9yZXBvc2l0b3Jpby51c3BkaWdpdGFsLnVzcC5ici8/Y29kbW51PTk5ODApCgojIyMgUmVkZXMgZGUgcGVzcXVpc2EvcGVzcXVpc2Fkb3JlcwoKQWxndW5zIGV4ZW1wbG9zIGVtIGVjb2xvZ2lhIGRlIGZsb3Jlc3RhcyBxdWVtIG1hbnTDqW0gZXN0cnV0dXJhIGRlIGRhZG9zIGNvbXBhcnRpbGhhZG9zIGVudHJlIG1lbWJyb3MgZGEgcmVkZSAoZSBleHRlcm5vcyBtZWRpYW50ZSBjZXJ0YXMgY29uZGnDp8O1ZXMpLgoKLSAgIFtGb3Jlc3RHRU9dKGh0dHBzOi8vZm9yZXN0Z2VvLnNpLmVkdS8pOiBkYWRvcyBkZSBhbGd1bWFzIHBhcmNlbGFzIHPDo28gYWJlcnRvcyAoZXg6IEJhcnJvIENvbG9yYWRvIElzbGFuZCksIG91dHJvcyB2b2PDqiBzb2xpY2l0YSBtZWRpYW50ZSBwcmVuY2hpbWVudG8gZGUgZm9ybXVsw6FyaW8gbm8gc2l0ZSwgb3V0cm9zIGRpcmV0YW1lbnRlIGNvbSBvcyBQSSAocHJpbmNpcGFsIGludmVzdGlnYXRvcnMpCgotICAgW0FtYXpvbiBUcmVlIERpdmVyc2l0eSBOZXR3b3JrXShodHRwczovL3NpdGVzLmdvb2dsZS5jb20vbmF0dXJhbGlzLm5sL2FtYXpvbi10cmVlLWRpdmVyc2l0eS1uZXR3b3JrL2Fib3V0LXVzKQoKLSAgIFtGb3Jlc3RQbG90cy5OZXRdKGh0dHBzOi8vZm9yZXN0cGxvdHMubmV0LykKCiMgQnVzY2Fkb3Jlcy9hZ3JlZ2Fkb3JlcyBkZSBkYWRvcwoKLSAgIFtNZXRhYnVzY2Fkb3JdKGh0dHBzOi8vbWV0YWJ1c2NhZG9yLnVzcGRpZ2l0YWwudXNwLmJyLykgZGFzIGluc3RpdHVpw6fDtWVzIGRvIGVzdGFkbyBkZSBTw6NvIFBhdWxvLgoKLSAgIFtyZTNkYXRhXShodHRwczovL3d3dy5yZTNkYXRhLm9yZy8pIChSZWdpc3RyeSBvZiBSZXNlYXJjaCBkYXRhIFJlcG9zaXRvcmllcykKCi0gICBbRGF0YU9ORV0oaHR0cHM6Ly93d3cuZGF0YW9uZS5vcmcvd2hhdC1kYXRhb25lKQoKLSAgIFtEYXRhQ2l0ZV0oaHR0cHM6Ly9jb21tb25zLmRhdGFjaXRlLm9yZy8pCgotICAgW0dvb2dsZSBEYXRhc2V0IFNlYXJjaF0oaHR0cHM6Ly9kYXRhc2V0c2VhcmNoLnJlc2VhcmNoLmdvb2dsZS5jb20vKQoKLSAgIFtPcGVuQUlSRSBFeHBsb3JlXShodHRwczovL2V4cGxvcmUub3BlbmFpcmUuZXUvc2VhcmNoL2ZpbmQvcmVzZWFyY2gtb3V0Y29tZXM/dHlwZT0lMjJkYXRhc2V0cyUyMikKCiMgTGVpdHVyYXMgcmVjb21lbmRhZGFzCgojIyBHZXJhbAoKLSAgIEJsZWRzb2UgRSwgQnVyYW50IEosIEhpZ2lubyBHLCBSb2NoZSBELCBCaW5uaW5nIFMsIEZpbmxheSBLLCBQaXRoZXIgSiwgUG9sbG9jayBMLCBTdW5kYXkgSiwgU3JpdmFzdGF2YSBEICgyMDIxKSBEYXRhIHJlc2N1ZTogc2F2aW5nIGVudmlyb25tZW50YWwgZGF0YSBmcm9tIGV4dGluY3Rpb24uIDxodHRwczovL2RvaS5vcmcvMTAuMzI5NDIvb3NmLmlvL3JhNnplPgoKLSAgIENhZXRhbm8gRFMsIEFpc2VuYmVyZyBBICgyMDE0KSBGb3Jnb3R0ZW4gdHJlYXN1cmVzOiB0aGUgZmF0ZSBvZiBkYXRhIGluIGFuaW1hbCBiZWhhdmlvdXIgc3R1ZGllcy4gQW5pbWFsIEJlaGF2aW91ciA5ODoxLS01LiA8aHR0cHM6Ly9kb2kub3JnLzEwLjEwMTYvai5hbmJlaGF2LjIwMTQuMDkuMDI1PgoKLSAgIENvbGF2aXp6YSBHLCBIcnluYXN6a2lld2ljeiBJLCBTdGFkZW4gSSwgV2hpdGFrZXIgSywgTWNHaWxsaXZyYXkgQiAoMjAyMCkgVGhlIGNpdGF0aW9uIGFkdmFudGFnZSBvZiBsaW5raW5nIHB1YmxpY2F0aW9ucyB0byByZXNlYXJjaCBkYXRhLiBQTE9TIE9ORSAxNTplMDIzMDQxNi4gPGh0dHBzOi8vZG9pLm9yZy8xMC4xMzcxL2pvdXJuYWwucG9uZS4wMjMwNDE2PgoKLSAgIEN1bGluYSBBLCBCYWdsaW9uaSBNLCBDcm93dGhlciBUVywgVmlzc2VyIE1FLCBXb3V0ZXJzZW4tV2luZGhvdXdlciBTLCBNYW5naGkgUCAoMjAxOCkgTmF2aWdhdGluZyB0aGUgdW5mb2xkaW5nIG9wZW4gZGF0YSBsYW5kc2NhcGUgaW4gZWNvbG9neSBhbmQgZXZvbHV0aW9uLiBOYXQgRWNvbCBFdm9sIDI6NDIwLS00MjYuIDxodHRwczovL2RvaS5vcmcvMTAuMTAzOC9zNDE1NTktMDE3LTA0NTgtMj4KCi0gICBHb21lcyBER0UsIFBvdHRpZXIgUCwgQ3J5c3RhbC1Pcm5lbGFzIFIsIGV0IGFsICgyMDIyKSBXaHkgZG9uJ3Qgd2Ugc2hhcmUgZGF0YSBhbmQgY29kZT8gUGVyY2VpdmVkIGJhcnJpZXJzIGFuZCBiZW5lZml0cyB0byBwdWJsaWMgYXJjaGl2aW5nIHByYWN0aWNlcy4gUHJvY2VlZGluZ3Mgb2YgdGhlIFJveWFsIFNvY2lldHkgQjogQmlvbG9naWNhbCBTY2llbmNlcyAyODk6MjAyMjExMTMuIDxodHRwczovL2RvaS5vcmcvMTAuMTA5OC9yc3BiLjIwMjIuMTExMz4KCi0gICBHdXJzdGVpbiBNQiAoMjAxMSkgT3BlbiBkYXRhOiBFbXBvd2VyaW5nIHRoZSBlbXBvd2VyZWQgb3IgZWZmZWN0aXZlIGRhdGEgdXNlIGZvciBldmVyeW9uZT8gRmlyc3QgTW9uZGF5LiA8aHR0cHM6Ly9kb2kub3JnLzEwLjUyMTAvZm0udjE2aTIuMzMxNj4KCi0gICBMaW1hIFJBRiwgUGhpbGxpcHMgT0wsIER1cXVlIEEsIGV0IGFsICgyMDIyKSBNYWtpbmcgZm9yZXN0IGRhdGEgZmFpciBhbmQgb3Blbi4gTmF0IEVjb2wgRXZvbCAxLS0zLiA8aHR0cHM6Ly9kb2kub3JnLzEwLjEwMzgvczQxNTU5LTAyMi0wMTczOC03PgoKLSAgIE1jSW50b3NoIEFDUywgQ3VzaGluZyBKQiwgTmFka2FybmkgTk0sIFplbWFuIEwgKDIwMDcpIERhdGFiYXNlIGRlc2lnbiBmb3IgZWNvbG9naXN0czogQ29tcG9zaW5nIGNvcmUgZW50aXRpZXMgd2l0aCBvYnNlcnZhdGlvbnMuIEVjb2xvZ2ljYWwgSW5mb3JtYXRpY3MgMjoyMjQtLTIzNi4gPGh0dHBzOi8vZG9pLm9yZy8xMC4xMDE2L2ouZWNvaW5mLjIwMDcuMDcuMDAzPgoKLSAgIE1lbGxvIE0gKDIwMTcpIE8gcXVlIMOpIHVtIGRhdGEgcGFwZXI/IC0tIFNvYnJldml2ZW5kbyBuYSBDacOqbmNpYS4gPGh0dHBzOi8vbWFyY29hcm1lbGxvLndvcmRwcmVzcy5jb20vMjAxNy8wOS8xMS9kYXRhcGFwZXIvPgoKLSAgIFBlcmtlbCBKICgyMDE2KSBEZW1vY3JhdGljIGRhdGFiYXNlczogc2NpZW5jZSBvbiBHaXRIdWIuIE5hdHVyZSA1Mzg6MTI3LS0xMjguIDxodHRwczovL2RvaS5vcmcvMTAuMTAzOC81MzgxMjdhPgoKLSAgIFJvY2hlIERHLCBCZXJiZXJpIEksIERoYW5lIEYsIExhdXpvbiBGLCBTb2VoYXJqb25vIFMsIERha2luIFIsIEJpbm5pbmcgU0EgKDIwMjIpIFNsb3cgaW1wcm92ZW1lbnQgdG8gdGhlIGFyY2hpdmluZyBxdWFsaXR5IG9mIG9wZW4gZGF0YXNldHMgc2hhcmVkIGJ5IHJlc2VhcmNoZXJzIGluIGVjb2xvZ3kgYW5kIGV2b2x1dGlvbi4gUHJvY2VlZGluZ3Mgb2YgdGhlIFJveWFsIFNvY2lldHkgQjogQmlvbG9naWNhbCBTY2llbmNlcyAyODk6MjAyMTI3ODAuIDxodHRwczovL2RvaS5vcmcvMTAuMTA5OC9yc3BiLjIwMjEuMjc4MD4KCi0gICBSb2NoZSBERywgS3J1dWsgTEVCLCBMYW5mZWFyIFIsIEJpbm5pbmcgU0EgKDIwMTUpIFB1YmxpYyBEYXRhIEFyY2hpdmluZyBpbiBFY29sb2d5IGFuZCBFdm9sdXRpb246IEhvdyBXZWxsIEFyZSBXZSBEb2luZz8gUExvUyBCaW9sIDEzOmUxMDAyMjk1LiA8aHR0cHM6Ly9kb2kub3JnLzEwLjEzNzEvam91cm5hbC5wYmlvLjEwMDIyOTU+CgotICAgVmFueiBTQSBkZSBTLCBQYXNzb3MgUENTSiwgQ2FyZWduYXRvIFNFLCBQYXbDo28gQ01HLCBCb3JnZXMgRU4sIFJvY2hhIFJQIGRhLCBHYWJyaWVsIEp1bmlvciBSRiwgQXphbWJ1amEgTEFCICgyMDE4KSBBY2Vzc28gYWJlcnRvIGEgZGFkb3MgZGUgcGVzcXVpc2Egbm8gQnJhc2ls4oCvOiBwcsOhdGljYXMgZSBwZXJjZXDDp8O1ZXMgZG9zIHBlc3F1aXNhZG9yZXM6IHJlbGF0w7NyaW8gMjAxOC4gVW5pdmVyc2lkYWRlIEZlZGVyYWwgZG8gUmlvIEdyYW5kZSBkbyBTdWwuIDxodHRwczovL2x1bWUudWZyZ3MuYnIvaGFuZGxlLzEwMTgzLzE4NTE5NT4KCi0gICBWaW5lcyBUSCwgQWxiZXJ0IEFZSywgQW5kcmV3IFJMLCBEw6liYXJyZSBGLCBCb2NrIERHLCBGcmFua2xpbiBNVCwgR2lsYmVydCBLSiwgTW9vcmUgSi1TLCBSZW5hdXQgUywgUmVubmlzb24gREogKDIwMTQpIFRoZSBBdmFpbGFiaWxpdHkgb2YgUmVzZWFyY2ggRGF0YSBEZWNsaW5lcyBSYXBpZGx5IHdpdGggQXJ0aWNsZSBBZ2UuIEN1cnJlbnQgQmlvbG9neSAyNDo5NC0tOTcuIDxodHRwczovL2RvaS5vcmcvMTAuMTAxNi9qLmN1Yi4yMDEzLjExLjAxND4KCi0gICBXZXN0b2J5IE0sIEZhbHN0ZXIgRFMsIFNjaHJhZGVyIEogKDIwMjEpIE1vdGl2YXRpbmcgZGF0YSBjb250cmlidXRpb25zIHZpYSBhIGRpc3RpbmN0IGNhcmVlciBjdXJyZW5jeS4gUHJvY2VlZGluZ3Mgb2YgdGhlIFJveWFsIFNvY2lldHkgQjogQmlvbG9naWNhbCBTY2llbmNlcyAyODg6MjAyMDI4MzAuIDxodHRwczovL2RvaS5vcmcvMTAuMTA5OC9yc3BiLjIwMjAuMjgzMD4KCi0gICBXaWxraW5zb24gTUQsIER1bW9udGllciBNLCBBYWxiZXJzYmVyZyBJakosIGV0IGFsICgyMDE2KSBUaGUgRkFJUiBHdWlkaW5nIFByaW5jaXBsZXMgZm9yIHNjaWVudGlmaWMgZGF0YSBtYW5hZ2VtZW50IGFuZCBzdGV3YXJkc2hpcC4gU2NpIERhdGEgMzoxNjAwMTguIDxodHRwczovL2RvaS5vcmcvMTAuMTAzOC9zZGF0YS4yMDE2LjE4PgoKLSAgIEdsb2JhbCBJbmRpZ2Vub3VzIERhdGEgQWxsaWFuY2UgKDIwMjMpIENBUkUgUHJpbmNpcGxlcy4gSW46IEdsb2JhbCBJbmRpZ2Vub3VzIERhdGEgQWxsaWFuY2UuIDxodHRwczovL3d3dy5naWRhLWdsb2JhbC5vcmcvY2FyZS4+IEFjY2Vzc2VkIDYgQXVnIDIwMjMKCiMjIFBsYW5vIGRlIGdlc3TDo28gZSBnZXN0w6NvIGRlIGRhZG9zCgotICAgQnJpdGlzaCBFY29sb2dpY2FsIFNvY2lldHkgKDIwMTQpIFtBIGd1aWRlIHRvIGRhdGEgbWFuYWdlbWVudCBpbiBlY29sb2d5IGFuZCBldm9sdXRpb24uXShodHRwOi8vd3d3LmJyaXRpc2hlY29sb2dpY2Fsc29jaWV0eS5vcmcvd3AtY29udGVudC91cGxvYWRzL1B1YmxfRGF0YS1NYW5hZ2VtZW50LUJvb2tsZXQucGRmKQoKLSAgIERhdGEgQ2FycGVudHJ5IERhdGEgQ2FycGVudHJ5IFdvcmtzaG9wcyBpbiBFY29sb2d5LiBJbjogRGF0YSBDYXJwZW50cnkuIDxodHRwczovL2RhdGFjYXJwZW50cnkub3JnL2xlc3NvbnMvLj4gQWNjZXNzZWQgNyBBdWcgMjAyMwoKLSAgIE1pY2hlbmVyIFdLICgyMDE1KSBUZW4gU2ltcGxlIFJ1bGVzIGZvciBDcmVhdGluZyBhIEdvb2QgRGF0YSBNYW5hZ2VtZW50IFBsYW4uIFBMT1MgQ29tcHV0YXRpb25hbCBCaW9sb2d5IDExOmUxMDA0NTI1LiA8aHR0cHM6Ly9kb2kub3JnLzEwLjEzNzEvam91cm5hbC5wY2JpLjEwMDQ1MjU+CgotICAgU3RyYXNzZXIgQywgQ29vayBSLCBNaWNoZW5lciBXLCBCdWRkZW4gQSAoMjAxMikgUHJpbWVyIG9uIERhdGEgTWFuYWdlbWVudDogV2hhdCBZb3UgQWx3YXlzIFdhbnRlZCB0byBLbm93LiA8aHR0cHM6Ly9kb2kub3JnLzEwLjUwNjAvRDIyNTFHNDg+CgojIyBPcmdhbml6YcOnw6NvIGRlIGRhZG9zCgotICAgQnJvbWFuIEtXLCBXb28gS0ggKDIwMTcpIERhdGEgb3JnYW5pemF0aW9uIGluIHNwcmVhZHNoZWV0cy4gVGhlIEFtZXJpY2FuIFN0YXRpc3RpY2lhbiA8aHR0cHM6Ly9kb2kub3JnLzEwLjEwODAvMDAwMzEzMDUuMjAxNy4xMzc1OTg5PgoKLSAgIFdpY2toYW0gSCAoMjAxNCkgVGlkeSBEYXRhLiBKb3VybmFsIG8gU3RhdGlzdGljYWwgU29mdHdhcmUgNTkuIDxodHRwczovL3d3dy5qc3RhdHNvZnQub3JnL2FydGljbGUvdmlldy92MDU5aTEwL3Y1OWkxMC5wZGY+CgojIyBNZXRhZGFkb3MKCi0gICBCb2V0dGlnZXIgQywgSm9uZXMgTSAoMjAyMikgRU1MOiBSZWFkIGFuZCBXcml0ZSBFY29sb2dpY2FsIE1ldGFkYXRhIExhbmd1YWdlIEZpbGVzLiA8aHR0cHM6Ly9kb2NzLnJvcGVuc2NpLm9yZy9FTUwvPgoKLSAgIEpvbmVzIE1CLCBTY2hpbGRoYXVlciBNUCwgUmVpY2htYW4gT0osIEJvd2VycyBTICgyMDA2KSBUaGUgTmV3IEJpb2luZm9ybWF0aWNzOiBJbnRlZ3JhdGluZyBFY29sb2dpY2FsIERhdGEgZnJvbSB0aGUgR2VuZSB0byB0aGUgQmlvc3BoZXJlLiBBbm51IFJldiBFY29sIEV2b2wgU3lzdCAzNzo1MTktLTU0NC4gPGh0dHBzOi8vZG9pLm9yZy8xMC4xMTQ2L2FubnVyZXYuZWNvbHN5cy4zNy4wOTEzMDUuMTEwMDMxPgoKLSAgICBKb25lcyBNLCBPJ0JyaWVuIE0sIE1lY3VtIEIsIEJvZXR0aWdlciBDLCBTY2hpbGRoYXVlciBNLCBNYWllciBNLCBXaGl0ZWFrZXIgVCwgRWFybCBTLCBDaG9uZyBTICgyMDE5KSBFY29sb2dpY2FsIE1ldGFkYXRhIExhbmd1YWdlIHZlcnNpb24gMi4yLjAuIDxodHRwczovL2RvaS5vcmcvMTAuNTA2My9mMTE4MzR0Mj4KCi0gICAgTG9ydGllIENKLCBWYXJnYXMgUG91bHNlbiBDLCBCcnVuIEosIEt1aSBMICgyMDIyKSBUYWJ1bGFyIHN0cmF0ZWdpZXMgZm9yIG1ldGFkYXRhIGluIGVjb2xvZ3ksIGV2b2x1dGlvbiwgYW5kIHRoZSBlbnZpcm9ubWVudGFsIHNjaWVuY2VzLiBFY29sb2d5IGFuZCBFdm9sdXRpb24gMTI6ZTkyNDUuIDxodHRwczovL2RvaS5vcmcvMTAuMTAwMi9lY2UzLjkyNDU+CgotICAgVmlkZW8gWW91VHViZSBzb2JyZSBjb252ZXJzw6NvIG1ldGFkYWRvcyBlbSB0YWJlbGEgW0V4Y2VsIHBhcmEgRU1MXSggaHR0cHM6Ly93d3cueW91dHViZS5jb20vd2F0Y2g/dj1ybjhVZWU0OUxzTSkgKEt1aSBMaSkKCi0gICBTbWl0aCBDICgyMDIyKSBFTUxhc3NlbWJseWxpbmU6IEEgdG9vbCBraXQgZm9yIGJ1aWxkaW5nIEVNTCBtZXRhZGF0YSB3b3JrZmxvd3MuIDxodHRwczovL2VkaW9yZy5naXRodWIuaW8vRU1MYXNzZW1ibHlsaW5lL2luZGV4Lmh0bWw+Cg==</div>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeSourceEmbed("dados_abertos.Rmd");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

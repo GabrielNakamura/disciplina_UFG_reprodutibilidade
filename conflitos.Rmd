@@ -1,0 +1,23 @@
+---
+title: 'Resolução de conflitos de versão'
+author: "Gabriel Nakamura"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, fig.align = "center")
+```
+
+```{r klippy, echo=FALSE, include=TRUE}
+klippy::klippy()
+```
+
+# Apresentação
+
+Não há nada mais frustrante no mundo do versionamento que um push ou um pull rejeitado. Mas ao incorporarmos as ferramentas de versionamento em nossa rotina de trabalho será inevitável que em algum momento vamos nos deparar com alguma mensagem de rejeição de um push ou pull que, a maioria das vezes, tem como principal razão a existência de conflitos em versões de documentos. Portanto, nesta seção vamos entender como resolver conflitos em versionamento
+
+# Resolvendo conflitos de versões
+
+## O que são os conflitos? Quais as principais causas?
+

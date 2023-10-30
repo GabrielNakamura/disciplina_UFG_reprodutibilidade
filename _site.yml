@@ -1,0 +1,56 @@
+name: "Workshop_UofT"
+output:
+  html_document:
+    theme: flatly
+    highlight: tango
+    toc: true
+    toc_float: true
+    code_download: true
+output_dir: "."
+navbar:
+  title: "Reprodutibilidade Computacional e Organização de Dados em Ecologia e Evolução"
+  left:
+    - text: "Início"
+      href: index.html
+    - text: "O que é ciência aberta?"
+      href: intro_ciencia_aberta.html
+    - text: "Dados abertos"
+      menu:
+      - text: "O que são dados abertos?"
+        href: dados_abertos.html
+      - text: "Metadados"
+        href: metadata_EML.html
+    - text: "Organização local"
+      href: Organizacao_dir_local.html
+    - text: "Versionamento"
+      menu:
+      - text: "ABC do versionamento"
+        href: basics_git.html
+      - text: "Viajando no tempo"
+        href: commits-travel.html
+      - text: "Trabalho colaborativo"
+        href: colabs_github.html
+      - text: "Ignorando arquivos"
+        href: gitgnore.html
+      - text: "Resolvendo conflitos"
+        href: conflitos.html
+      - text: "Releasing - retrato permanente"
+    - text: "Programação letrada"
+      menu:
+      - text: "Rmarkdown"
+        href: rmarkdown-basics.html
+      - text: "Sites"
+        href: sites-basics.html
+    - text: "Avançado"
+      menu:
+      - text: "Pacote `{renv}`"
+        href: renv-basics.html
+      - text: "Pacote `{groundhog}`"
+      - text: "Containers"
+        href: rocker-basics.html
+      - text: "Pipelines com Targets"
+        href: targets_basics.html
+      
+      
+
+     

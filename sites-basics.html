@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Gabriel Nakamura" />
+
+<meta name="date" content="2023-10-30" />
+
+<title>R markdown</title>
+
+<script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<script src="site_libs/navigation-1.1/sourceembed.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #204a87; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #204a87; font-weight: bold; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #ce5c00; font-weight: bold; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+<style type="text/css">
+#rmd-source-code {
+  display: none;
+}
+</style>
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Reprodutibilidade Computacional e Organização de Dados em Ecologia e Evolução</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Início</a>
+</li>
+<li>
+  <a href="intro_ciencia_aberta.html">O que é ciência aberta?</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Dados abertos
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="dados_abertos.html">O que são dados abertos?</a>
+    </li>
+    <li>
+      <a href="metadata_EML.html">Metadados</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="Organizacao_dir_local.html">Organização local</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Versionamento
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="basics_git.html">ABC do versionamento</a>
+    </li>
+    <li>
+      <a href="commits-travel.html">Viajando no tempo</a>
+    </li>
+    <li>
+      <a href="colabs_github.html">Trabalho colaborativo</a>
+    </li>
+    <li>
+      <a href="gitgnore.html">Ignorando arquivos</a>
+    </li>
+    <li>
+      <a href="conflitos.html">Resolvendo conflitos</a>
+    </li>
+    <li class="dropdown-header">Releasing - retrato permanente</li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Programação letrada
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="rmarkdown-basics.html">Rmarkdown</a>
+    </li>
+    <li>
+      <a href="sites-basics.html">Sites</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Avançado
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="renv-basics.html">Pacote `{renv}`</a>
+    </li>
+    <li class="dropdown-header">Pacote `{groundhog}`</li>
+    <li>
+      <a href="rocker-basics.html">Containers</a>
+    </li>
+    <li>
+      <a href="targets_basics.html">Pipelines com Targets</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-download-source" href="#">Download Rmd</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">R markdown</h1>
+<h4 class="author">Gabriel Nakamura</h4>
+<h4 class="date">2023-10-30</h4>
+
+</div>
+
+
+<div id="apresentação" class="section level1">
+<h1>Apresentação</h1>
+<p>Na seção anterior aprendemos a montar um documento em R markdown.
+Mais importante, aprendemos a utilizar o R markdown para escrever em
+linguagens que não dominamos bem, por exemplo, html! Porém, um documento
+html por si só não é de muita utilidade. Abra um documento em html num
+editor de texto e veja como ele se parece.</p>
+<p><img src="figs/html-doc.png" width="939" /></p>
+<p>Para dar sentido ao nosso html precisamos gerar um site, ou incluir
+ele em um site já existente. Aprenderemos a fazer isso nas próximas
+seções</p>
+<div id="deploy---um-lugar-para-o-seu-html" class="section level2">
+<h2>Deploy - um lugar para o seu html</h2>
+<p>Existem diferentes formas de fazer um deploy no seu documento, ou
+documentos, em html. Aqui vamos aprender a mais simples de todas. Se
+quiser mergulhar mais fundo nesse tema recomendo olhar alguns sites e
+materiais que ensinam como elaborar sites mais “rebuscados”.</p>
+<ul>
+<li><p>Para pacotes estatísticos eu recomendo o pacote <a
+href="https://pkgdown.r-lib.org/"><code>{pkgdown}</code> do Hadley
+Wickham</a></p></li>
+<li><p>Para sites em formato blog eu recomento o tema <a
+href="https://hugo-apero-docs.netlify.app/"><code>Hugo-Apéro</code></a></p></li>
+<li><p>Para sites acadêmicos eu recomendo o tema <a
+href="https://themes.gohugo.io/themes/starter-hugo-academic/">Hugo-academic</a></p></li>
+</ul>
+</div>
+<div id="produzindo-um-site" class="section level2">
+<h2>Produzindo um site</h2>
+<p>A forma mais simples de todas para elaboração de um site é a partir
+de um fork de algum repositório no GitHub que hospede um site que te
+agrade. Por exemplo, digamos que você gostou deste humilde site que
+hospeda o material desse curso. Para fazer um site seu você pode:</p>
+<p>1 - Vá até o repositório deste site no GitHub</p>
+<p>2 - Forke esse site para ele aparecer no seu GitHub</p>
+<p>3 - Substitua os documentos do site original com o conteúdo que
+deseja hospedar em seu site</p>
+<p>Você pode fazer isso com qualquer site, basta saber quais documentos
+deve substituir pelos seus. Basicamente, no formato deste site, você
+deve apenas substituir os arquivos .Rmd por arquivos que você gerou.
+Além disso você precisa editar o arquivo <code>_site.yml</code>, que
+informa o layout do site.</p>
+<div id="github-pages" class="section level3">
+<h3>Github pages</h3>
+<p>A forma mais fácil de hospedar seu site é utilizando o github pages.
+Uma ferramenta do próprio GitHub usada para gerar o site que tem seu
+código fonte hospedado em um repositório do GitHub. Para tanto, basta
+ativar o GitHub pages no repositório que você deseja que seja seu
+site</p>
+<p>1 - Ativando o github pages</p>
+<p><img src="figs/github-pages1.png" width="1271" /></p>
+<p>Em <code>Settings</code> no repositório que deseja construir um site,
+irá achar a aba <code>Pages</code>, como demostrado na figura acima.</p>
+<p>2 - Em seguida clique na aba pages e ative um repositório para
+indicar ao github pages aonde ele deve buscar os arquivos para construir
+o site. Como mostrado na figura abaixo, neste exemplo usaremos o branch
+<code>master</code> (talvez ele seja <code>main</code> no seu
+GitHub)</p>
+<p><img src="figs/github-pages2.png" width="1266" /></p>
+<p>3 - Após selecionar o branch clique em <code>Save</code> e espere um
+pouco. Logo o GitHub vai aparecer uma mensagem dizendo o domínio do seu
+site, como mostrado abaixo</p>
+<p><img src="figs/github-pages3.png" width="1270" /></p>
+<p>Seu site agora tem um domínio. Mas ainda é necessário alguns detalhes
+para que ele seja funcional. Se você usou a estratégia de forkar o
+repositório, como mostrado na seção acima, tudo que precisa fazer é
+ativar o github pages no repositório forkado. Caso começou um
+repositório do zero, e está adicionando documentos a ele, você
+precisará</p>
+<p>4 - Adicionar um arquivo chamado <code>index.Rmd</code> que será a
+sua página inicial</p>
+<p>5 - Adicionar um arquivo chamado <code>_site.yml</code> que indicará
+como o seu site será construído (Dê uma olhada no yml deste repositório
+para ter uma ideia de como estruturar o site)</p>
+<p>6 - Adicionar os documentos <code>.Rmd</code> na
+<strong>raiz</strong> do seu diretório, sendo que todos devem ter o
+<code>output</code> no formato <code>html_document</code>. Se os
+documentos estiverem em outra subpasta o site não vai funcionar</p>
+<p>7 - Penúltimo passo é renderizar os documentos no repositório
+utilizando a função do pacote <code>{rmarkdown}</code> chamada
+<code>render_site</code> da seguinte maneira:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>rmarkdown<span class="sc">::</span><span class="fu">render_site</span>()</span></code></pre></div>
+<p>8 - Último passo é dar um <code>commit</code> e um <code>push</code>.
+Graças a um sistema chamado <em>Continuous Integration</em> do GitHub
+Actions, o site será montado assim que o GitHub identificar um novo
+push!</p>
+<p>Pronto, agora você tem um site funcional</p>
+</div>
+</div>
+</div>
+
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiUiBtYXJrZG93biIKYXV0aG9yOiAiR2FicmllbCBOYWthbXVyYSIKZGF0ZTogImByIFN5cy5EYXRlKClgIgpvdXRwdXQ6IGh0bWxfZG9jdW1lbnQKLS0tCgpgYGB7ciBzZXR1cCwgaW5jbHVkZT1GQUxTRX0Ka25pdHI6Om9wdHNfY2h1bmskc2V0KGVjaG8gPSBUUlVFKQpgYGAKCiMgQXByZXNlbnRhw6fDo28KCk5hIHNlw6fDo28gYW50ZXJpb3IgYXByZW5kZW1vcyBhIG1vbnRhciB1bSBkb2N1bWVudG8gZW0gUiBtYXJrZG93bi4gTWFpcyBpbXBvcnRhbnRlLCBhcHJlbmRlbW9zIGEgdXRpbGl6YXIgbyBSIG1hcmtkb3duIHBhcmEgZXNjcmV2ZXIgZW0gbGluZ3VhZ2VucyBxdWUgbsOjbyBkb21pbmFtb3MgYmVtLCBwb3IgZXhlbXBsbywgaHRtbCEgUG9yw6ltLCB1bSBkb2N1bWVudG8gaHRtbCBwb3Igc2kgc8OzIG7Do28gw6kgZGUgbXVpdGEgdXRpbGlkYWRlLiBBYnJhIHVtIGRvY3VtZW50byBlbSBodG1sIG51bSBlZGl0b3IgZGUgdGV4dG8gZSB2ZWphIGNvbW8gZWxlIHNlIHBhcmVjZS4KCmBgYHtyIGVjaG89RkFMU0UsZXZhbD1UUlVFfQprbml0cjo6aW5jbHVkZV9ncmFwaGljcygiZmlncy9odG1sLWRvYy5wbmciKQpgYGAKClBhcmEgZGFyIHNlbnRpZG8gYW8gbm9zc28gaHRtbCBwcmVjaXNhbW9zIGdlcmFyIHVtIHNpdGUsIG91IGluY2x1aXIgZWxlIGVtIHVtIHNpdGUgasOhIGV4aXN0ZW50ZS4gQXByZW5kZXJlbW9zIGEgZmF6ZXIgaXNzbyBuYXMgcHLDs3hpbWFzIHNlw6fDtWVzCgojIyBEZXBsb3kgLSB1bSBsdWdhciBwYXJhIG8gc2V1IGh0bWwKCkV4aXN0ZW0gZGlmZXJlbnRlcyBmb3JtYXMgZGUgZmF6ZXIgdW0gZGVwbG95IG5vIHNldSBkb2N1bWVudG8sIG91IGRvY3VtZW50b3MsIGVtIGh0bWwuIEFxdWkgdmFtb3MgYXByZW5kZXIgYSBtYWlzIHNpbXBsZXMgZGUgdG9kYXMuIFNlIHF1aXNlciBtZXJndWxoYXIgbWFpcyBmdW5kbyBuZXNzZSB0ZW1hIHJlY29tZW5kbyBvbGhhciBhbGd1bnMgc2l0ZXMgZSBtYXRlcmlhaXMgcXVlIGVuc2luYW0gY29tbyBlbGFib3JhciBzaXRlcyBtYWlzICJyZWJ1c2NhZG9zIi4gCgotIFBhcmEgcGFjb3RlcyBlc3RhdMOtc3RpY29zIGV1IHJlY29tZW5kbyBvIHBhY290ZSBbYHtwa2dkb3dufWAgZG8gSGFkbGV5IFdpY2toYW1dKGh0dHBzOi8vcGtnZG93bi5yLWxpYi5vcmcvKQoKLSBQYXJhIHNpdGVzIGVtIGZvcm1hdG8gYmxvZyBldSByZWNvbWVudG8gbyB0ZW1hIFtgSHVnby1BcMOpcm9gXShodHRwczovL2h1Z28tYXBlcm8tZG9jcy5uZXRsaWZ5LmFwcC8pCgotIFBhcmEgc2l0ZXMgYWNhZMOqbWljb3MgZXUgcmVjb21lbmRvIG8gdGVtYSBbSHVnby1hY2FkZW1pY10oaHR0cHM6Ly90aGVtZXMuZ29odWdvLmlvL3RoZW1lcy9zdGFydGVyLWh1Z28tYWNhZGVtaWMvKQoKIyMgUHJvZHV6aW5kbyB1bSBzaXRlCgpBIGZvcm1hIG1haXMgc2ltcGxlcyBkZSB0b2RhcyBwYXJhIGVsYWJvcmHDp8OjbyBkZSB1bSBzaXRlIMOpIGEgcGFydGlyIGRlIHVtIGZvcmsgZGUgYWxndW0gcmVwb3NpdMOzcmlvIG5vIEdpdEh1YiBxdWUgaG9zcGVkZSB1bSBzaXRlIHF1ZSB0ZSBhZ3JhZGUuIFBvciBleGVtcGxvLCBkaWdhbW9zIHF1ZSB2b2PDqiBnb3N0b3UgZGVzdGUgaHVtaWxkZSBzaXRlIHF1ZSBob3NwZWRhIG8gbWF0ZXJpYWwgZGVzc2UgY3Vyc28uIFBhcmEgZmF6ZXIgdW0gc2l0ZSBzZXUgdm9jw6ogcG9kZToKCjEgLSBWw6EgYXTDqSBvIHJlcG9zaXTDs3JpbyBkZXN0ZSBzaXRlIG5vIEdpdEh1YgoKMiAtIEZvcmtlIGVzc2Ugc2l0ZSBwYXJhIGVsZSBhcGFyZWNlciBubyBzZXUgR2l0SHViCgozIC0gU3Vic3RpdHVhIG9zIGRvY3VtZW50b3MgZG8gc2l0ZSBvcmlnaW5hbCBjb20gbyBjb250ZcO6ZG8gcXVlIGRlc2VqYSBob3NwZWRhciBlbSBzZXUgc2l0ZQoKVm9jw6ogcG9kZSBmYXplciBpc3NvIGNvbSBxdWFscXVlciBzaXRlLCBiYXN0YSBzYWJlciBxdWFpcyBkb2N1bWVudG9zIGRldmUgc3Vic3RpdHVpciBwZWxvcyBzZXVzLiBCYXNpY2FtZW50ZSwgbm8gZm9ybWF0byBkZXN0ZSBzaXRlLCB2b2PDqiBkZXZlIGFwZW5hcyBzdWJzdGl0dWlyIG9zIGFycXVpdm9zIC5SbWQgcG9yIGFycXVpdm9zIHF1ZSB2b2PDqiBnZXJvdS4gQWzDqW0gZGlzc28gdm9jw6ogcHJlY2lzYSBlZGl0YXIgbyBhcnF1aXZvIGBfc2l0ZS55bWxgLCBxdWUgaW5mb3JtYSBvIGxheW91dCBkbyBzaXRlLgoKIyMjIEdpdGh1YiBwYWdlcwoKQSBmb3JtYSBtYWlzIGbDoWNpbCBkZSBob3NwZWRhciBzZXUgc2l0ZSDDqSB1dGlsaXphbmRvIG8gZ2l0aHViIHBhZ2VzLiBVbWEgZmVycmFtZW50YSBkbyBwcsOzcHJpbyBHaXRIdWIgdXNhZGEgcGFyYSBnZXJhciBvIHNpdGUgcXVlIHRlbSBzZXUgY8OzZGlnbyBmb250ZSBob3NwZWRhZG8gZW0gdW0gcmVwb3NpdMOzcmlvIGRvIEdpdEh1Yi4gUGFyYSB0YW50bywgYmFzdGEgYXRpdmFyIG8gR2l0SHViIHBhZ2VzIG5vIHJlcG9zaXTDs3JpbyBxdWUgdm9jw6ogZGVzZWphIHF1ZSBzZWphIHNldSBzaXRlCgoxIC0gQXRpdmFuZG8gbyBnaXRodWIgcGFnZXMKCmBgYHtyIGVjaG89RkFMU0UsZXZhbD1UUlVFfQprbml0cjo6aW5jbHVkZV9ncmFwaGljcygiZmlncy9naXRodWItcGFnZXMxLnBuZyIpCmBgYAoKRW0gYFNldHRpbmdzYCBubyByZXBvc2l0w7NyaW8gcXVlIGRlc2VqYSBjb25zdHJ1aXIgdW0gc2l0ZSwgaXLDoSBhY2hhciBhIGFiYSBgUGFnZXNgLCBjb21vIGRlbW9zdHJhZG8gbmEgZmlndXJhIGFjaW1hLgoKMiAtIEVtIHNlZ3VpZGEgY2xpcXVlIG5hIGFiYSBwYWdlcyBlIGF0aXZlIHVtIHJlcG9zaXTDs3JpbyBwYXJhIGluZGljYXIgYW8gZ2l0aHViIHBhZ2VzIGFvbmRlIGVsZSBkZXZlIGJ1c2NhciBvcyBhcnF1aXZvcyBwYXJhIGNvbnN0cnVpciBvIHNpdGUuIENvbW8gbW9zdHJhZG8gbmEgZmlndXJhIGFiYWl4bywgbmVzdGUgZXhlbXBsbyB1c2FyZW1vcyBvIGJyYW5jaCBgbWFzdGVyYCAodGFsdmV6IGVsZSBzZWphIGBtYWluYCBubyBzZXUgR2l0SHViKQoKYGBge3IgZWNobz1GQUxTRSxldmFsPVRSVUV9CmtuaXRyOjppbmNsdWRlX2dyYXBoaWNzKCJmaWdzL2dpdGh1Yi1wYWdlczIucG5nIikKYGBgCgozIC0gQXDDs3Mgc2VsZWNpb25hciBvIGJyYW5jaCBjbGlxdWUgZW0gYFNhdmVgIGUgZXNwZXJlIHVtIHBvdWNvLiBMb2dvIG8gR2l0SHViIHZhaSBhcGFyZWNlciB1bWEgbWVuc2FnZW0gZGl6ZW5kbyBvIGRvbcOtbmlvIGRvIHNldSBzaXRlLCBjb21vIG1vc3RyYWRvIGFiYWl4bwoKYGBge3IgZWNobz1GQUxTRSxldmFsPVRSVUV9CmtuaXRyOjppbmNsdWRlX2dyYXBoaWNzKCJmaWdzL2dpdGh1Yi1wYWdlczMucG5nIikKYGBgCgpTZXUgc2l0ZSBhZ29yYSB0ZW0gdW0gZG9tw61uaW8uIE1hcyBhaW5kYSDDqSBuZWNlc3PDoXJpbyBhbGd1bnMgZGV0YWxoZXMgcGFyYSBxdWUgZWxlIHNlamEgZnVuY2lvbmFsLiBTZSB2b2PDqiB1c291IGEgZXN0cmF0w6lnaWEgZGUgZm9ya2FyIG8gcmVwb3NpdMOzcmlvLCBjb21vIG1vc3RyYWRvIG5hIHNlw6fDo28gYWNpbWEsIHR1ZG8gcXVlIHByZWNpc2EgZmF6ZXIgw6kgYXRpdmFyIG8gZ2l0aHViIHBhZ2VzIG5vIHJlcG9zaXTDs3JpbyBmb3JrYWRvLiBDYXNvIGNvbWXDp291IHVtIHJlcG9zaXTDs3JpbyBkbyB6ZXJvLCBlIGVzdMOhIGFkaWNpb25hbmRvIGRvY3VtZW50b3MgYSBlbGUsIHZvY8OqIHByZWNpc2Fyw6EKCjQgLSBBZGljaW9uYXIgdW0gYXJxdWl2byBjaGFtYWRvIGBpbmRleC5SbWRgIHF1ZSBzZXLDoSBhIHN1YSBww6FnaW5hIGluaWNpYWwKCjUgLSBBZGljaW9uYXIgdW0gYXJxdWl2byBjaGFtYWRvIGBfc2l0ZS55bWxgIHF1ZSBpbmRpY2Fyw6EgY29tbyBvIHNldSBzaXRlIHNlcsOhIGNvbnN0cnXDrWRvIChEw6ogdW1hIG9saGFkYSBubyB5bWwgZGVzdGUgcmVwb3NpdMOzcmlvIHBhcmEgdGVyIHVtYSBpZGVpYSBkZSBjb21vIGVzdHJ1dHVyYXIgbyBzaXRlKQoKNiAtIEFkaWNpb25hciBvcyBkb2N1bWVudG9zIGAuUm1kYCBuYSAqKnJhaXoqKiBkbyBzZXUgZGlyZXTDs3Jpbywgc2VuZG8gcXVlIHRvZG9zIGRldmVtIHRlciBvIGBvdXRwdXRgIG5vIGZvcm1hdG8gYGh0bWxfZG9jdW1lbnRgLiBTZSBvcyBkb2N1bWVudG9zIGVzdGl2ZXJlbSBlbSBvdXRyYSBzdWJwYXN0YSBvIHNpdGUgbsOjbyB2YWkgZnVuY2lvbmFyCgo3IC0gUGVuw7psdGltbyBwYXNzbyDDqSByZW5kZXJpemFyIG9zIGRvY3VtZW50b3Mgbm8gcmVwb3NpdMOzcmlvIHV0aWxpemFuZG8gYSBmdW7Dp8OjbyBkbyBwYWNvdGUgYHtybWFya2Rvd259YCBjaGFtYWRhIGByZW5kZXJfc2l0ZWAgZGEgc2VndWludGUgbWFuZWlyYToKCmBgYHtyIGVjaG89VFJVRSxldmFsPUZBTFNFfQpybWFya2Rvd246OnJlbmRlcl9zaXRlKCkKYGBgCgo4IC0gw5psdGltbyBwYXNzbyDDqSBkYXIgdW0gYGNvbW1pdGAgZSB1bSBgcHVzaGAuIEdyYcOnYXMgYSB1bSBzaXN0ZW1hIGNoYW1hZG8gKkNvbnRpbnVvdXMgSW50ZWdyYXRpb24qIGRvIEdpdEh1YiBBY3Rpb25zLCBvIHNpdGUgc2Vyw6EgbW9udGFkbyBhc3NpbSBxdWUgbyBHaXRIdWIgaWRlbnRpZmljYXIgdW0gbm92byBwdXNoIQoKUHJvbnRvLCBhZ29yYSB2b2PDqiB0ZW0gdW0gc2l0ZSBmdW5jaW9uYWw=</div>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeSourceEmbed("sites-basics.Rmd");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

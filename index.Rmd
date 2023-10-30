@@ -1,0 +1,91 @@
+---
+title: "Reprodutibilidade Computacional em Ecologia e Evolução"
+---
+
+# Apresentação
+
+Olá!
+
+Obrigado pelo interesse em participar da disciplina **"Reprodutibilidade Computacional em Ecologia e Evolução"**, que será ministrada entre os dias **06 e 10 de Novembro de 2023** no Programa de Pós Graduação em Ecologia e Evolução da UFG. Nesta disciplina serão abordados conceitos teóricos, tendências e ferramentas práticas para desenvolver pesquisas que vão ao encontro dos princípios e movimento da ciência aberta. 
+
+Este sítio servirá como um guia para nossas aulas. Nele vocês encontrarão os materiais necessários ([dados](https://github.com/GabrielNakamura/USP_reproducibility_BIE5798)) bem como os scripts que utilizaremos durante as aulas para as atividades práticas. Ah! O site continuará funcionando após o término da disciplina, portanto, sempre que tiver alguma dúvida é só voltar aqui e revisitar o que vimos nas aulas.
+
+# Ministrantes
+
+O curso será ministrado por mim, Gabriel Nakamura, com participação da [Dr. Melina Leite](https://melinaleite.weebly.com/)
+
+## Quem sou
+
+```{r echo=FALSE,eval=TRUE,out.width="20%"}
+knitr::include_graphics("figs/gabriel-avatar.jpg")
+```
+
+Sou formado em licenciatura em Ciências Biológicas (apesar da dúvida entre Ciências Sociais e História), fiz algumas andanças de difícil reprodutibilidade para obter meu mestrado (Ecologia e Conservação UFMS) e doutorado (Ecologia UFRGS). Após um tempo fora (posdoc Texas A&M University), a saudade do pequi e da guariroba do cerrado falaram mais alto e atualmente trabalho na Universidade Federal de Goiás como posdoc do INCT-EECBio. Meus trabalhos estão focados principalmente no desenvolvimento de  métodos e ferramentas estatísticas em ecologia de comunidades, macroecologia e macroevolução. Tem interesse também em entender os viéses da dinâmica de produção científica. [Aqui](http://lattes.cnpq.br/2456515948049565) um pouquinho mais do que venho desenvolvendo nos meus estudos. Se quiser saber mais um pouco, e além do lattes, dá uma olhada no [meu site pessoal](https://main--gabrielnakamura.netlify.app/).
+
+
+# Cronograma das aulas
+
+Abaixo está o cronograma das aulas. Algumas coisas podem mudar durante o decorrer das aulas dependendo do andamento das atividades práticas e discussões.
+
+```{r, eval=T, echo=FALSE}
+crono <- suppressWarnings(read.csv("cronograma.csv", header = T, sep = ","))  
+rownames(crono) <- c("Manhã \n 9-12h", "Tarde \n 14-17h")
+colnames(crono) <- paste(7:11, ("Ago"), sep = " ")
+crono[1, 1] <- c("Reprodutibilidade + Apresentação da disciplina.")
+crono[2, 1] <- c("Dados abertos: organização, metadados, pré-registro")
+crono[1, 2] <- c("Organização local de projetos: pastas, scripts limpos, etc")
+crono[2, 2] <- c("Controle de versão")
+crono[1, 3] <- c("Git, Github, integração")
+#crono[2, 3] <- c("Git, Github, integração - Prática") #foi sobrescrito pela debaixo
+crono[2, 3] <- c("Prática em controle de versão/ Ações básicas")
+#crono[1, 4] <- c("Prática em controle de versão/ Forks, commits, pull requests")
+#crono[2, 4] <- c("Prática em controle de versão/ Forks, commits, pull requests/ Pacotes")
+crono[1, 4] <- c("Literate programming/ Rmarkdown/ Integração contínua")
+crono[2, 4] <- c("Dockers, Target, renv e groundhog")
+crono[1, 5] <- c("Publicação em acesso aberto: Preprints, tipos de acesso aberto")
+crono[2, 5] <- c("Finalização e Feedbacks")
+
+#DT::datatable(crono, editable = "cell")
+```
+
+```{r, eval=T, echo=FALSE}
+crono |>
+  htmlTable::addHtmlTableStyle(col.columns = rep(c("#E6E6F0","none"), 3)) |>
+  htmlTable::htmlTable()
+```
+
+
+**OBS 1**: O início das aulas matinais será aberto para dúvidas e discussões em grupo sobre assuntos de dias anteriores. 
+**OBS 2**: O fim das aulas vespertinas (16-17h) também serão livres para discussões e dúvidas de projetos individuais.
+
+# Preparação pré-aula e materiais para práticas
+
+Aqui algumas informações sobre os materiais utilizados durante esta aula, os pacotes estatísticos necessários para realizar as atividades práticas e algumas coisas importantes para fazer antes do primeiro dia de aula.
+
+## Programas/platarformas utilizadas:
+
+Você precisará ter instaldo previamente a última versão do [R](https://cran.r-project.org/) e [Rstudio Desktop](https://posit.co/downloads/), e também deverá ter uma conta no [GitHub](https://github.com/pricing). Todas as ferramentas são gratuitas ou têm versão gratuita. Traga seu computador para as aulas **TODOS OS DIAS**! 
+
+## Dados
+
+Com o intuito de manter o foco na compreensão dos conceitos e processos que serão ensinados, vamos utilizar um material único compartilhado com toda turma. Para tanto vamos utilizar conjuntos de dados disponíveis em outros tutoriais como o [Living Norway Project](https://livingnorway.github.io/LivingNorwayR/articles/LNWorkshopExample_TOV-E.html), os dados do pacote [EML](https://github.com/ropensci/EML/tree/master/inst/examples) e um conjunto de dados chamado **Palmer Penguins**. Todos os dados já estão presentes no repositório deste curso, portanto, tudo que você deve fazer é o download deste repositório para o seu computador.
+
+
+Para fazer o download deste repositório é só clicar neste botão
+
+```{r echo=FALSE,eval=TRUE}
+library(downloadthis)
+download_link(
+  link = "https://github.com/GabrielNakamura/USP_reproducibility_BIE5798/archive/refs/heads/master.zip",
+  button_label = "Download do repositório",
+  button_type = "danger",
+  has_icon = TRUE,
+  icon = "fa fa-save",
+  self_contained = FALSE
+)
+```
+
+# Créditos
+
+Vários materiais desta disciplina foram utilizados em outras versões da mesma disciplina. Fica aqui um agradecimento especial a Melina Leite, que escreveu as seções de "Ciência aberta" e "Dados abertos em ecologia", que proporciona um ótimo resumo sobre esses conceitos, bem como algumas referências essenciais sobre estes tópicos.
+

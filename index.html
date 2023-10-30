@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Reprodutibilidade Computacional em Ecologia e Evolução</title>
+
+<script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<script src="site_libs/navigation-1.1/sourceembed.js"></script>
+<script src="site_libs/font-awesome-5.13.0/js/script.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+
+
+<style type="text/css">
+#rmd-source-code {
+  display: none;
+}
+</style>
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Reprodutibilidade Computacional e Organização de Dados em Ecologia e Evolução</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Início</a>
+</li>
+<li>
+  <a href="intro_ciencia_aberta.html">O que é ciência aberta?</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Dados abertos
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="dados_abertos.html">O que são dados abertos?</a>
+    </li>
+    <li>
+      <a href="metadata_EML.html">Metadados</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="Organizacao_dir_local.html">Organização local</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Versionamento
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="basics_git.html">ABC do versionamento</a>
+    </li>
+    <li>
+      <a href="commits-travel.html">Viajando no tempo</a>
+    </li>
+    <li>
+      <a href="colabs_github.html">Trabalho colaborativo</a>
+    </li>
+    <li>
+      <a href="gitgnore.html">Ignorando arquivos</a>
+    </li>
+    <li>
+      <a href="conflitos.html">Resolvendo conflitos</a>
+    </li>
+    <li class="dropdown-header">Releasing - retrato permanente</li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Programação letrada
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="rmarkdown-basics.html">Rmarkdown</a>
+    </li>
+    <li>
+      <a href="sites-basics.html">Sites</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Avançado
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="renv-basics.html">Pacote `{renv}`</a>
+    </li>
+    <li class="dropdown-header">Pacote `{groundhog}`</li>
+    <li>
+      <a href="rocker-basics.html">Containers</a>
+    </li>
+    <li>
+      <a href="targets_basics.html">Pipelines com Targets</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-download-source" href="#">Download Rmd</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Reprodutibilidade Computacional em Ecologia
+e Evolução</h1>
+
+</div>
+
+
+<div id="apresentação" class="section level1">
+<h1>Apresentação</h1>
+<p>Olá!</p>
+<p>Obrigado pelo interesse em participar da disciplina
+<strong>“Reprodutibilidade Computacional em Ecologia e
+Evolução”</strong>, que será ministrada entre os dias <strong>06 e 10 de
+Novembro de 2023</strong> no Programa de Pós Graduação em Ecologia e
+Evolução da UFG. Nesta disciplina serão abordados conceitos teóricos,
+tendências e ferramentas práticas para desenvolver pesquisas que vão ao
+encontro dos princípios e movimento da ciência aberta.</p>
+<p>Este sítio servirá como um guia para nossas aulas. Nele vocês
+encontrarão os materiais necessários (<a
+href="https://github.com/GabrielNakamura/USP_reproducibility_BIE5798">dados</a>)
+bem como os scripts que utilizaremos durante as aulas para as atividades
+práticas. Ah! O site continuará funcionando após o término da
+disciplina, portanto, sempre que tiver alguma dúvida é só voltar aqui e
+revisitar o que vimos nas aulas.</p>
+</div>
+<div id="ministrantes" class="section level1">
+<h1>Ministrantes</h1>
+<p>O curso será ministrado por mim, Gabriel Nakamura, com participação
+da <a href="https://melinaleite.weebly.com/">Dr. Melina Leite</a></p>
+<div id="quem-sou" class="section level2">
+<h2>Quem sou</h2>
+<p><img src="figs/gabriel-avatar.jpg" width="20%" /></p>
+<p>Sou formado em licenciatura em Ciências Biológicas (apesar da dúvida
+entre Ciências Sociais e História), fiz algumas andanças de difícil
+reprodutibilidade para obter meu mestrado (Ecologia e Conservação UFMS)
+e doutorado (Ecologia UFRGS). Após um tempo fora (posdoc Texas A&amp;M
+University), a saudade do pequi e da guariroba do cerrado falaram mais
+alto e atualmente trabalho na Universidade Federal de Goiás como posdoc
+do INCT-EECBio. Meus trabalhos estão focados principalmente no
+desenvolvimento de métodos e ferramentas estatísticas em ecologia de
+comunidades, macroecologia e macroevolução. Tem interesse também em
+entender os viéses da dinâmica de produção científica. <a
+href="http://lattes.cnpq.br/2456515948049565">Aqui</a> um pouquinho mais
+do que venho desenvolvendo nos meus estudos. Se quiser saber mais um
+pouco, e além do lattes, dá uma olhada no <a
+href="https://main--gabrielnakamura.netlify.app/">meu site
+pessoal</a>.</p>
+</div>
+</div>
+<div id="cronograma-das-aulas" class="section level1">
+<h1>Cronograma das aulas</h1>
+<p>Abaixo está o cronograma das aulas. Algumas coisas podem mudar
+durante o decorrer das aulas dependendo do andamento das atividades
+práticas e discussões.</p>
+<table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
+<thead>
+<tr>
+<th style="border-bottom: 1px solid grey; border-top: 2px solid grey;">
+</th>
+<th style="font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey; background-color: #e6e6f0; text-align: center;">
+7 Ago
+</th>
+<th style="font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+8 Ago
+</th>
+<th style="font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey; background-color: #e6e6f0; text-align: center;">
+9 Ago
+</th>
+<th style="font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+10 Ago
+</th>
+<th style="font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey; background-color: #e6e6f0; text-align: center;">
+11 Ago
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">
+Manhã 9-12h
+</td>
+<td style="background-color: #e6e6f0; text-align: center;">
+Reprodutibilidade + Apresentação da disciplina.
+</td>
+<td style="text-align: center;">
+Organização local de projetos: pastas, scripts limpos, etc
+</td>
+<td style="background-color: #e6e6f0; text-align: center;">
+Git, Github, integração
+</td>
+<td style="text-align: center;">
+Literate programming/ Rmarkdown/ Integração contínua
+</td>
+<td style="background-color: #e6e6f0; text-align: center;">
+Publicação em acesso aberto: Preprints, tipos de acesso aberto
+</td>
+</tr>
+<tr>
+<td style="border-bottom: 2px solid grey; text-align: left;">
+Tarde 14-17h
+</td>
+<td style="border-bottom: 2px solid grey; background-color: #e6e6f0; text-align: center;">
+Dados abertos: organização, metadados, pré-registro
+</td>
+<td style="border-bottom: 2px solid grey; text-align: center;">
+Controle de versão
+</td>
+<td style="border-bottom: 2px solid grey; background-color: #e6e6f0; text-align: center;">
+Prática em controle de versão/ Ações básicas
+</td>
+<td style="border-bottom: 2px solid grey; text-align: center;">
+Dockers, Target, renv e groundhog
+</td>
+<td style="border-bottom: 2px solid grey; background-color: #e6e6f0; text-align: center;">
+Finalização e Feedbacks
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>OBS 1</strong>: O início das aulas matinais será aberto para
+dúvidas e discussões em grupo sobre assuntos de dias anteriores.
+<strong>OBS 2</strong>: O fim das aulas vespertinas (16-17h) também
+serão livres para discussões e dúvidas de projetos individuais.</p>
+</div>
+<div id="preparação-pré-aula-e-materiais-para-práticas"
+class="section level1">
+<h1>Preparação pré-aula e materiais para práticas</h1>
+<p>Aqui algumas informações sobre os materiais utilizados durante esta
+aula, os pacotes estatísticos necessários para realizar as atividades
+práticas e algumas coisas importantes para fazer antes do primeiro dia
+de aula.</p>
+<div id="programasplatarformas-utilizadas" class="section level2">
+<h2>Programas/platarformas utilizadas:</h2>
+<p>Você precisará ter instaldo previamente a última versão do <a
+href="https://cran.r-project.org/">R</a> e <a
+href="https://posit.co/downloads/">Rstudio Desktop</a>, e também deverá
+ter uma conta no <a href="https://github.com/pricing">GitHub</a>. Todas
+as ferramentas são gratuitas ou têm versão gratuita. Traga seu
+computador para as aulas <strong>TODOS OS DIAS</strong>!</p>
+</div>
+<div id="dados" class="section level2">
+<h2>Dados</h2>
+<p>Com o intuito de manter o foco na compreensão dos conceitos e
+processos que serão ensinados, vamos utilizar um material único
+compartilhado com toda turma. Para tanto vamos utilizar conjuntos de
+dados disponíveis em outros tutoriais como o <a
+href="https://livingnorway.github.io/LivingNorwayR/articles/LNWorkshopExample_TOV-E.html">Living
+Norway Project</a>, os dados do pacote <a
+href="https://github.com/ropensci/EML/tree/master/inst/examples">EML</a>
+e um conjunto de dados chamado <strong>Palmer Penguins</strong>. Todos
+os dados já estão presentes no repositório deste curso, portanto, tudo
+que você deve fazer é o download deste repositório para o seu
+computador.</p>
+<p>Para fazer o download deste repositório é só clicar neste botão</p>
+<a href="https://github.com/GabrielNakamura/USP_reproducibility_BIE5798/archive/refs/heads/master.zip">
+<button class="btn btn-danger"><i class="fa fa-save"></i> Download do repositório</button>
+</a>
+</div>
+</div>
+<div id="créditos" class="section level1">
+<h1>Créditos</h1>
+<p>Vários materiais desta disciplina foram utilizados em outras versões
+da mesma disciplina. Fica aqui um agradecimento especial a Melina Leite,
+que escreveu as seções de “Ciência aberta” e “Dados abertos em
+ecologia”, que proporciona um ótimo resumo sobre esses conceitos, bem
+como algumas referências essenciais sobre estes tópicos.</p>
+</div>
+
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiUmVwcm9kdXRpYmlsaWRhZGUgQ29tcHV0YWNpb25hbCBlbSBFY29sb2dpYSBlIEV2b2x1w6fDo28iCi0tLQoKIyBBcHJlc2VudGHDp8OjbwoKT2zDoSEKCk9icmlnYWRvIHBlbG8gaW50ZXJlc3NlIGVtIHBhcnRpY2lwYXIgZGEgZGlzY2lwbGluYSAqKiJSZXByb2R1dGliaWxpZGFkZSBDb21wdXRhY2lvbmFsIGVtIEVjb2xvZ2lhIGUgRXZvbHXDp8OjbyIqKiwgcXVlIHNlcsOhIG1pbmlzdHJhZGEgZW50cmUgb3MgZGlhcyAqKjA2IGUgMTAgZGUgTm92ZW1icm8gZGUgMjAyMyoqIG5vIFByb2dyYW1hIGRlIFDDs3MgR3JhZHVhw6fDo28gZW0gRWNvbG9naWEgZSBFdm9sdcOnw6NvIGRhIFVGRy4gTmVzdGEgZGlzY2lwbGluYSBzZXLDo28gYWJvcmRhZG9zIGNvbmNlaXRvcyB0ZcOzcmljb3MsIHRlbmTDqm5jaWFzIGUgZmVycmFtZW50YXMgcHLDoXRpY2FzIHBhcmEgZGVzZW52b2x2ZXIgcGVzcXVpc2FzIHF1ZSB2w6NvIGFvIGVuY29udHJvIGRvcyBwcmluY8OtcGlvcyBlIG1vdmltZW50byBkYSBjacOqbmNpYSBhYmVydGEuIAoKRXN0ZSBzw610aW8gc2Vydmlyw6EgY29tbyB1bSBndWlhIHBhcmEgbm9zc2FzIGF1bGFzLiBOZWxlIHZvY8OqcyBlbmNvbnRyYXLDo28gb3MgbWF0ZXJpYWlzIG5lY2Vzc8OhcmlvcyAoW2RhZG9zXShodHRwczovL2dpdGh1Yi5jb20vR2FicmllbE5ha2FtdXJhL1VTUF9yZXByb2R1Y2liaWxpdHlfQklFNTc5OCkpIGJlbSBjb21vIG9zIHNjcmlwdHMgcXVlIHV0aWxpemFyZW1vcyBkdXJhbnRlIGFzIGF1bGFzIHBhcmEgYXMgYXRpdmlkYWRlcyBwcsOhdGljYXMuIEFoISBPIHNpdGUgY29udGludWFyw6EgZnVuY2lvbmFuZG8gYXDDs3MgbyB0w6lybWlubyBkYSBkaXNjaXBsaW5hLCBwb3J0YW50bywgc2VtcHJlIHF1ZSB0aXZlciBhbGd1bWEgZMO6dmlkYSDDqSBzw7Mgdm9sdGFyIGFxdWkgZSByZXZpc2l0YXIgbyBxdWUgdmltb3MgbmFzIGF1bGFzLgoKIyBNaW5pc3RyYW50ZXMKCk8gY3Vyc28gc2Vyw6EgbWluaXN0cmFkbyBwb3IgbWltLCBHYWJyaWVsIE5ha2FtdXJhLCBjb20gcGFydGljaXBhw6fDo28gZGEgW0RyLiBNZWxpbmEgTGVpdGVdKGh0dHBzOi8vbWVsaW5hbGVpdGUud2VlYmx5LmNvbS8pCgojIyBRdWVtIHNvdQoKYGBge3IgZWNobz1GQUxTRSxldmFsPVRSVUUsb3V0LndpZHRoPSIyMCUifQprbml0cjo6aW5jbHVkZV9ncmFwaGljcygiZmlncy9nYWJyaWVsLWF2YXRhci5qcGciKQpgYGAKClNvdSBmb3JtYWRvIGVtIGxpY2VuY2lhdHVyYSBlbSBDacOqbmNpYXMgQmlvbMOzZ2ljYXMgKGFwZXNhciBkYSBkw7p2aWRhIGVudHJlIENpw6puY2lhcyBTb2NpYWlzIGUgSGlzdMOzcmlhKSwgZml6IGFsZ3VtYXMgYW5kYW7Dp2FzIGRlIGRpZsOtY2lsIHJlcHJvZHV0aWJpbGlkYWRlIHBhcmEgb2J0ZXIgbWV1IG1lc3RyYWRvIChFY29sb2dpYSBlIENvbnNlcnZhw6fDo28gVUZNUykgZSBkb3V0b3JhZG8gKEVjb2xvZ2lhIFVGUkdTKS4gQXDDs3MgdW0gdGVtcG8gZm9yYSAocG9zZG9jIFRleGFzIEEmTSBVbml2ZXJzaXR5KSwgYSBzYXVkYWRlIGRvIHBlcXVpIGUgZGEgZ3Vhcmlyb2JhIGRvIGNlcnJhZG8gZmFsYXJhbSBtYWlzIGFsdG8gZSBhdHVhbG1lbnRlIHRyYWJhbGhvIG5hIFVuaXZlcnNpZGFkZSBGZWRlcmFsIGRlIEdvacOhcyBjb21vIHBvc2RvYyBkbyBJTkNULUVFQ0Jpby4gTWV1cyB0cmFiYWxob3MgZXN0w6NvIGZvY2Fkb3MgcHJpbmNpcGFsbWVudGUgbm8gZGVzZW52b2x2aW1lbnRvIGRlICBtw6l0b2RvcyBlIGZlcnJhbWVudGFzIGVzdGF0w61zdGljYXMgZW0gZWNvbG9naWEgZGUgY29tdW5pZGFkZXMsIG1hY3JvZWNvbG9naWEgZSBtYWNyb2V2b2x1w6fDo28uIFRlbSBpbnRlcmVzc2UgdGFtYsOpbSBlbSBlbnRlbmRlciBvcyB2acOpc2VzIGRhIGRpbsOibWljYSBkZSBwcm9kdcOnw6NvIGNpZW50w61maWNhLiBbQXF1aV0oaHR0cDovL2xhdHRlcy5jbnBxLmJyLzI0NTY1MTU5NDgwNDk1NjUpIHVtIHBvdXF1aW5obyBtYWlzIGRvIHF1ZSB2ZW5obyBkZXNlbnZvbHZlbmRvIG5vcyBtZXVzIGVzdHVkb3MuIFNlIHF1aXNlciBzYWJlciBtYWlzIHVtIHBvdWNvLCBlIGFsw6ltIGRvIGxhdHRlcywgZMOhIHVtYSBvbGhhZGEgbm8gW21ldSBzaXRlIHBlc3NvYWxdKGh0dHBzOi8vbWFpbi0tZ2FicmllbG5ha2FtdXJhLm5ldGxpZnkuYXBwLykuCgoKIyBDcm9ub2dyYW1hIGRhcyBhdWxhcwoKQWJhaXhvIGVzdMOhIG8gY3Jvbm9ncmFtYSBkYXMgYXVsYXMuIEFsZ3VtYXMgY29pc2FzIHBvZGVtIG11ZGFyIGR1cmFudGUgbyBkZWNvcnJlciBkYXMgYXVsYXMgZGVwZW5kZW5kbyBkbyBhbmRhbWVudG8gZGFzIGF0aXZpZGFkZXMgcHLDoXRpY2FzIGUgZGlzY3Vzc8O1ZXMuCgpgYGB7ciwgZXZhbD1ULCBlY2hvPUZBTFNFfQpjcm9ubyA8LSBzdXBwcmVzc1dhcm5pbmdzKHJlYWQuY3N2KCJjcm9ub2dyYW1hLmNzdiIsIGhlYWRlciA9IFQsIHNlcCA9ICIsIikpICAKcm93bmFtZXMoY3Jvbm8pIDwtIGMoIk1hbmjDoyBcbiA5LTEyaCIsICJUYXJkZSBcbiAxNC0xN2giKQpjb2xuYW1lcyhjcm9ubykgPC0gcGFzdGUoNzoxMSwgKCJBZ28iKSwgc2VwID0gIiAiKQpjcm9ub1sxLCAxXSA8LSBjKCJSZXByb2R1dGliaWxpZGFkZSArIEFwcmVzZW50YcOnw6NvIGRhIGRpc2NpcGxpbmEuIikKY3Jvbm9bMiwgMV0gPC0gYygiRGFkb3MgYWJlcnRvczogb3JnYW5pemHDp8OjbywgbWV0YWRhZG9zLCBwcsOpLXJlZ2lzdHJvIikKY3Jvbm9bMSwgMl0gPC0gYygiT3JnYW5pemHDp8OjbyBsb2NhbCBkZSBwcm9qZXRvczogcGFzdGFzLCBzY3JpcHRzIGxpbXBvcywgZXRjIikKY3Jvbm9bMiwgMl0gPC0gYygiQ29udHJvbGUgZGUgdmVyc8OjbyIpCmNyb25vWzEsIDNdIDwtIGMoIkdpdCwgR2l0aHViLCBpbnRlZ3Jhw6fDo28iKQojY3Jvbm9bMiwgM10gPC0gYygiR2l0LCBHaXRodWIsIGludGVncmHDp8OjbyAtIFByw6F0aWNhIikgI2ZvaSBzb2JyZXNjcml0byBwZWxhIGRlYmFpeG8KY3Jvbm9bMiwgM10gPC0gYygiUHLDoXRpY2EgZW0gY29udHJvbGUgZGUgdmVyc8Ojby8gQcOnw7VlcyBiw6FzaWNhcyIpCiNjcm9ub1sxLCA0XSA8LSBjKCJQcsOhdGljYSBlbSBjb250cm9sZSBkZSB2ZXJzw6NvLyBGb3JrcywgY29tbWl0cywgcHVsbCByZXF1ZXN0cyIpCiNjcm9ub1syLCA0XSA8LSBjKCJQcsOhdGljYSBlbSBjb250cm9sZSBkZSB2ZXJzw6NvLyBGb3JrcywgY29tbWl0cywgcHVsbCByZXF1ZXN0cy8gUGFjb3RlcyIpCmNyb25vWzEsIDRdIDwtIGMoIkxpdGVyYXRlIHByb2dyYW1taW5nLyBSbWFya2Rvd24vIEludGVncmHDp8OjbyBjb250w61udWEiKQpjcm9ub1syLCA0XSA8LSBjKCJEb2NrZXJzLCBUYXJnZXQsIHJlbnYgZSBncm91bmRob2ciKQpjcm9ub1sxLCA1XSA8LSBjKCJQdWJsaWNhw6fDo28gZW0gYWNlc3NvIGFiZXJ0bzogUHJlcHJpbnRzLCB0aXBvcyBkZSBhY2Vzc28gYWJlcnRvIikKY3Jvbm9bMiwgNV0gPC0gYygiRmluYWxpemHDp8OjbyBlIEZlZWRiYWNrcyIpCgojRFQ6OmRhdGF0YWJsZShjcm9ubywgZWRpdGFibGUgPSAiY2VsbCIpCmBgYAoKYGBge3IsIGV2YWw9VCwgZWNobz1GQUxTRX0KY3Jvbm8gfD4KICBodG1sVGFibGU6OmFkZEh0bWxUYWJsZVN0eWxlKGNvbC5jb2x1bW5zID0gcmVwKGMoIiNFNkU2RjAiLCJub25lIiksIDMpKSB8PgogIGh0bWxUYWJsZTo6aHRtbFRhYmxlKCkKYGBgCgoKKipPQlMgMSoqOiBPIGluw61jaW8gZGFzIGF1bGFzIG1hdGluYWlzIHNlcsOhIGFiZXJ0byBwYXJhIGTDunZpZGFzIGUgZGlzY3Vzc8O1ZXMgZW0gZ3J1cG8gc29icmUgYXNzdW50b3MgZGUgZGlhcyBhbnRlcmlvcmVzLiAKKipPQlMgMioqOiBPIGZpbSBkYXMgYXVsYXMgdmVzcGVydGluYXMgKDE2LTE3aCkgdGFtYsOpbSBzZXLDo28gbGl2cmVzIHBhcmEgZGlzY3Vzc8O1ZXMgZSBkw7p2aWRhcyBkZSBwcm9qZXRvcyBpbmRpdmlkdWFpcy4KCiMgUHJlcGFyYcOnw6NvIHByw6ktYXVsYSBlIG1hdGVyaWFpcyBwYXJhIHByw6F0aWNhcwoKQXF1aSBhbGd1bWFzIGluZm9ybWHDp8O1ZXMgc29icmUgb3MgbWF0ZXJpYWlzIHV0aWxpemFkb3MgZHVyYW50ZSBlc3RhIGF1bGEsIG9zIHBhY290ZXMgZXN0YXTDrXN0aWNvcyBuZWNlc3PDoXJpb3MgcGFyYSByZWFsaXphciBhcyBhdGl2aWRhZGVzIHByw6F0aWNhcyBlIGFsZ3VtYXMgY29pc2FzIGltcG9ydGFudGVzIHBhcmEgZmF6ZXIgYW50ZXMgZG8gcHJpbWVpcm8gZGlhIGRlIGF1bGEuCgojIyBQcm9ncmFtYXMvcGxhdGFyZm9ybWFzIHV0aWxpemFkYXM6CgpWb2PDqiBwcmVjaXNhcsOhIHRlciBpbnN0YWxkbyBwcmV2aWFtZW50ZSBhIMO6bHRpbWEgdmVyc8OjbyBkbyBbUl0oaHR0cHM6Ly9jcmFuLnItcHJvamVjdC5vcmcvKSBlIFtSc3R1ZGlvIERlc2t0b3BdKGh0dHBzOi8vcG9zaXQuY28vZG93bmxvYWRzLyksIGUgdGFtYsOpbSBkZXZlcsOhIHRlciB1bWEgY29udGEgbm8gW0dpdEh1Yl0oaHR0cHM6Ly9naXRodWIuY29tL3ByaWNpbmcpLiBUb2RhcyBhcyBmZXJyYW1lbnRhcyBzw6NvIGdyYXR1aXRhcyBvdSB0w6ptIHZlcnPDo28gZ3JhdHVpdGEuIFRyYWdhIHNldSBjb21wdXRhZG9yIHBhcmEgYXMgYXVsYXMgKipUT0RPUyBPUyBESUFTKiohIAoKIyMgRGFkb3MKCkNvbSBvIGludHVpdG8gZGUgbWFudGVyIG8gZm9jbyBuYSBjb21wcmVlbnPDo28gZG9zIGNvbmNlaXRvcyBlIHByb2Nlc3NvcyBxdWUgc2Vyw6NvIGVuc2luYWRvcywgdmFtb3MgdXRpbGl6YXIgdW0gbWF0ZXJpYWwgw7puaWNvIGNvbXBhcnRpbGhhZG8gY29tIHRvZGEgdHVybWEuIFBhcmEgdGFudG8gdmFtb3MgdXRpbGl6YXIgY29uanVudG9zIGRlIGRhZG9zIGRpc3BvbsOtdmVpcyBlbSBvdXRyb3MgdHV0b3JpYWlzIGNvbW8gbyBbTGl2aW5nIE5vcndheSBQcm9qZWN0XShodHRwczovL2xpdmluZ25vcndheS5naXRodWIuaW8vTGl2aW5nTm9yd2F5Ui9hcnRpY2xlcy9MTldvcmtzaG9wRXhhbXBsZV9UT1YtRS5odG1sKSwgb3MgZGFkb3MgZG8gcGFjb3RlIFtFTUxdKGh0dHBzOi8vZ2l0aHViLmNvbS9yb3BlbnNjaS9FTUwvdHJlZS9tYXN0ZXIvaW5zdC9leGFtcGxlcykgZSB1bSBjb25qdW50byBkZSBkYWRvcyBjaGFtYWRvICoqUGFsbWVyIFBlbmd1aW5zKiouIFRvZG9zIG9zIGRhZG9zIGrDoSBlc3TDo28gcHJlc2VudGVzIG5vIHJlcG9zaXTDs3JpbyBkZXN0ZSBjdXJzbywgcG9ydGFudG8sIHR1ZG8gcXVlIHZvY8OqIGRldmUgZmF6ZXIgw6kgbyBkb3dubG9hZCBkZXN0ZSByZXBvc2l0w7NyaW8gcGFyYSBvIHNldSBjb21wdXRhZG9yLgoKClBhcmEgZmF6ZXIgbyBkb3dubG9hZCBkZXN0ZSByZXBvc2l0w7NyaW8gw6kgc8OzIGNsaWNhciBuZXN0ZSBib3TDo28KCmBgYHtyIGVjaG89RkFMU0UsZXZhbD1UUlVFfQpsaWJyYXJ5KGRvd25sb2FkdGhpcykKZG93bmxvYWRfbGluaygKICBsaW5rID0gImh0dHBzOi8vZ2l0aHViLmNvbS9HYWJyaWVsTmFrYW11cmEvVVNQX3JlcHJvZHVjaWJpbGl0eV9CSUU1Nzk4L2FyY2hpdmUvcmVmcy9oZWFkcy9tYXN0ZXIuemlwIiwKICBidXR0b25fbGFiZWwgPSAiRG93bmxvYWQgZG8gcmVwb3NpdMOzcmlvIiwKICBidXR0b25fdHlwZSA9ICJkYW5nZXIiLAogIGhhc19pY29uID0gVFJVRSwKICBpY29uID0gImZhIGZhLXNhdmUiLAogIHNlbGZfY29udGFpbmVkID0gRkFMU0UKKQpgYGAKCiMgQ3LDqWRpdG9zCgpWw6FyaW9zIG1hdGVyaWFpcyBkZXN0YSBkaXNjaXBsaW5hIGZvcmFtIHV0aWxpemFkb3MgZW0gb3V0cmFzIHZlcnPDtWVzIGRhIG1lc21hIGRpc2NpcGxpbmEuIEZpY2EgYXF1aSB1bSBhZ3JhZGVjaW1lbnRvIGVzcGVjaWFsIGEgTWVsaW5hIExlaXRlLCBxdWUgZXNjcmV2ZXUgYXMgc2XDp8O1ZXMgZGUgIkNpw6puY2lhIGFiZXJ0YSIgZSAiRGFkb3MgYWJlcnRvcyBlbSBlY29sb2dpYSIsIHF1ZSBwcm9wb3JjaW9uYSB1bSDDs3RpbW8gcmVzdW1vIHNvYnJlIGVzc2VzIGNvbmNlaXRvcywgYmVtIGNvbW8gYWxndW1hcyByZWZlcsOqbmNpYXMgZXNzZW5jaWFpcyBzb2JyZSBlc3RlcyB0w7NwaWNvcy4KCg==</div>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeSourceEmbed("index.Rmd");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
