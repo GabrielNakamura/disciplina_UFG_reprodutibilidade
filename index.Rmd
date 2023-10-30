@@ -30,19 +30,19 @@ Abaixo está o cronograma das aulas. Algumas coisas podem mudar durante o decorr
 ```{r, eval=T, echo=FALSE}
 crono <- suppressWarnings(read.csv("cronograma.csv", header = T, sep = ","))  
 rownames(crono) <- c("Manhã \n 9-12h", "Tarde \n 14-17h")
-colnames(crono) <- paste(7:11, ("Ago"), sep = " ")
+colnames(crono) <- paste(6:10, ("Nov"), sep = " ")
 crono[1, 1] <- c("Reprodutibilidade + Apresentação da disciplina.")
 crono[2, 1] <- c("Dados abertos: organização, metadados, pré-registro")
 crono[1, 2] <- c("Organização local de projetos: pastas, scripts limpos, etc")
 crono[2, 2] <- c("Controle de versão")
-crono[1, 3] <- c("Git, Github, integração")
+crono[1, 3] <- c("Git e Github")
 #crono[2, 3] <- c("Git, Github, integração - Prática") #foi sobrescrito pela debaixo
 crono[2, 3] <- c("Prática em controle de versão/ Ações básicas")
 #crono[1, 4] <- c("Prática em controle de versão/ Forks, commits, pull requests")
 #crono[2, 4] <- c("Prática em controle de versão/ Forks, commits, pull requests/ Pacotes")
 crono[1, 4] <- c("Literate programming/ Rmarkdown/ Integração contínua")
 crono[2, 4] <- c("Dockers, Target, renv e groundhog")
-crono[1, 5] <- c("Publicação em acesso aberto: Preprints, tipos de acesso aberto")
+crono[1, 5] <- c("Releases de projetos")
 crono[2, 5] <- c("Finalização e Feedbacks")
 
 #DT::datatable(crono, editable = "cell")
