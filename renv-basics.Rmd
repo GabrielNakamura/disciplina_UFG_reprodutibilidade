@@ -1,5 +1,5 @@
 ---
-title: "Manejando versões de pacotes - renv"
+title: "Manejando versões de pacotes"
 author: "Gabriel Nakamura"
 date: "`r Sys.Date()`"
 output: html_document
@@ -11,4 +11,46 @@ Até agora aprendemos como reduzir os erros comuns de reprodutibilidade computac
 
 Os pacotes são disponibilizados abertamente e o que fazemos é baixar uma versão deste pacote em nosso computador. Porém, pacotes nem sempre (ou a maioria das vezes), ficam da maneira como os baixamos. Pacotes são editados por seus proponentes, função internas são corrigidas, algumas são excluídas, outras adicionadas e algumas vezes até mesmo o nome da função é modificado. Mas como conseguimos garantir que nosso código seja reprodutível, quando ele depende de uma outra pessoa atualizando funções e dependências nos nossos scripts? Uma das soluções é o pacote {`renv`}
 
-# Garantindo a reprodutibilidade das funções {`renv`}
+# Garantindo a reprodutibilidade das funções: {`renv`}
+
+A grande sacada do {`renv`} para garantir a reprodutibilidade das funções dos pacotes utilizados é que ele instala estas dependências numa pasta específica do projeto que contém tais dependência. Desta forma, ao utilizar um projeto de outra pessoa, ou o seu próprio projeto no futuro, você irá utilizar as mesmas versões dos pacotes.
+
+## {`renv`} na prática
+
+Quatro funções são essenciais para utilizar o pacote {`renv`}. Lembre-se **sempre faça isso dentro de um projeto**
+
+1. `renv::init()` primeira ação a ser realizada para iniciar o uso do pacote no seu projeto. 
+
+2. `renv::status()` confere o status das dependências contidas no seu projeto
+
+3. `renv::snapshot()` utilize essa função toda vez que instalar um pacote novo, isso garantirá que a versão deste pacote estará registrada nos arquivos especiais criados pelo {`renv`}
+
+4. `renv::restore()` esta função é utilizada quando você quiser reproduzir algum projeto. Por exemplo, ao baixar um projeto do GitHub abra a imagem do Rproject e utilize a função `restore()` isso irá desencadear a instalação das versões dos pacotes utilizadas no projeto em seu computador, garantindo assim a reprodutibilidade
+
+
+# Garantindo a reprodutibilidade das funções: {`groundhog`}
+
+Outra opção é o ótimo pacote {`groundhog`}, que exerce funções similares ao `renv` mas, tecnicamente, de maneiras distintas. O objetivo final é o mesmo, aumentar a chance de reprodutibilidade de códigos em R ao resolver a compatibilidade de versões de pacotes estatísticos utilizados nestes scripts.
+
+A grande diferença entre o pacote {`renv`} e o {`groundhog`} é o fato de que o segundo funciona isoladamente em scripts, enquanto o primeir, necessariamente, faz uso dos projetos no R.
+
+## {`groundhog`} na prática
+
+Para utilizar o {`groundhog`} devemos chamar as dependências (pacotes) utilizando uma função do groundhog da seguinte maneira
+
+```{r echo=TRUE, eval=FALSE}
+library(groundhog)
+groundhog.day="2020-11-01"
+pkgs=c('pwr','metafor','data.tables')
+groundhog.library(pkgs, groundhog.day)
+```
+
+Ou seja, utilizamos dois argumentos na função `groundhog.library` um indicando os pacotes que devem ser carregados e um segundo, aí a grande diferença do groundhog, indicando uma data de uso do pacote. Esta data funcionará para baixar a versão do pacote mais recente tendo como referência a data indicada.
+
+# Exercício
+
+Tente as duas formas de ler pacotes apresentadas nesta seção, veja o que mudou (ou não) no seu diretório.
+
+# Leituras adicionais
+
+Para mais informações sobre o pacote {`renv`} veja este [material](https://reproducibility.rocks/materials/day3/01-renv/). Para mais informações sobre o {`groundhog`} veja o [blog](https://datacolada.org/95#footnote_2_5852) escrito por um dos desenvolvedores do pacote. A propósito, o blog [Data Colada](https://datacolada.org/) é uma fonte sensacional de ideias e discussões sobre ciência, reprodutibilidade e tudo o mais.

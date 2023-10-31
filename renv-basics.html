@@ -11,9 +11,9 @@
 
 <meta name="author" content="Gabriel Nakamura" />
 
-<meta name="date" content="2023-10-30" />
+<meta name="date" content="2023-10-31" />
 
-<title>Manejando versões de pacotes - renv</title>
+<title>Manejando versões de pacotes</title>
 
 <script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -49,6 +49,107 @@
 
 
 
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #204a87; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #204a87; font-weight: bold; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #ce5c00; font-weight: bold; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
 
 
 <style type="text/css">
@@ -390,9 +491,8 @@ div.tocify {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="renv-basics.html">Pacote `{renv}`</a>
+      <a href="renv-basics.html">Manejando versões de pacotes</a>
     </li>
-    <li class="dropdown-header">Pacote `{groundhog}`</li>
     <li>
       <a href="rocker-basics.html">Containers</a>
     </li>
@@ -420,9 +520,9 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Manejando versões de pacotes - renv</h1>
+<h1 class="title toc-ignore">Manejando versões de pacotes</h1>
 <h4 class="author">Gabriel Nakamura</h4>
-<h4 class="date">2023-10-30</h4>
+<h4 class="date">2023-10-31</h4>
 
 </div>
 
@@ -446,10 +546,83 @@ e dependências nos nossos scripts? Uma das soluções é o pacote
 </div>
 <div id="garantindo-a-reprodutibilidade-das-funções-renv"
 class="section level1">
-<h1>Garantindo a reprodutibilidade das funções {<code>renv</code>}</h1>
+<h1>Garantindo a reprodutibilidade das funções: {<code>renv</code>}</h1>
+<p>A grande sacada do {<code>renv</code>} para garantir a
+reprodutibilidade das funções dos pacotes utilizados é que ele instala
+estas dependências numa pasta específica do projeto que contém tais
+dependência. Desta forma, ao utilizar um projeto de outra pessoa, ou o
+seu próprio projeto no futuro, você irá utilizar as mesmas versões dos
+pacotes.</p>
+<div id="renv-na-prática" class="section level2">
+<h2>{<code>renv</code>} na prática</h2>
+<p>Quatro funções são essenciais para utilizar o pacote
+{<code>renv</code>}. Lembre-se <strong>sempre faça isso dentro de um
+projeto</strong></p>
+<ol style="list-style-type: decimal">
+<li><p><code>renv::init()</code> primeira ação a ser realizada para
+iniciar o uso do pacote no seu projeto.</p></li>
+<li><p><code>renv::status()</code> confere o status das dependências
+contidas no seu projeto</p></li>
+<li><p><code>renv::snapshot()</code> utilize essa função toda vez que
+instalar um pacote novo, isso garantirá que a versão deste pacote estará
+registrada nos arquivos especiais criados pelo
+{<code>renv</code>}</p></li>
+<li><p><code>renv::restore()</code> esta função é utilizada quando você
+quiser reproduzir algum projeto. Por exemplo, ao baixar um projeto do
+GitHub abra a imagem do Rproject e utilize a função
+<code>restore()</code> isso irá desencadear a instalação das versões dos
+pacotes utilizadas no projeto em seu computador, garantindo assim a
+reprodutibilidade</p></li>
+</ol>
+</div>
+</div>
+<div id="garantindo-a-reprodutibilidade-das-funções-groundhog"
+class="section level1">
+<h1>Garantindo a reprodutibilidade das funções:
+{<code>groundhog</code>}</h1>
+<p>Outra opção é o ótimo pacote {<code>groundhog</code>}, que exerce
+funções similares ao <code>renv</code> mas, tecnicamente, de maneiras
+distintas. O objetivo final é o mesmo, aumentar a chance de
+reprodutibilidade de códigos em R ao resolver a compatibilidade de
+versões de pacotes estatísticos utilizados nestes scripts.</p>
+<p>A grande diferença entre o pacote {<code>renv</code>} e o
+{<code>groundhog</code>} é o fato de que o segundo funciona isoladamente
+em scripts, enquanto o primeir, necessariamente, faz uso dos projetos no
+R.</p>
+<div id="groundhog-na-prática" class="section level2">
+<h2>{<code>groundhog</code>} na prática</h2>
+<p>Para utilizar o {<code>groundhog</code>} devemos chamar as
+dependências (pacotes) utilizando uma função do groundhog da seguinte
+maneira</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(groundhog)</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>groundhog.day<span class="ot">=</span><span class="st">&quot;2020-11-01&quot;</span></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>pkgs<span class="ot">=</span><span class="fu">c</span>(<span class="st">&#39;pwr&#39;</span>,<span class="st">&#39;metafor&#39;</span>,<span class="st">&#39;data.tables&#39;</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="fu">groundhog.library</span>(pkgs, groundhog.day)</span></code></pre></div>
+<p>Ou seja, utilizamos dois argumentos na função
+<code>groundhog.library</code> um indicando os pacotes que devem ser
+carregados e um segundo, aí a grande diferença do groundhog, indicando
+uma data de uso do pacote. Esta data funcionará para baixar a versão do
+pacote mais recente tendo como referência a data indicada.</p>
+</div>
+</div>
+<div id="exercício" class="section level1">
+<h1>Exercício</h1>
+<p>Tente as duas formas de ler pacotes apresentadas nesta seção, veja o
+que mudou (ou não) no seu diretório.</p>
+</div>
+<div id="leituras-adicionais" class="section level1">
+<h1>Leituras adicionais</h1>
+<p>Para mais informações sobre o pacote {<code>renv</code>} veja este <a
+href="https://reproducibility.rocks/materials/day3/01-renv/">material</a>.
+Para mais informações sobre o {<code>groundhog</code>} veja o <a
+href="https://datacolada.org/95#footnote_2_5852">blog</a> escrito por um
+dos desenvolvedores do pacote. A propósito, o blog <a
+href="https://datacolada.org/">Data Colada</a> é uma fonte sensacional
+de ideias e discussões sobre ciência, reprodutibilidade e tudo o
+mais.</p>
 </div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiTWFuZWphbmRvIHZlcnPDtWVzIGRlIHBhY290ZXMgLSByZW52IgphdXRob3I6ICJHYWJyaWVsIE5ha2FtdXJhIgpkYXRlOiAiYHIgU3lzLkRhdGUoKWAiCm91dHB1dDogaHRtbF9kb2N1bWVudAotLS0KCiMgQ29tcGF0aWJpbGlkYWRlIGNvbSBwYWNvdGVzCgpBdMOpIGFnb3JhIGFwcmVuZGVtb3MgY29tbyByZWR1emlyIG9zIGVycm9zIGNvbXVucyBkZSByZXByb2R1dGliaWxpZGFkZSBjb21wdXRhY2lvbmFsIGFzc29jaWFkb3MgYSBhcnF1aXZvcyBwcmVzZW50ZXMgbm8gbm9zc28gZGlyZXTDs3Jpby4gUG9yw6ltLCBuYSBtYWlvcmlhIGRvcyBwcm9qZXRvcyBuw6NvIHV0aWxpemFtb3MgYXBlbmFzIGFycXVpdm9zIHF1ZSBlc3TDo28gcHJlc2VudGVzIG5vIGRpcmV0w7NyaW8gbG9jYWwgb3UgcmVtb3RvLCBwb3IgZXhlbXBsbywgb3MgcGFjb3RlcyEKCk9zIHBhY290ZXMgc8OjbyBkaXNwb25pYmlsaXphZG9zIGFiZXJ0YW1lbnRlIGUgbyBxdWUgZmF6ZW1vcyDDqSBiYWl4YXIgdW1hIHZlcnPDo28gZGVzdGUgcGFjb3RlIGVtIG5vc3NvIGNvbXB1dGFkb3IuIFBvcsOpbSwgcGFjb3RlcyBuZW0gc2VtcHJlIChvdSBhIG1haW9yaWEgZGFzIHZlemVzKSwgZmljYW0gZGEgbWFuZWlyYSBjb21vIG9zIGJhaXhhbW9zLiBQYWNvdGVzIHPDo28gZWRpdGFkb3MgcG9yIHNldXMgcHJvcG9uZW50ZXMsIGZ1bsOnw6NvIGludGVybmFzIHPDo28gY29ycmlnaWRhcywgYWxndW1hcyBzw6NvIGV4Y2x1w61kYXMsIG91dHJhcyBhZGljaW9uYWRhcyBlIGFsZ3VtYXMgdmV6ZXMgYXTDqSBtZXNtbyBvIG5vbWUgZGEgZnVuw6fDo28gw6kgbW9kaWZpY2Fkby4gTWFzIGNvbW8gY29uc2VndWltb3MgZ2FyYW50aXIgcXVlIG5vc3NvIGPDs2RpZ28gc2VqYSByZXByb2R1dMOtdmVsLCBxdWFuZG8gZWxlIGRlcGVuZGUgZGUgdW1hIG91dHJhIHBlc3NvYSBhdHVhbGl6YW5kbyBmdW7Dp8O1ZXMgZSBkZXBlbmTDqm5jaWFzIG5vcyBub3Nzb3Mgc2NyaXB0cz8gVW1hIGRhcyBzb2x1w6fDtWVzIMOpIG8gcGFjb3RlIHtgcmVudmB9CgojIEdhcmFudGluZG8gYSByZXByb2R1dGliaWxpZGFkZSBkYXMgZnVuw6fDtWVzIHtgcmVudmB9Cg==</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiTWFuZWphbmRvIHZlcnPDtWVzIGRlIHBhY290ZXMiCmF1dGhvcjogIkdhYnJpZWwgTmFrYW11cmEiCmRhdGU6ICJgciBTeXMuRGF0ZSgpYCIKb3V0cHV0OiBodG1sX2RvY3VtZW50Ci0tLQoKIyBDb21wYXRpYmlsaWRhZGUgY29tIHBhY290ZXMKCkF0w6kgYWdvcmEgYXByZW5kZW1vcyBjb21vIHJlZHV6aXIgb3MgZXJyb3MgY29tdW5zIGRlIHJlcHJvZHV0aWJpbGlkYWRlIGNvbXB1dGFjaW9uYWwgYXNzb2NpYWRvcyBhIGFycXVpdm9zIHByZXNlbnRlcyBubyBub3NzbyBkaXJldMOzcmlvLiBQb3LDqW0sIG5hIG1haW9yaWEgZG9zIHByb2pldG9zIG7Do28gdXRpbGl6YW1vcyBhcGVuYXMgYXJxdWl2b3MgcXVlIGVzdMOjbyBwcmVzZW50ZXMgbm8gZGlyZXTDs3JpbyBsb2NhbCBvdSByZW1vdG8sIHBvciBleGVtcGxvLCBvcyBwYWNvdGVzIQoKT3MgcGFjb3RlcyBzw6NvIGRpc3BvbmliaWxpemFkb3MgYWJlcnRhbWVudGUgZSBvIHF1ZSBmYXplbW9zIMOpIGJhaXhhciB1bWEgdmVyc8OjbyBkZXN0ZSBwYWNvdGUgZW0gbm9zc28gY29tcHV0YWRvci4gUG9yw6ltLCBwYWNvdGVzIG5lbSBzZW1wcmUgKG91IGEgbWFpb3JpYSBkYXMgdmV6ZXMpLCBmaWNhbSBkYSBtYW5laXJhIGNvbW8gb3MgYmFpeGFtb3MuIFBhY290ZXMgc8OjbyBlZGl0YWRvcyBwb3Igc2V1cyBwcm9wb25lbnRlcywgZnVuw6fDo28gaW50ZXJuYXMgc8OjbyBjb3JyaWdpZGFzLCBhbGd1bWFzIHPDo28gZXhjbHXDrWRhcywgb3V0cmFzIGFkaWNpb25hZGFzIGUgYWxndW1hcyB2ZXplcyBhdMOpIG1lc21vIG8gbm9tZSBkYSBmdW7Dp8OjbyDDqSBtb2RpZmljYWRvLiBNYXMgY29tbyBjb25zZWd1aW1vcyBnYXJhbnRpciBxdWUgbm9zc28gY8OzZGlnbyBzZWphIHJlcHJvZHV0w612ZWwsIHF1YW5kbyBlbGUgZGVwZW5kZSBkZSB1bWEgb3V0cmEgcGVzc29hIGF0dWFsaXphbmRvIGZ1bsOnw7VlcyBlIGRlcGVuZMOqbmNpYXMgbm9zIG5vc3NvcyBzY3JpcHRzPyBVbWEgZGFzIHNvbHXDp8O1ZXMgw6kgbyBwYWNvdGUge2ByZW52YH0KCiMgR2FyYW50aW5kbyBhIHJlcHJvZHV0aWJpbGlkYWRlIGRhcyBmdW7Dp8O1ZXM6IHtgcmVudmB9CgpBIGdyYW5kZSBzYWNhZGEgZG8ge2ByZW52YH0gcGFyYSBnYXJhbnRpciBhIHJlcHJvZHV0aWJpbGlkYWRlIGRhcyBmdW7Dp8O1ZXMgZG9zIHBhY290ZXMgdXRpbGl6YWRvcyDDqSBxdWUgZWxlIGluc3RhbGEgZXN0YXMgZGVwZW5kw6puY2lhcyBudW1hIHBhc3RhIGVzcGVjw61maWNhIGRvIHByb2pldG8gcXVlIGNvbnTDqW0gdGFpcyBkZXBlbmTDqm5jaWEuIERlc3RhIGZvcm1hLCBhbyB1dGlsaXphciB1bSBwcm9qZXRvIGRlIG91dHJhIHBlc3NvYSwgb3UgbyBzZXUgcHLDs3ByaW8gcHJvamV0byBubyBmdXR1cm8sIHZvY8OqIGlyw6EgdXRpbGl6YXIgYXMgbWVzbWFzIHZlcnPDtWVzIGRvcyBwYWNvdGVzLgoKIyMge2ByZW52YH0gbmEgcHLDoXRpY2EKClF1YXRybyBmdW7Dp8O1ZXMgc8OjbyBlc3NlbmNpYWlzIHBhcmEgdXRpbGl6YXIgbyBwYWNvdGUge2ByZW52YH0uIExlbWJyZS1zZSAqKnNlbXByZSBmYcOnYSBpc3NvIGRlbnRybyBkZSB1bSBwcm9qZXRvKioKCjEuIGByZW52Ojppbml0KClgIHByaW1laXJhIGHDp8OjbyBhIHNlciByZWFsaXphZGEgcGFyYSBpbmljaWFyIG8gdXNvIGRvIHBhY290ZSBubyBzZXUgcHJvamV0by4gCgoyLiBgcmVudjo6c3RhdHVzKClgIGNvbmZlcmUgbyBzdGF0dXMgZGFzIGRlcGVuZMOqbmNpYXMgY29udGlkYXMgbm8gc2V1IHByb2pldG8KCjMuIGByZW52OjpzbmFwc2hvdCgpYCB1dGlsaXplIGVzc2EgZnVuw6fDo28gdG9kYSB2ZXogcXVlIGluc3RhbGFyIHVtIHBhY290ZSBub3ZvLCBpc3NvIGdhcmFudGlyw6EgcXVlIGEgdmVyc8OjbyBkZXN0ZSBwYWNvdGUgZXN0YXLDoSByZWdpc3RyYWRhIG5vcyBhcnF1aXZvcyBlc3BlY2lhaXMgY3JpYWRvcyBwZWxvIHtgcmVudmB9Cgo0LiBgcmVudjo6cmVzdG9yZSgpYCBlc3RhIGZ1bsOnw6NvIMOpIHV0aWxpemFkYSBxdWFuZG8gdm9jw6ogcXVpc2VyIHJlcHJvZHV6aXIgYWxndW0gcHJvamV0by4gUG9yIGV4ZW1wbG8sIGFvIGJhaXhhciB1bSBwcm9qZXRvIGRvIEdpdEh1YiBhYnJhIGEgaW1hZ2VtIGRvIFJwcm9qZWN0IGUgdXRpbGl6ZSBhIGZ1bsOnw6NvIGByZXN0b3JlKClgIGlzc28gaXLDoSBkZXNlbmNhZGVhciBhIGluc3RhbGHDp8OjbyBkYXMgdmVyc8O1ZXMgZG9zIHBhY290ZXMgdXRpbGl6YWRhcyBubyBwcm9qZXRvIGVtIHNldSBjb21wdXRhZG9yLCBnYXJhbnRpbmRvIGFzc2ltIGEgcmVwcm9kdXRpYmlsaWRhZGUKCgojIEdhcmFudGluZG8gYSByZXByb2R1dGliaWxpZGFkZSBkYXMgZnVuw6fDtWVzOiB7YGdyb3VuZGhvZ2B9CgpPdXRyYSBvcMOnw6NvIMOpIG8gw7N0aW1vIHBhY290ZSB7YGdyb3VuZGhvZ2B9LCBxdWUgZXhlcmNlIGZ1bsOnw7VlcyBzaW1pbGFyZXMgYW8gYHJlbnZgIG1hcywgdGVjbmljYW1lbnRlLCBkZSBtYW5laXJhcyBkaXN0aW50YXMuIE8gb2JqZXRpdm8gZmluYWwgw6kgbyBtZXNtbywgYXVtZW50YXIgYSBjaGFuY2UgZGUgcmVwcm9kdXRpYmlsaWRhZGUgZGUgY8OzZGlnb3MgZW0gUiBhbyByZXNvbHZlciBhIGNvbXBhdGliaWxpZGFkZSBkZSB2ZXJzw7VlcyBkZSBwYWNvdGVzIGVzdGF0w61zdGljb3MgdXRpbGl6YWRvcyBuZXN0ZXMgc2NyaXB0cy4KCkEgZ3JhbmRlIGRpZmVyZW7Dp2EgZW50cmUgbyBwYWNvdGUge2ByZW52YH0gZSBvIHtgZ3JvdW5kaG9nYH0gw6kgbyBmYXRvIGRlIHF1ZSBvIHNlZ3VuZG8gZnVuY2lvbmEgaXNvbGFkYW1lbnRlIGVtIHNjcmlwdHMsIGVucXVhbnRvIG8gcHJpbWVpciwgbmVjZXNzYXJpYW1lbnRlLCBmYXogdXNvIGRvcyBwcm9qZXRvcyBubyBSLgoKIyMge2Bncm91bmRob2dgfSBuYSBwcsOhdGljYQoKUGFyYSB1dGlsaXphciBvIHtgZ3JvdW5kaG9nYH0gZGV2ZW1vcyBjaGFtYXIgYXMgZGVwZW5kw6puY2lhcyAocGFjb3RlcykgdXRpbGl6YW5kbyB1bWEgZnVuw6fDo28gZG8gZ3JvdW5kaG9nIGRhIHNlZ3VpbnRlIG1hbmVpcmEKCmBgYHtyIGVjaG89VFJVRSwgZXZhbD1GQUxTRX0KbGlicmFyeShncm91bmRob2cpCmdyb3VuZGhvZy5kYXk9IjIwMjAtMTEtMDEiCnBrZ3M9YygncHdyJywnbWV0YWZvcicsJ2RhdGEudGFibGVzJykKZ3JvdW5kaG9nLmxpYnJhcnkocGtncywgZ3JvdW5kaG9nLmRheSkKYGBgCgpPdSBzZWphLCB1dGlsaXphbW9zIGRvaXMgYXJndW1lbnRvcyBuYSBmdW7Dp8OjbyBgZ3JvdW5kaG9nLmxpYnJhcnlgIHVtIGluZGljYW5kbyBvcyBwYWNvdGVzIHF1ZSBkZXZlbSBzZXIgY2FycmVnYWRvcyBlIHVtIHNlZ3VuZG8sIGHDrSBhIGdyYW5kZSBkaWZlcmVuw6dhIGRvIGdyb3VuZGhvZywgaW5kaWNhbmRvIHVtYSBkYXRhIGRlIHVzbyBkbyBwYWNvdGUuIEVzdGEgZGF0YSBmdW5jaW9uYXLDoSBwYXJhIGJhaXhhciBhIHZlcnPDo28gZG8gcGFjb3RlIG1haXMgcmVjZW50ZSB0ZW5kbyBjb21vIHJlZmVyw6puY2lhIGEgZGF0YSBpbmRpY2FkYS4KCiMgRXhlcmPDrWNpbwoKVGVudGUgYXMgZHVhcyBmb3JtYXMgZGUgbGVyIHBhY290ZXMgYXByZXNlbnRhZGFzIG5lc3RhIHNlw6fDo28sIHZlamEgbyBxdWUgbXVkb3UgKG91IG7Do28pIG5vIHNldSBkaXJldMOzcmlvLgoKIyBMZWl0dXJhcyBhZGljaW9uYWlzCgpQYXJhIG1haXMgaW5mb3JtYcOnw7VlcyBzb2JyZSBvIHBhY290ZSB7YHJlbnZgfSB2ZWphIGVzdGUgW21hdGVyaWFsXShodHRwczovL3JlcHJvZHVjaWJpbGl0eS5yb2Nrcy9tYXRlcmlhbHMvZGF5My8wMS1yZW52LykuIFBhcmEgbWFpcyBpbmZvcm1hw6fDtWVzIHNvYnJlIG8ge2Bncm91bmRob2dgfSB2ZWphIG8gW2Jsb2ddKGh0dHBzOi8vZGF0YWNvbGFkYS5vcmcvOTUjZm9vdG5vdGVfMl81ODUyKSBlc2NyaXRvIHBvciB1bSBkb3MgZGVzZW52b2x2ZWRvcmVzIGRvIHBhY290ZS4gQSBwcm9ww7NzaXRvLCBvIGJsb2cgW0RhdGEgQ29sYWRhXShodHRwczovL2RhdGFjb2xhZGEub3JnLykgw6kgdW1hIGZvbnRlIHNlbnNhY2lvbmFsIGRlIGlkZWlhcyBlIGRpc2N1c3PDtWVzIHNvYnJlIGNpw6puY2lhLCByZXByb2R1dGliaWxpZGFkZSBlIHR1ZG8gbyBtYWlzLgo=</div>
 
 
 </div>

@@ -43,9 +43,8 @@ navbar:
         href: sites-basics.html
     - text: "Avançado"
       menu:
-      - text: "Pacote `{renv}`"
+      - text: "Manejando versões de pacotes"
         href: renv-basics.html
-      - text: "Pacote `{groundhog}`"
       - text: "Containers"
         href: rocker-basics.html
       - text: "Pipelines com Targets"
