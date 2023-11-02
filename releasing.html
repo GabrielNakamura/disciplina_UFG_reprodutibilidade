@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Gabriel Nakamura" />
+
+<meta name="date" content="2023-11-02" />
+
+<title>Releasing</title>
+
+<script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<script src="site_libs/navigation-1.1/sourceembed.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+
+
+<style type="text/css">
+#rmd-source-code {
+  display: none;
+}
+</style>
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Reprodutibilidade Computacional e Organização de Dados em Ecologia e Evolução</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Início</a>
+</li>
+<li>
+  <a href="intro_ciencia_aberta.html">O que é ciência aberta?</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Dados abertos
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="dados_abertos.html">O que são dados abertos?</a>
+    </li>
+    <li>
+      <a href="metadata_EML.html">Metadados</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="Organizacao_dir_local.html">Organização local</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Versionamento
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="basics_git.html">ABC do versionamento</a>
+    </li>
+    <li>
+      <a href="commits-travel.html">Viajando no tempo</a>
+    </li>
+    <li>
+      <a href="colabs_github.html">Trabalho colaborativo</a>
+    </li>
+    <li>
+      <a href="gitgnore.html">Ignorando arquivos</a>
+    </li>
+    <li>
+      <a href="conflitos.html">Resolvendo conflitos</a>
+    </li>
+    <li>
+      <a href="releasing.html">Releasing - retrato permanente</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Programação letrada
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="rmarkdown-basics.html">Rmarkdown</a>
+    </li>
+    <li>
+      <a href="sites-basics.html">Sites</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Avançado
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="renv-basics.html">Manejando versões de pacotes</a>
+    </li>
+    <li>
+      <a href="rocker-basics.html">Containers</a>
+    </li>
+    <li>
+      <a href="targets_basics.html">Pipelines com Targets</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-download-source" href="#">Download Rmd</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Releasing</h1>
+<h4 class="author">Gabriel Nakamura</h4>
+<h4 class="date">2023-11-02</h4>
+
+</div>
+
+
+<div id="um-retrato-permanente-do-seu-projeto" class="section level1">
+<h1>Um retrato permanente do seu projeto</h1>
+<p>Aquela bela mensagem que todos nós gostamos de receber: “Parabéns,
+seu artigo foi aceito para publicação na revista XXXXX”. Trabalho
+terminado, certo? É hora de encaixotar tudo e partir para outra
+empreitada científica? Não! Antes disso precisamos registar nosso código
+de modo que ele possa ser rastreado facilmente, citado e, acima de tudo,
+reproduzível de modo que quem o faça chegue nas mesmas conclusões que
+chegamos em nosso artigo. Porém, seu código está no GitHub, e volta e
+meia ele é modificado, ou por algum motivo técnico, instabilidade de
+servidor ou até mesmo porque você decidiu revisitá-lo e modificar um
+pouco esse código. A questão é, como fazer com que seu código possa ser
+registrado e guardado com segurança e de maneira permanente? Para isso
+utilizamos algum repositório para armazenamento permanente.</p>
+<p>Aqui irei mostrar como isso pode ser feita a partir da utilização do
+<a href="https://zenodo.org/">Zenodo</a>, mas outros repositórios
+permanentes de dados e códigos estão disponíveis por aí, por exemplo
+Dryad.</p>
+<p>Para armazenar seu código no Zenodo, a primeira coisa a ser feita é
+criar uma conta nele. A minha sugestão é que esta conta seja criada
+através da sua conta do GitHub, isso faz com que o Zenodo já tenha
+conexão com seus repositórios, incluindo aquele que pretende fazer o
+armazenamento permanente.</p>
+</div>
+<div id="acessando-seus-repositórios-via-zenodo" class="section level1">
+<h1>Acessando seus repositórios via Zenodo</h1>
+<p>Para ver os seus repositórios através do Zenodo basta acessar a aba
+GitHub via zenodo, como mostrado na seta da Figura abaixo</p>
+<div class="figure">
+<img src="figs/zenodo-page.png" alt="Página do zenodo que apresenta conexão com seus repositórios no Github" width="1039" />
+<p class="caption">
+Página do zenodo que apresenta conexão com seus repositórios no Github
+</p>
+</div>
+<p>Ao acessar a aba GitHub via Zenodo, todos os seus repositórios
+públicos irão aparecer, portanto, é importante que o repositório que
+você pretende fazer o armazenamento permanente dos dados seja público,
+como mostrado na imagem abaixo</p>
+<div class="figure">
+<img src="figs/zenodo2.png" alt="Página do zenodo com seus repositórios públicos Github" width="864" />
+<p class="caption">
+Página do zenodo com seus repositórios públicos Github
+</p>
+</div>
+<p>O primeiro passo é habilitar o acesso do Zenodo ao repositório de
+interesse. Como mostrado na própria página do Zenodo. Em seguida você
+deve fazer um <strong>release</strong> do seu repositório, mas o que é
+isso? Como o próprio nome diz, o release é um lançamento do repositório,
+é como se fosse uma fotografia do repositório inteiro em um dado
+momento. Fazemos isso, por exemplo, quando temos uma versão estável de
+um pacote estatístico, ou quando submetemos o nosso manuscrito para uma
+revista ou repositórios de preprints. O release é importante pois é a
+partir dele que será criado o DOI (Digital Object Identifier), que é
+como um RG do seu repositório, um número único pelo qual ele pode ser
+identificado na internet.</p>
+<p>Para criar um release clique no botão verde na figura seguinte. Ele
+te redicionará para a página do GitHub.</p>
+<div class="figure">
+<img src="figs/zenodo3.png" alt="Página do zenodo que redicionará para o github para criar o release" width="833" />
+<p class="caption">
+Página do zenodo que redicionará para o github para criar o release
+</p>
+</div>
+<p>Ná página do GitHub dê um nome para esse seu novo release. Geralmente
+os nomes seguem um formato com três digitos separados por pontos,
+chamamos esse sistema de <a
+href="https://semver.org/lang/pt-BR/">versionamento semântico</a> e
+utilizamos ele para controlar as versões de lançamento de acordo com
+mudanças que podemos ir fazendo no nosso código. Isso é mais comum de
+ser utilizado para controlar versões de pacotes, mas não impede que
+utilize a mesma lógica no seu repositório que contém dados e códigos de
+análises.</p>
+<p>Para lançar seu release basta atribuir um nome de versão para seu
+repositório e pronto! Basta clicar no botão para publicar o release e
+ele está pronto.</p>
+<div class="figure">
+<img src="figs/zenodo4.png" alt="Página do github para preencher as informações do release" width="935" />
+<p class="caption">
+Página do github para preencher as informações do release
+</p>
+</div>
+<p>Após isso, volte para a página do Zenodo, lá você vai encontrar
+algumas coisas novas ao clicar no repositório que fez o release, a mais
+importante dela será o DOI.</p>
+<div class="figure">
+<img src="figs/zenodo5.png" alt="Página do Zenodo mostrando as informações do release, com destaque para o DOI" width="499" />
+<p class="caption">
+Página do Zenodo mostrando as informações do release, com destaque para
+o DOI
+</p>
+</div>
+<p>Esse número, a partir de agora, identificará seu repositório no
+Zenodo. Você pode, por exemplo, adicionar esse número no seu README, de
+modo que quem acesse o seu repositório através do GitHub saiba que você
+tem uma versão de armazenamento permanente que pode ser acessada através
+desse DOI no sítio do Zenodo. Este número também pode ser adicionado na
+versão final do seu artigo, juntamente com o endereço eletrônico para o
+repositório no Zenodo. Abaixo veja as informações adequadas para
+diferentes tipos de documentos e situações</p>
+<div class="figure">
+<img src="figs/zenodo6.png" alt="Página do Zenodo mostrando as informações do release" width="1114" />
+<p class="caption">
+Página do Zenodo mostrando as informações do release
+</p>
+</div>
+</div>
+
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiUmVsZWFzaW5nIgphdXRob3I6ICJHYWJyaWVsIE5ha2FtdXJhIgpkYXRlOiAiYHIgU3lzLkRhdGUoKWAiCm91dHB1dDogaHRtbF9kb2N1bWVudAotLS0KCiMgVW0gcmV0cmF0byBwZXJtYW5lbnRlIGRvIHNldSBwcm9qZXRvCgpBcXVlbGEgYmVsYSBtZW5zYWdlbSBxdWUgdG9kb3MgbsOzcyBnb3N0YW1vcyBkZSByZWNlYmVyOiAiUGFyYWLDqW5zLCBzZXUgYXJ0aWdvIGZvaSBhY2VpdG8gcGFyYSBwdWJsaWNhw6fDo28gbmEgcmV2aXN0YSBYWFhYWCIuIFRyYWJhbGhvIHRlcm1pbmFkbywgY2VydG8/IMOJIGhvcmEgZGUgZW5jYWl4b3RhciB0dWRvIGUgcGFydGlyIHBhcmEgb3V0cmEgZW1wcmVpdGFkYSBjaWVudMOtZmljYT8gTsOjbyEgQW50ZXMgZGlzc28gcHJlY2lzYW1vcyByZWdpc3RhciBub3NzbyBjw7NkaWdvIGRlIG1vZG8gcXVlIGVsZSBwb3NzYSBzZXIgcmFzdHJlYWRvIGZhY2lsbWVudGUsIGNpdGFkbyBlLCBhY2ltYSBkZSB0dWRvLCByZXByb2R1esOtdmVsIGRlIG1vZG8gcXVlIHF1ZW0gbyBmYcOnYSBjaGVndWUgbmFzIG1lc21hcyBjb25jbHVzw7VlcyBxdWUgY2hlZ2Ftb3MgZW0gbm9zc28gYXJ0aWdvLiBQb3LDqW0sIHNldSBjw7NkaWdvIGVzdMOhIG5vIEdpdEh1YiwgZSB2b2x0YSBlIG1laWEgZWxlIMOpIG1vZGlmaWNhZG8sIG91IHBvciBhbGd1bSBtb3Rpdm8gdMOpY25pY28sIGluc3RhYmlsaWRhZGUgZGUgc2Vydmlkb3Igb3UgYXTDqSBtZXNtbyBwb3JxdWUgdm9jw6ogZGVjaWRpdSByZXZpc2l0w6EtbG8gZSBtb2RpZmljYXIgdW0gcG91Y28gZXNzZSBjw7NkaWdvLiBBIHF1ZXN0w6NvIMOpLCBjb21vIGZhemVyIGNvbSBxdWUgc2V1IGPDs2RpZ28gcG9zc2Egc2VyIHJlZ2lzdHJhZG8gZSBndWFyZGFkbyBjb20gc2VndXJhbsOnYSBlIGRlIG1hbmVpcmEgcGVybWFuZW50ZT8gUGFyYSBpc3NvIHV0aWxpemFtb3MgYWxndW0gcmVwb3NpdMOzcmlvIHBhcmEgYXJtYXplbmFtZW50byBwZXJtYW5lbnRlLiAKCkFxdWkgaXJlaSBtb3N0cmFyIGNvbW8gaXNzbyBwb2RlIHNlciBmZWl0YSBhIHBhcnRpciBkYSB1dGlsaXphw6fDo28gZG8gW1plbm9kb10oaHR0cHM6Ly96ZW5vZG8ub3JnLyksIG1hcyBvdXRyb3MgcmVwb3NpdMOzcmlvcyBwZXJtYW5lbnRlcyBkZSBkYWRvcyBlIGPDs2RpZ29zIGVzdMOjbyBkaXNwb27DrXZlaXMgcG9yIGHDrSwgcG9yIGV4ZW1wbG8gRHJ5YWQuCgpQYXJhIGFybWF6ZW5hciBzZXUgY8OzZGlnbyBubyBaZW5vZG8sIGEgcHJpbWVpcmEgY29pc2EgYSBzZXIgZmVpdGEgw6kgY3JpYXIgdW1hIGNvbnRhIG5lbGUuIEEgbWluaGEgc3VnZXN0w6NvIMOpIHF1ZSBlc3RhIGNvbnRhIHNlamEgY3JpYWRhIGF0cmF2w6lzIGRhIHN1YSBjb250YSBkbyBHaXRIdWIsIGlzc28gZmF6IGNvbSBxdWUgbyBaZW5vZG8gasOhIHRlbmhhIGNvbmV4w6NvIGNvbSBzZXVzIHJlcG9zaXTDs3Jpb3MsIGluY2x1aW5kbyBhcXVlbGUgcXVlIHByZXRlbmRlIGZhemVyIG8gYXJtYXplbmFtZW50byBwZXJtYW5lbnRlLgoKIyBBY2Vzc2FuZG8gc2V1cyByZXBvc2l0w7NyaW9zIHZpYSBaZW5vZG8KClBhcmEgdmVyIG9zIHNldXMgcmVwb3NpdMOzcmlvcyBhdHJhdsOpcyBkbyBaZW5vZG8gYmFzdGEgYWNlc3NhciBhIGFiYSBHaXRIdWIgdmlhIHplbm9kbywgY29tbyBtb3N0cmFkbyBuYSBzZXRhIGRhIEZpZ3VyYSBhYmFpeG8KCmBgYHtyIGVjaG89RkFMU0UsIGV2YWw9VFJVRSwgZmlnLmNhcD0iUMOhZ2luYSBkbyB6ZW5vZG8gcXVlIGFwcmVzZW50YSBjb25leMOjbyBjb20gc2V1cyByZXBvc2l0w7NyaW9zIG5vIEdpdGh1YiJ9CmtuaXRyOjppbmNsdWRlX2dyYXBoaWNzKCJmaWdzL3plbm9kby1wYWdlLnBuZyIpCgpgYGAKCgpBbyBhY2Vzc2FyIGEgYWJhIEdpdEh1YiB2aWEgWmVub2RvLCB0b2RvcyBvcyBzZXVzIHJlcG9zaXTDs3Jpb3MgcMO6YmxpY29zIGlyw6NvIGFwYXJlY2VyLCBwb3J0YW50bywgw6kgaW1wb3J0YW50ZSBxdWUgbyByZXBvc2l0w7NyaW8gcXVlIHZvY8OqIHByZXRlbmRlIGZhemVyIG8gYXJtYXplbmFtZW50byBwZXJtYW5lbnRlIGRvcyBkYWRvcyBzZWphIHDDumJsaWNvLCBjb21vIG1vc3RyYWRvIG5hIGltYWdlbSBhYmFpeG8KCmBgYHtyIGVjaG89RkFMU0UsIGV2YWw9VFJVRSwgZmlnLmNhcD0iUMOhZ2luYSBkbyB6ZW5vZG8gY29tIHNldXMgcmVwb3NpdMOzcmlvcyBww7pibGljb3MgR2l0aHViIn0Ka25pdHI6OmluY2x1ZGVfZ3JhcGhpY3MoImZpZ3MvemVub2RvMi5wbmciKQoKYGBgCgpPIHByaW1laXJvIHBhc3NvIMOpIGhhYmlsaXRhciBvIGFjZXNzbyBkbyBaZW5vZG8gYW8gcmVwb3NpdMOzcmlvIGRlIGludGVyZXNzZS4gQ29tbyBtb3N0cmFkbyBuYSBwcsOzcHJpYSBww6FnaW5hIGRvIFplbm9kby4gRW0gc2VndWlkYSB2b2PDqiBkZXZlIGZhemVyIHVtICoqcmVsZWFzZSoqIGRvIHNldSByZXBvc2l0w7NyaW8sIG1hcyBvIHF1ZSDDqSBpc3NvPyBDb21vIG8gcHLDs3ByaW8gbm9tZSBkaXosIG8gcmVsZWFzZSDDqSB1bSBsYW7Dp2FtZW50byBkbyByZXBvc2l0w7NyaW8sIMOpIGNvbW8gc2UgZm9zc2UgdW1hIGZvdG9ncmFmaWEgZG8gcmVwb3NpdMOzcmlvIGludGVpcm8gZW0gdW0gZGFkbyBtb21lbnRvLiBGYXplbW9zIGlzc28sIHBvciBleGVtcGxvLCBxdWFuZG8gdGVtb3MgdW1hIHZlcnPDo28gZXN0w6F2ZWwgZGUgdW0gcGFjb3RlIGVzdGF0w61zdGljbywgb3UgcXVhbmRvIHN1Ym1ldGVtb3MgbyBub3NzbyBtYW51c2NyaXRvIHBhcmEgdW1hIHJldmlzdGEgb3UgcmVwb3NpdMOzcmlvcyBkZSBwcmVwcmludHMuIE8gcmVsZWFzZSDDqSBpbXBvcnRhbnRlIHBvaXMgw6kgYSBwYXJ0aXIgZGVsZSBxdWUgc2Vyw6EgY3JpYWRvIG8gRE9JIChEaWdpdGFsIE9iamVjdCBJZGVudGlmaWVyKSwgcXVlIMOpIGNvbW8gdW0gUkcgZG8gc2V1IHJlcG9zaXTDs3JpbywgdW0gbsO6bWVybyDDum5pY28gcGVsbyBxdWFsIGVsZSBwb2RlIHNlciBpZGVudGlmaWNhZG8gbmEgaW50ZXJuZXQuCgpQYXJhIGNyaWFyIHVtIHJlbGVhc2UgY2xpcXVlIG5vIGJvdMOjbyB2ZXJkZSBuYSBmaWd1cmEgc2VndWludGUuIEVsZSB0ZSByZWRpY2lvbmFyw6EgcGFyYSBhIHDDoWdpbmEgZG8gR2l0SHViLgoKYGBge3IgZWNobz1GQUxTRSwgZXZhbD1UUlVFLCBmaWcuY2FwPSJQw6FnaW5hIGRvIHplbm9kbyBxdWUgcmVkaWNpb25hcsOhIHBhcmEgbyBnaXRodWIgcGFyYSBjcmlhciBvIHJlbGVhc2UifQprbml0cjo6aW5jbHVkZV9ncmFwaGljcygiZmlncy96ZW5vZG8zLnBuZyIpCgpgYGAKCgpOw6EgcMOhZ2luYSBkbyBHaXRIdWIgZMOqIHVtIG5vbWUgcGFyYSBlc3NlIHNldSBub3ZvIHJlbGVhc2UuIEdlcmFsbWVudGUgb3Mgbm9tZXMgc2VndWVtIHVtIGZvcm1hdG8gY29tIHRyw6pzIGRpZ2l0b3Mgc2VwYXJhZG9zIHBvciBwb250b3MsIGNoYW1hbW9zIGVzc2Ugc2lzdGVtYSBkZSBbdmVyc2lvbmFtZW50byBzZW3Dom50aWNvXShodHRwczovL3NlbXZlci5vcmcvbGFuZy9wdC1CUi8pIGUgdXRpbGl6YW1vcyBlbGUgcGFyYSBjb250cm9sYXIgYXMgdmVyc8O1ZXMgZGUgbGFuw6dhbWVudG8gZGUgYWNvcmRvIGNvbSBtdWRhbsOnYXMgcXVlIHBvZGVtb3MgaXIgZmF6ZW5kbyBubyBub3NzbyBjw7NkaWdvLiBJc3NvIMOpIG1haXMgY29tdW0gZGUgc2VyIHV0aWxpemFkbyBwYXJhIGNvbnRyb2xhciB2ZXJzw7VlcyBkZSBwYWNvdGVzLCBtYXMgbsOjbyBpbXBlZGUgcXVlIHV0aWxpemUgYSBtZXNtYSBsw7NnaWNhIG5vIHNldSByZXBvc2l0w7NyaW8gcXVlIGNvbnTDqW0gZGFkb3MgZSBjw7NkaWdvcyBkZSBhbsOhbGlzZXMuCgpQYXJhIGxhbsOnYXIgc2V1IHJlbGVhc2UgYmFzdGEgYXRyaWJ1aXIgdW0gbm9tZSBkZSB2ZXJzw6NvIHBhcmEgc2V1IHJlcG9zaXTDs3JpbyBlIHByb250byEgQmFzdGEgY2xpY2FyIG5vIGJvdMOjbyBwYXJhIHB1YmxpY2FyIG8gcmVsZWFzZSBlIGVsZSBlc3TDoSBwcm9udG8uCgpgYGB7ciBlY2hvPUZBTFNFLCBldmFsPVRSVUUsIGZpZy5jYXA9IlDDoWdpbmEgZG8gZ2l0aHViIHBhcmEgcHJlZW5jaGVyIGFzIGluZm9ybWHDp8O1ZXMgZG8gcmVsZWFzZSJ9CmtuaXRyOjppbmNsdWRlX2dyYXBoaWNzKCJmaWdzL3plbm9kbzQucG5nIikKYGBgCgpBcMOzcyBpc3NvLCB2b2x0ZSBwYXJhIGEgcMOhZ2luYSBkbyBaZW5vZG8sIGzDoSB2b2PDqiB2YWkgZW5jb250cmFyIGFsZ3VtYXMgY29pc2FzIG5vdmFzIGFvIGNsaWNhciBubyByZXBvc2l0w7NyaW8gcXVlIGZleiBvIHJlbGVhc2UsIGEgbWFpcyBpbXBvcnRhbnRlIGRlbGEgc2Vyw6EgbyBET0kuCgpgYGB7ciBlY2hvPUZBTFNFLCBldmFsPVRSVUUsIGZpZy5jYXA9IlDDoWdpbmEgZG8gWmVub2RvIG1vc3RyYW5kbyBhcyBpbmZvcm1hw6fDtWVzIGRvIHJlbGVhc2UsIGNvbSBkZXN0YXF1ZSBwYXJhIG8gRE9JIn0Ka25pdHI6OmluY2x1ZGVfZ3JhcGhpY3MoImZpZ3MvemVub2RvNS5wbmciKQpgYGAKCkVzc2UgbsO6bWVybywgYSBwYXJ0aXIgZGUgYWdvcmEsIGlkZW50aWZpY2Fyw6Egc2V1IHJlcG9zaXTDs3JpbyBubyBaZW5vZG8uIFZvY8OqIHBvZGUsIHBvciBleGVtcGxvLCBhZGljaW9uYXIgZXNzZSBuw7ptZXJvIG5vIHNldSBSRUFETUUsIGRlIG1vZG8gcXVlIHF1ZW0gYWNlc3NlIG8gc2V1IHJlcG9zaXTDs3JpbyBhdHJhdsOpcyBkbyBHaXRIdWIgc2FpYmEgcXVlIHZvY8OqIHRlbSB1bWEgdmVyc8OjbyBkZSBhcm1hemVuYW1lbnRvIHBlcm1hbmVudGUgcXVlIHBvZGUgc2VyIGFjZXNzYWRhIGF0cmF2w6lzIGRlc3NlIERPSSBubyBzw610aW8gZG8gWmVub2RvLiBFc3RlIG7Dum1lcm8gdGFtYsOpbSBwb2RlIHNlciBhZGljaW9uYWRvIG5hIHZlcnPDo28gZmluYWwgZG8gc2V1IGFydGlnbywganVudGFtZW50ZSBjb20gbyBlbmRlcmXDp28gZWxldHLDtG5pY28gcGFyYSBvIHJlcG9zaXTDs3JpbyBubyBaZW5vZG8uIEFiYWl4byB2ZWphIGFzIGluZm9ybWHDp8O1ZXMgYWRlcXVhZGFzIHBhcmEgZGlmZXJlbnRlcyB0aXBvcyBkZSBkb2N1bWVudG9zIGUgc2l0dWHDp8O1ZXMKCmBgYHtyIGVjaG89RkFMU0UsIGV2YWw9VFJVRSwgZmlnLmNhcD0iUMOhZ2luYSBkbyBaZW5vZG8gbW9zdHJhbmRvIGFzIGluZm9ybWHDp8O1ZXMgZG8gcmVsZWFzZSJ9CmtuaXRyOjppbmNsdWRlX2dyYXBoaWNzKCJmaWdzL3plbm9kbzYucG5nIikKYGBgCg==</div>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeSourceEmbed("releasing.Rmd");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

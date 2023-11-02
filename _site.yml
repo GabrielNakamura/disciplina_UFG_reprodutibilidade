@@ -35,6 +35,7 @@ navbar:
       - text: "Resolvendo conflitos"
         href: conflitos.html
       - text: "Releasing - retrato permanente"
+        href: releasing.html
     - text: "Programação letrada"
       menu:
       - text: "Rmarkdown"
