@@ -181,7 +181,7 @@ library(here)
 Da forma convencional poderíamos ler esse dado da seguinte forma
 
 ```{r echo=TRUE,eval=FALSE}
-data_penguins <- read.csv("/Users/gabrielnakamura/OneDrive/Disciplina_Praticas_ferramentas_gestao_dados/USP_reproducibility_BIE5791/data/data-penguins.csv")
+data_penguins <- read.csv("/Users/gabrielnakamura/OneDrive/Aulas/UFG_reprodutibilidade/disciplina_UFG_reprodutibilidade/data/data-penguins.csv")
 ```
 
 Será que você consegue reproduzir essa simples leitura de dados usando o mesmo código acima? Tente..
