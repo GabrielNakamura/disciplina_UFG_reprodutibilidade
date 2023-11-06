@@ -200,7 +200,7 @@ Aí entra o here. Com o pacote here podemos usar simplesmente o seguinte código
 
 ```{r echo=TRUE,eval=FALSE}
 library(here)
-data_penguins <- read.csv(here("data", "data-pengins.csv"))
+data_penguins <- read.csv(here("data", "data-penguins.csv"))
 ```
 
 Note que ao invés de usarmos o caminho, usamos dentro da função `here` o nome das pastas que levam até o arquivo que desejamos abrir, bem como o nome deste arquivo. Garanto que agora isso irá funcionar com todos
