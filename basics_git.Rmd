@@ -61,7 +61,7 @@ Agora que conhecemos as ferramentas, imagine se conseguíssemos colocar elas em 
 O primeiro passo antes de instalar o Git é saber se você já tem ele instalado em seu computador. Para tanto você deve acessar a linha de comando de seu sistema operacional (bash, prompt, isso vai variar dependendo do tipo de sistema que usa) e digitar o comando:
 
 ```{r echo=TRUE, eval=FALSE}
-which git
+git
 ```
 
 Caso retorne uma mensagem indicando o local do git no seu computador, ótimo, uma tarefa a menos, caso contrário você terá que instalar o git de acordo com as especificidades do seu sistema operacional que serão apresentadas a seguir.
