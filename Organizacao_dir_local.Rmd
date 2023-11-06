@@ -24,7 +24,7 @@ Nessa seção irei mostrar uma proposta de esquema geral para organização de d
 Digo que não é absoluto pois modificações nesse esquema podem ser feita para ajustar ao conjunto de dados de cada pessoa. A Ecologia é um campo muito amplo de pesquisa, e nem todos os dados se ajustarão perfeitamente a esta proposta. O mais importante de tudo é que os dados estejam organizados de uma maneira **intuitiva** e **consistente** no diretório, como o na figura seguinte.
 
 ```{r echo=FALSE,eval=TRUE,fig.cap= "Um diretório minimamente organizado"}
-knitr::include_graphics("figs/directory_org.jpg")
+knitr::include_graphics("figs/directory_org.png")
 ```
 
 Mas, qual a lógica por trás da organização desse diretório? Seguimos a proposta presente na figura seguinte [(original pode ser visto aqui)](https://docs.google.com/presentation/d/1Px9Npa_ANqmmfjCXo9A-eBmWzgUmmkCKd7fBIq_gG6k/edit#slide=id.g62fc6bf72f_0_7). 
@@ -62,6 +62,8 @@ Pessoalmente eu utilizo o seguinte esquema
     + `S` (Show) gráficos/figuras
 
 - descrição: uma breve descrição sobre o que o script faz especificamente (e.g. glm)
+
+A melhor referência para nomeação de arquivos é este [documento da Jenny Brian](https://www2.stat.duke.edu/~rcs46/lectures_2015/01-markdown-git/slides/naming-slides/naming-slides.pdf). Recomendo fortemente olhar este material para aprofundar as ideias que baseiam a nomeação de arquivos.
 
 ## O README
 

@@ -70,6 +70,13 @@ Caso retorne uma mensagem indicando o local do git no seu computador, ótimo, um
 
 Instale o Git acessando [aqui](https://gitforwindows.org/) e siga as informações do auxiliar de instalação que foi baixado.
 
+Para que o git funcione corretamente, pode ser necessário informar manualmente o caminho onde o git vive no seu computador para o RStudio. Para fazer isso abra o RStudio, em seguida acesse a aba *Seção*, vá até *opções globais* e informe o caminho para o git no seu computador, como mostrado na imagem abaixo.
+
+```{r echo=FALSE,eval=TRUE}
+knitr::include_graphics(here::here("figs/git-rstudio-path.png"))
+```
+
+
 ## Instação do Git no Mac OS
 
 Instale o Git no seu Mac baixando o Xcode command line tools caso você ainda não o tenha. Esta aplicação já vem com o git. Aceite as configurações e clique em instalar
