@@ -45,3 +45,7 @@ eml_ex$dataset$dataTable
 devtools::install_github("ropensci/EML")
 ```
 
+
+# Manipulando EMLs com XML
+
+
