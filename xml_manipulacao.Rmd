@@ -1,0 +1,47 @@
+---
+title: "Manipulando arquivos XML"
+author: "Gabriel Nakamura"
+date: "2023-11-08"
+output: html_document
+---
+---
+title: 'Metadados com EML'
+author: "Gabriel Nakamura"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r echo=FALSE, include=TRUE}
+klippy::klippy()
+```
+
+# Manipulando metadados
+
+Na seção anterior vimos como [montar um metadado do zero utilizando o pacote EML]()
+
+
+# Usando o pacote XML
+
+```{r echo=TRUE, eval=FALSE}
+install.packages("XML")
+library(XML)
+
+data <- xmlParse("http://forecast.weather.gov/MapClick.php?lat=29.803&lon=-82.411&FcstType=digitalDWML")
+
+xml_data <- xmlToList(here::here("data", "eml_tutorialHF205.xml"))
+help(package = "XML")
+xml_data$dataset$dataTable
+
+```
+
+
+# Usando o pacote EML
+
+```{r}
+eml_ex <- EML::read_eml(here::here("data", "eml_tutorialHF205.xml"))
+eml_ex
+names(eml_ex)
+eml_ex$dataset$dataTable
+devtools::install_github("ropensci/EML")
+```
+

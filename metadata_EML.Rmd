@@ -285,8 +285,10 @@ eml <- list(
 Finalmente criando o arquivo XML e validando.
 
 ```{r echo=TRUE,eval=FALSE}
+eml_validate(eml)
 write_eml(eml, here::here("data", "eml_tutorialHF205.xml"))
 eml_validate(here::here("data", "eml_tutorialHF205.xml"))
+
 ```
 
 
