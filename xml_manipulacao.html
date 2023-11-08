@@ -1,0 +1,1462 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Gabriel Nakamura" />
+
+<meta name="date" content="2023-11-08" />
+
+<title>Metadados com EML</title>
+
+<script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<script src="site_libs/navigation-1.1/sourceembed.js"></script>
+<script src="site_libs/clipboard-1.7.1/clipboard.min.js"></script>
+<link href="site_libs/primer-tooltips-1.4.0/build.css" rel="stylesheet" />
+<link href="site_libs/klippy-0.0.0.9500/css/klippy.min.css" rel="stylesheet" />
+<script src="site_libs/klippy-0.0.0.9500/js/klippy.min.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #204a87; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #204a87; font-weight: bold; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #ce5c00; font-weight: bold; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+<style type="text/css">
+#rmd-source-code {
+  display: none;
+}
+</style>
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Reprodutibilidade Computacional e Organização de Dados em Ecologia e Evolução</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Início</a>
+</li>
+<li>
+  <a href="intro_ciencia_aberta.html">O que é ciência aberta?</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Dados abertos
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="dados_abertos.html">O que são dados abertos?</a>
+    </li>
+    <li>
+      <a href="metadata_EML.html">Metadados</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="Organizacao_dir_local.html">Organização local</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Versionamento
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="basics_git.html">ABC do versionamento</a>
+    </li>
+    <li>
+      <a href="commits-travel.html">Viajando no tempo</a>
+    </li>
+    <li>
+      <a href="colabs_github.html">Trabalho colaborativo</a>
+    </li>
+    <li>
+      <a href="gitgnore.html">Ignorando arquivos</a>
+    </li>
+    <li>
+      <a href="conflitos.html">Resolvendo conflitos</a>
+    </li>
+    <li>
+      <a href="releasing.html">Releasing - retrato permanente</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Programação letrada
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="rmarkdown-basics.html">Rmarkdown</a>
+    </li>
+    <li>
+      <a href="sites-basics.html">Sites</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Avançado
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="renv-basics.html">Manejando versões de pacotes</a>
+    </li>
+    <li>
+      <a href="rocker-basics.html">Containers</a>
+    </li>
+    <li>
+      <a href="targets_basics.html">Pipelines com Targets</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-download-source" href="#">Download Rmd</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Metadados com EML</h1>
+<h4 class="author">Gabriel Nakamura</h4>
+<h4 class="date">2023-11-08</h4>
+
+</div>
+
+
+<script>
+  addClassKlippyTo("pre.r, pre.markdown");
+  addKlippy('left', 'top', 'auto', '1', 'Copy code', 'Copied!');
+</script>
+<div id="manipulando-metadados" class="section level1">
+<h1>Manipulando metadados</h1>
+<p>Na seção anterior vimos como <a href="">montar um metadado do zero
+utilizando o pacote EML</a></p>
+</div>
+<div id="usando-o-pacote-xml" class="section level1">
+<h1>Usando o pacote XML</h1>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;XML&quot;</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">library</span>(XML)</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">xmlParse</span>(<span class="st">&quot;http://forecast.weather.gov/MapClick.php?lat=29.803&amp;lon=-82.411&amp;FcstType=digitalDWML&quot;</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>xml_data <span class="ot">&lt;-</span> <span class="fu">xmlToList</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;eml_tutorialHF205.xml&quot;</span>))</span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="fu">help</span>(<span class="at">package =</span> <span class="st">&quot;XML&quot;</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a>xml_data<span class="sc">$</span>dataset<span class="sc">$</span>dataTable</span></code></pre></div>
+</div>
+<div id="usando-o-pacote-eml" class="section level1">
+<h1>Usando o pacote EML</h1>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>eml_ex <span class="ot">&lt;-</span> EML<span class="sc">::</span><span class="fu">read_eml</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;eml_tutorialHF205.xml&quot;</span>))</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>eml_ex</span></code></pre></div>
+<pre><code>## dataset:
+##   title: &quot;Thresholds and Tipping Points in a Sarracenia \nMicroecosystem at Harvard
+##     Forest since 2012&quot;
+##   creator:
+##     id: https://orcid.org/0000-0003-4151-6081
+##     individualName:
+##       givenName: Aaron
+##       surName: Ellison
+##     electronicMailAddress: fakeaddress@email.com
+##   pubDate: &#39;2012&#39;
+##   abstract: |-
+##     The primary goal of this project is to determine
+##       experimentally the amount of lead time required to prevent a state
+##     change. To achieve this goal, we will (1) experimentally induce state
+##     changes in a natural aquatic ecosystem - the Sarracenia microecosystem;
+##     (2) use proteomic analysis to identify potential indicators of states
+##     and state changes; and (3) test whether we can forestall state changes
+##     by experimentally intervening in the system. This work uses state-of-the
+##     art molecular tools to identify early warning indicators in the field
+##     of aerobic to anaerobic state changes driven by nutrient enrichment
+##     in an aquatic ecosystem. The study tests two general hypotheses: (1)
+##     proteomic biomarkers can function as reliable indicators of impending
+##     state changes and may give early warning before increasing variances
+##     and statistical flickering of monitored variables; and (2) well-timed
+##     intervention based on proteomic biomarkers can avert future state changes
+##     in ecological systems.
+##   intellectualRights: |-
+##     This dataset is released to the public and may be freely
+##       downloaded. Please keep the designated Contact person informed of any
+##     plans to use the dataset. Consultation or collaboration with the original
+##     investigators is strongly encouraged. Publications and data products
+##     that make use of the dataset must include proper acknowledgement. For
+##     more information on LTER Network data access and use policies, please
+##     see: http://www.lternet.edu/data/netpolicy.html.
+##   coverage:
+##     geographicCoverage:
+##       geographicDescription: Harvard Forest Greenhouse, Tom Swamp Tract (Harvard Forest)
+##       boundingCoordinates:
+##         westBoundingCoordinate: &#39;-122.44&#39;
+##         eastBoundingCoordinate: &#39;-117.15&#39;
+##         northBoundingCoordinate: &#39;37.38&#39;
+##         southBoundingCoordinate: &#39;30&#39;
+##         boundingAltitudes:
+##           altitudeMinimum: &#39;160&#39;
+##           altitudeMaximum: &#39;330&#39;
+##           altitudeUnits: meter
+##     temporalCoverage:
+##       rangeOfDates:
+##         beginDate:
+##           calendarDate: &#39;2012-06-01&#39;
+##         endDate:
+##           calendarDate: &#39;2013-12-31&#39;
+##     taxonomicCoverage:
+##       taxonomicClassification:
+##         taxonRankName: Species
+##         taxonRankValue: Sarracenia purpurea
+##   contact:
+##     individualName:
+##       givenName: Aaron
+##       surName: Ellison
+##     organizationName: Harvard Forest
+##     address:
+##       deliveryPoint: 324 North Main Street
+##       city: Petersham
+##       administrativeArea: MA
+##       postalCode: &#39;01366&#39;
+##       country: USA
+##     phone: 000-000-0000
+##     electronicMailAddress: fakeaddress@email.com
+##   methods:
+##     methodStep:
+##       description:
+##         section:
+##         - |-
+##           &lt;title&gt;General Protocols&lt;/title&gt;&lt;para&gt;
+##                 Field methods. All experiments will be carried out in the
+##                 greenhouse at Harvard Forest. We have developed an instrumentation
+##                 system that allows us to collect continuous dissolved [O2]
+##                 measurements: dedicated micro-probes (DO-166MT; Lazar Research
+##                 Laboratories: http://www.shelfscientific.com/) connected to
+##                 multiplexers and data loggers (AM16/32B multiplexer, CR-1000
+##                 datalogger and control system [Campbell Scientific:
+##                 http://www.cambellsci.com]). The initial ecosystem composition in
+##                 all experimental plants will be standardized by seeding each
+##                 pitcher with a 10-ml inoculum of liquid collected from pitchers
+##                 growing at Tom Swamp. In all experiments, prey will be supplied to
+##                 pitchers as standardized aliquots of dried and finely ground
+##                 bald-faced hornets (Dolichovespula maculata; Hymenoptera:
+##                 Vespidae), which we collect in quantity throughout New England.
+##                 Both hornets and ants (the latter are the dominant prey of S.
+##                 purpurea) are hymenoptera, and have nearly identical C:N ratios
+##                 (hornets: 3.97; common bog-dwelling ants [Tapinoma sessile and
+##                 Myrmica lobifrons]: 3.37), but on average hornets have greater
+##                 than 100 times the dry mass of these ants, and are easier to
+##                 collect and process as a standardized food source. Additions of
+##                 prey, either as large &quot;pulses&quot; or chronic
+##                 &quot;presses&quot; are analogous to the enrichment and
+##                 eutrophication that occur in aquatic &quot;green&quot; food webs
+##                 in which phytoplankton abundance is boosted through addition of
+##                 limiting nutrients. In &quot;brown&quot; food webs such as the
+##                 Sarracenia microecosystem, detritus - not primary production - is
+##                 at the base of the web, and our treatments boost this material as
+##                 would happen through increases in arthropod prey capture78 or
+##                 through nitrogen-enriched precipitation.
+##               &lt;/para&gt;&lt;para&gt;
+##                 Proteomic analysis. Proteomic profiles of microbial communities
+##                 are determined after separating the microbial fraction from the
+##                 pitcher fluid, prey, and other detritus. The microbial
+##                 &quot;pellet&quot; is subjected to SDS-PAGE (sodium dodecyl
+##                 sulfate polyacrylamide gel) electrophoresis; bands are cut out and
+##                 digested in-gel with trypsin. Tryptic peptides are subjected to
+##                 LC-MS/MS (liquid chromatography tandem mass spectrometry) for
+##                 peptide and protein identification. Absolute abundance of peptides
+##                 and proteins are quantified using AQUA (Absolute QUAntification)
+##                 analysis109.
+##               &lt;/para&gt;
+##         - |-
+##           &lt;title&gt;Specific Experiments&lt;/title&gt;&lt;para&gt;
+##                 Experiment #1. Effects of nutrient enrichment on state changes and
+##                 [O2] profiles. This experiment alters nutrient enrichment rates to
+##                 characterize the [O2] profile and the transition to the anaerobic
+##                 state. The experimental design is a one-way layout with 5
+##                 treatment groups: one control (no enrichment) and 4 enrichment
+##                 levels (0.125, 0.25, 0.5, 1.0 mg prey added ml-1 d-1). One plant
+##                 is assigned to each treatment group, and the entire set is
+##                 replicated 6 times over successive weeks. [O2] is monitored
+##                 continuously for 4 days to characterize state changes and tipping
+##                 points under different enrichment rates. This experiment tracks a
+##                 continuous [O2] profile but does not include proteomic analysis.
+##                 The purpose of Experiment #1 is to identify an enrichment rate E
+##                 that generates a long pre-tipping period before transition time T
+##                 to the anaerobic state. This enrichment rate will be used in
+##                 Experiments #2 - #4.
+##               &lt;/para&gt;&lt;para&gt;
+##                 Experiment #2. Identification of early intervention time and
+##                 characterization of aerobic and anaerobic proteomes. This
+##                 experiment will use the single enrichment rate E determined from
+##                 Experiment #1 and impose different intervention times I at which
+##                 nutrient enrichment will be terminated. Thus, this experiment will
+##                 identify the latest time I* at which it is possible to intervene
+##                 and stop the transition to the anaerobic state by halting
+##                 enrichment. The [O2] profile will again be monitored continuously
+##                 over 10 days to measure the state of the system. From Experiment
+##                 #1, the transition time T to the anaerobic state with no
+##                 intervention will be known. We will use one control group (no prey
+##                 addition) and ten levels of intervention time (all with the same
+##                 enrichment rate E) as a proportion of T (0.1, 0.2, 0.3, 0.4, 0.5,
+##                 0.6, 0.7, 0.8, 0.9, 1.0). Six plants will be assigned randomly to
+##                 each of the 11 treatments in a randomized one-way layout and [O2]
+##                 profiles will be monitored continuously. In addition to the [O2]
+##                 profiles, we will also characterize the protein profiles of
+##                 aerobic and anaerobic pitchers in all 11 treatment groups at the
+##                 end of the experiment.
+##               &lt;/para&gt;&lt;para&gt;
+##                 After the plants are harvested, we will create proteomic profiles
+##                 of the predominantly bacterial portion (centrifuged pellet) of the
+##                 pitcher fluid from each plant, as described in General Protocols.
+##                 Thus, 66 separate pellet-fraction samples will be analyzed by
+##                 SDS-PAGE. After examining the SDS-PAGE profiles, approximately ten
+##                 proteins that show dynamic patterns consistent with state change
+##                 and five that do not change will be cut from the gel, subjected to
+##                 in-gel tryptic digestion and a portion of the tryptic peptides
+##                 will be analyzed by LC-MS/MS. Using these data, we will choose
+##                 three identified peptides from each protein for peptide synthesis
+##                 such that each synthesized peptide contains stable isotope labels
+##                 (AQUA peptides) to distinguish them by mass from the native
+##                 peptides. We will then quantify all 45 of the native peptides from
+##                 the original samples using a known amount of each AQUA peptide
+##                 spiked into the tryptic digest. The AQUA analysis of proteins that
+##                 do not show changes will be used for normalization between
+##                 samples. These data will be used to independently identify the
+##                 current state of the system and forecast the time-to-transition.
+##               &lt;/para&gt;&lt;para&gt;
+##                 We will use Sequest searches for initial identification of
+##                 peptides; relevant scores including Xcorr and Delta Cn values will
+##                 be given for each peptide. Other peptides will be identified by de
+##                 novo sequencing using PepNovo; all PepNovo scores will likewise be
+##                 given including any N- or C-terminal gaps. Mass error in ppm will
+##                 be reported for each precursor ion. We will use standard
+##                 multivariate analysis to search for distinctive proteomic
+##                 profiles114 that characterize aerobic and anaerobic ecosystems, as
+##                 well as ecosystems that developed with and without inputs of
+##                 photosynthetic O2 and plant metabolites.
+##               &lt;/para&gt;&lt;para&gt;
+##                 Experiment #3. Identification of diagnostic proteins. Using
+##                 Experiments #1 and 2, we will have identified an enrichment rate E
+##                 with a long pre-tipping period and an intervention time I* before
+##                 which mitigation and termination of enrichment will prevent
+##                 eutrophication. Experiment #3 will characterize the mean and
+##                 variance of the protein profile before and after I*. We are
+##                 especially interested in identifying proteins that increase
+##                 rapidly in abundance (or variance) well before the onset of
+##                 flickering in [O2] and before the transition time T from the
+##                 aerobic to the anaerobic state.
+##               &lt;/para&gt;&lt;para&gt;
+##                 A cohort of 100 plants all will be fed at rate E (determined from
+##                 Experiment #1), with intervention time I* determined from
+##                 Experiment #2, although no intervention will be used in this
+##                 &quot;press&quot; experiment so that we can contrast proteins
+##                 before and after the state change. At seven times before I* and
+##                 three times after I&lt;emphasis&gt;, we will harvest 10 randomly chosen
+##                 plants. At each prescribed harvest time, we will measure [O2] and
+##                 collect samples from each plant for proteomic screening using both
+##                 SDS-PAGE and AQUA analysis. This experiment will identify proteins
+##                 that rise quickly in abundance during the pre- I&lt;/emphasis&gt; period
+##                 and can be used as early indicators of a future tipping point.
+##                 Because different plants will be harvested at each time period,
+##                 this is a one-way ANOVA design, with pre-and post- I* a priori
+##                 contrasts. A randomization test will be used to determine whether
+##                 variances in protein expression differ through time. During these
+##                 analyses we will use the data from the AQUA peptides and from
+##                 known amounts of protein standards, such as bovine serum albumin,
+##                 to approximate the amount of protein in a given coomassie-stained
+##                 SDS-PAGE gel band. The reason for doing this is to provide a fast
+##                 &quot;real-time&quot; assay based just on expression in the
+##                 SDS-PAGE. This rapid assay will be used in Experiment #4.
+##               &lt;/para&gt;&lt;para&gt;
+##                 Experiment # 4. Proof-of-application. This experiment will provide
+##                 a benchmark test of our methods and their ability to correctly
+##                 identify tipping points. A cohort of 100 plants will each be
+##                 fitted with [O2] probes and started on the enrichment regime. Two
+##                 times per day, we will collect 3 plants each, pool their contents,
+##                 and conduct a rapid screen in the lab with SDS-PAGE for the
+##                 diagnostic proteins that were identified in Experiment #3. We will
+##                 use the protein expression in the gel to delineate an
+##                 &quot;early&quot; and a &quot;late&quot; mitigation strategy. As
+##                 soon as diagnostic proteins measured in the SDS-gels are at
+##                 abundances that signal we are at 0.5×I* - approximately one-half
+##                 of the way to the latest intervention time - we will randomly
+##                 select one third of the remaining plants for mitigation and
+##                 termination of enrichment (the &quot;early&quot; mitigation
+##                 strategy). We will continue to harvest plants from the remainder
+##                 of the cohort and monitor proteins. As soon as diagnostic proteins
+##                 signal we are at 0.75 times I*, we will randomly select one half
+##                 of the remaining plants for mitigation and termination of
+##                 enrichment (the &quot;late&quot; mitigation strategy). The
+##                 remaining plants (approximately one sixth to one third of the
+##                 original cohort) will continue to be enriched. We will monitor
+##                 [O2] in all 3 groups (no-mitigation control, early mitigation,
+##                 late mitigation) until all plants reach a new [O2] equilibrium. If
+##                 the protein markers are successful, the proportion of food webs
+##                 that remain aerobic will be significantly higher in the two
+##                 mitigation treatments than in the no-mitigation control.
+##               &lt;/para&gt;
+##   dataTable:
+##     entityName: hf205-01-TPexp1.csv
+##     entityDescription: tipping point experiment 1
+##     physical:
+##       objectName: hf205-01-TPexp1-EML-Exemple.csv
+##       size:
+##         unit: bytes
+##         size: &#39;13826544&#39;
+##       authentication:
+##         method: MD5
+##         authentication: 9d4b0c4633ac67180db9d8097f133c8f
+##       dataFormat:
+##         textFormat:
+##           recordDelimiter: &quot;\r\n&quot;
+##           attributeOrientation: column
+##           simpleDelimited:
+##             fieldDelimiter: &#39;,&#39;
+##     attributeList:
+##       attribute:
+##       - attributeName: run.num
+##         attributeDefinition: &#39;which run number (=block). Range: 1 - 6. (integer)&#39;
+##         storageType: string
+##         measurementScale:
+##           nominal:
+##             nonNumericDomain:
+##               textDomain:
+##                 definition: which run number
+##       - attributeName: year
+##         attributeDefinition: year, 2012
+##         storageType: date
+##         measurementScale:
+##           dateTime:
+##             formatString: YYYY
+##             dateTimeDomain: []
+##       - attributeName: day
+##         attributeDefinition: &#39;Julian day. Range: 170 - 209.&#39;
+##         storageType: date
+##         measurementScale:
+##           dateTime:
+##             formatString: DDD
+##             dateTimeDomain: []
+##       - attributeName: hour.min
+##         attributeDefinition: hour and minute of observation. Range 1 - 2400 (integer)
+##         storageType: date
+##         measurementScale:
+##           dateTime:
+##             formatString: hhmm
+##             dateTimeDomain: []
+##       - attributeName: i.flag
+##         attributeDefinition: is variable Real, Interpolated or Bad (character/factor)
+##         storageType: string
+##         measurementScale:
+##           nominal:
+##             nonNumericDomain:
+##               enumeratedDomain:
+##                 codeDefinition:
+##                 - code: R
+##                   definition: real
+##                 - code: I
+##                   definition: interpolated
+##                 - code: B
+##                   definition: bad
+##       - attributeName: variable
+##         attributeDefinition: what variable being measured in what treatment (character/factor).
+##         storageType: string
+##         measurementScale:
+##           nominal:
+##             nonNumericDomain:
+##               enumeratedDomain:
+##                 codeDefinition:
+##                 - code: control
+##                   definition: no prey added
+##                 - code: low
+##                   definition: 0.125 mg prey added ml-1 d-1
+##                 - code: med.low
+##                   definition: 0,25 mg prey added ml-1 d-1
+##                 - code: med.high
+##                   definition: 0.5 mg prey added ml-1 d-1
+##                 - code: high
+##                   definition: 1.0 mg prey added ml-1 d-1
+##                 - code: air.temp
+##                   definition: air temperature measured just above all plants (1 thermocouple)
+##                 - code: water.temp
+##                   definition: water temperature measured within each pitcher
+##                 - code: par
+##                   definition: photosynthetic active radiation (PAR) measured just
+##                     above all plants (1 sensor)
+##       - attributeName: value.i
+##         attributeDefinition: value of measured variable for run.num on year/day/hour.min.
+##         storageType: string
+##         measurementScale:
+##           nominal:
+##             nonNumericDomain:
+##               enumeratedDomain:
+##                 codeDefinition:
+##                 - code: control
+##                   definition: &#39;% dissolved oxygen&#39;
+##                 - code: low
+##                   definition: &#39;% dissolved oxygen&#39;
+##                 - code: med.low
+##                   definition: &#39;% dissolved oxygen&#39;
+##                 - code: med.high
+##                   definition: &#39;% dissolved oxygen&#39;
+##                 - code: high
+##                   definition: &#39;% dissolved oxygen&#39;
+##                 - code: air.temp
+##                   definition: degrees C
+##                 - code: water.temp
+##                   definition: degrees C
+##                 - code: par
+##                   definition: micromoles m-1 s-1
+##       - attributeName: length
+##         attributeDefinition: length of the species in meters (dummy example of numeric
+##           data)
+##         storageType: float
+##         measurementScale:
+##           ratio:
+##             unit:
+##               standardUnit: meter
+##             numericDomain:
+##               numberType: real
+##   associatedParty:
+##   - individualName:
+##       givenName: Benjamin
+##       surName: Baiser
+##     role: Researcher
+##   - individualName:
+##       givenName: Jennifer
+##       surName: Sirota
+##     role: Researcher
+##   keywordSet:
+##   - keywordThesaurus: LTER controlled vocabulary
+##     keyword:
+##     - bacteria
+##     - carnivorous plants
+##     - genetics
+##     - thresholds
+##   - keywordThesaurus: LTER core area
+##     keyword:
+##     - populations
+##     - inorganic nutrients
+##     - disturbance
+##   - keywordThesaurus: HFR default
+##     keyword:
+##     - Harvard Forest
+##     - HFR
+##     - LTER
+##     - USA
+## packageId: 60357d07-3786-46ce-9aeb-83cb22d0ad15
+## schemaLocation: https://eml.ecoinformatics.org/eml-2.2.0 https://eml.ecoinformatics.org/eml-2.2.0/eml.xsd
+## system: uuid</code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">names</span>(eml_ex)</span></code></pre></div>
+<pre><code>## [1] &quot;@context&quot;       &quot;@type&quot;          &quot;dataset&quot;        &quot;packageId&quot;     
+## [5] &quot;schemaLocation&quot; &quot;system&quot;</code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>eml_ex<span class="sc">$</span>dataset<span class="sc">$</span>dataTable</span></code></pre></div>
+<pre><code>## $entityName
+## [1] &quot;hf205-01-TPexp1.csv&quot;
+## 
+## $entityDescription
+## [1] &quot;tipping point experiment 1&quot;
+## 
+## $physical
+## $physical$objectName
+## [1] &quot;hf205-01-TPexp1-EML-Exemple.csv&quot;
+## 
+## $physical$size
+## $physical$size$unit
+## [1] &quot;bytes&quot;
+## 
+## $physical$size$size
+## [1] &quot;13826544&quot;
+## 
+## 
+## $physical$authentication
+## $physical$authentication$method
+## [1] &quot;MD5&quot;
+## 
+## $physical$authentication$authentication
+## [1] &quot;9d4b0c4633ac67180db9d8097f133c8f&quot;
+## 
+## 
+## $physical$dataFormat
+## $physical$dataFormat$textFormat
+## $physical$dataFormat$textFormat$recordDelimiter
+## [1] &quot;\r\n&quot;
+## 
+## $physical$dataFormat$textFormat$attributeOrientation
+## [1] &quot;column&quot;
+## 
+## $physical$dataFormat$textFormat$simpleDelimited
+## $physical$dataFormat$textFormat$simpleDelimited$fieldDelimiter
+## [1] &quot;,&quot;
+## 
+## 
+## 
+## 
+## 
+## $attributeList
+## $attributeList$attribute
+## $attributeList$attribute[[1]]
+## $attributeList$attribute[[1]]$attributeName
+## [1] &quot;run.num&quot;
+## 
+## $attributeList$attribute[[1]]$attributeDefinition
+## [1] &quot;which run number (=block). Range: 1 - 6. (integer)&quot;
+## 
+## $attributeList$attribute[[1]]$storageType
+## [1] &quot;string&quot;
+## 
+## $attributeList$attribute[[1]]$measurementScale
+## $attributeList$attribute[[1]]$measurementScale$nominal
+## $attributeList$attribute[[1]]$measurementScale$nominal$nonNumericDomain
+## $attributeList$attribute[[1]]$measurementScale$nominal$nonNumericDomain$textDomain
+## $attributeList$attribute[[1]]$measurementScale$nominal$nonNumericDomain$textDomain$definition
+## [1] &quot;which run number&quot;
+## 
+## 
+## 
+## 
+## 
+## 
+## $attributeList$attribute[[2]]
+## $attributeList$attribute[[2]]$attributeName
+## [1] &quot;year&quot;
+## 
+## $attributeList$attribute[[2]]$attributeDefinition
+## [1] &quot;year, 2012&quot;
+## 
+## $attributeList$attribute[[2]]$storageType
+## [1] &quot;date&quot;
+## 
+## $attributeList$attribute[[2]]$measurementScale
+## $attributeList$attribute[[2]]$measurementScale$dateTime
+## $attributeList$attribute[[2]]$measurementScale$dateTime$formatString
+## [1] &quot;YYYY&quot;
+## 
+## $attributeList$attribute[[2]]$measurementScale$dateTime$dateTimeDomain
+## list()
+## 
+## 
+## 
+## 
+## $attributeList$attribute[[3]]
+## $attributeList$attribute[[3]]$attributeName
+## [1] &quot;day&quot;
+## 
+## $attributeList$attribute[[3]]$attributeDefinition
+## [1] &quot;Julian day. Range: 170 - 209.&quot;
+## 
+## $attributeList$attribute[[3]]$storageType
+## [1] &quot;date&quot;
+## 
+## $attributeList$attribute[[3]]$measurementScale
+## $attributeList$attribute[[3]]$measurementScale$dateTime
+## $attributeList$attribute[[3]]$measurementScale$dateTime$formatString
+## [1] &quot;DDD&quot;
+## 
+## $attributeList$attribute[[3]]$measurementScale$dateTime$dateTimeDomain
+## list()
+## 
+## 
+## 
+## 
+## $attributeList$attribute[[4]]
+## $attributeList$attribute[[4]]$attributeName
+## [1] &quot;hour.min&quot;
+## 
+## $attributeList$attribute[[4]]$attributeDefinition
+## [1] &quot;hour and minute of observation. Range 1 - 2400 (integer)&quot;
+## 
+## $attributeList$attribute[[4]]$storageType
+## [1] &quot;date&quot;
+## 
+## $attributeList$attribute[[4]]$measurementScale
+## $attributeList$attribute[[4]]$measurementScale$dateTime
+## $attributeList$attribute[[4]]$measurementScale$dateTime$formatString
+## [1] &quot;hhmm&quot;
+## 
+## $attributeList$attribute[[4]]$measurementScale$dateTime$dateTimeDomain
+## list()
+## 
+## 
+## 
+## 
+## $attributeList$attribute[[5]]
+## $attributeList$attribute[[5]]$attributeName
+## [1] &quot;i.flag&quot;
+## 
+## $attributeList$attribute[[5]]$attributeDefinition
+## [1] &quot;is variable Real, Interpolated or Bad (character/factor)&quot;
+## 
+## $attributeList$attribute[[5]]$storageType
+## [1] &quot;string&quot;
+## 
+## $attributeList$attribute[[5]]$measurementScale
+## $attributeList$attribute[[5]]$measurementScale$nominal
+## $attributeList$attribute[[5]]$measurementScale$nominal$nonNumericDomain
+## $attributeList$attribute[[5]]$measurementScale$nominal$nonNumericDomain$enumeratedDomain
+## $attributeList$attribute[[5]]$measurementScale$nominal$nonNumericDomain$enumeratedDomain$codeDefinition
+## $attributeList$attribute[[5]]$measurementScale$nominal$nonNumericDomain$enumeratedDomain$codeDefinition[[1]]
+## $attributeList$attribute[[5]]$measurementScale$nominal$nonNumericDomain$enumeratedDomain$codeDefinition[[1]]$code
+## [1] &quot;R&quot;
+## 
+## $attributeList$attribute[[5]]$measurementScale$nominal$nonNumericDomain$enumeratedDomain$codeDefinition[[1]]$definition
+## [1] &quot;real&quot;
+## 
+## 
+## $attributeList$attribute[[5]]$measurementScale$nominal$nonNumericDomain$enumeratedDomain$codeDefinition[[2]]
+## $attributeList$attribute[[5]]$measurementScale$nominal$nonNumericDomain$enumeratedDomain$codeDefinition[[2]]$code
+## [1] &quot;I&quot;
+## 
+## $attributeList$attribute[[5]]$measurementScale$nominal$nonNumericDomain$enumeratedDomain$codeDefinition[[2]]$definition
+## [1] &quot;interpolated&quot;
+## 
+## 
+## $attributeList$attribute[[5]]$measurementScale$nominal$nonNumericDomain$enumeratedDomain$codeDefinition[[3]]
+## $attributeList$attribute[[5]]$measurementScale$nominal$nonNumericDomain$enumeratedDomain$codeDefinition[[3]]$code
+## [1] &quot;B&quot;
+## 
+## $attributeList$attribute[[5]]$measurementScale$nominal$nonNumericDomain$enumeratedDomain$codeDefinition[[3]]$definition
+## [1] &quot;bad&quot;
+## 
+## 
+## 
+## 
+## 
+## 
+## 
+## 
+## $attributeList$attribute[[6]]
+## $attributeList$attribute[[6]]$attributeName
+## [1] &quot;variable&quot;
+## 
+## $attributeList$attribute[[6]]$attributeDefinition
+## [1] &quot;what variable being measured in what treatment (character/factor).&quot;
+## 
+## $attributeList$attribute[[6]]$storageType
+## [1] &quot;string&quot;
+## 
+## $attributeList$attribute[[6]]$measurementScale
+## $attributeList$attribute[[6]]$measurementScale$nominal
+## $attributeList$attribute[[6]]$measurementScale$nominal$nonNumericDomain
+## $attributeList$attribute[[6]]$measurementScale$nominal$nonNumericDomain$enumeratedDomain
+## $attributeList$attribute[[6]]$measurementScale$nominal$nonNumericDomain$enumeratedDomain$codeDefinition
+## $attributeList$attribute[[6]]$measurementScale$nominal$nonNumericDomain$enumeratedDomain$codeDefinition[[1]]
+## $attributeList$attribute[[6]]$measurementScale$nominal$nonNumericDomain$enumeratedDomain$codeDefinition[[1]]$code
+## [1] &quot;control&quot;
+## 
+## $attributeList$attribute[[6]]$measurementScale$nominal$nonNumericDomain$enumeratedDomain$codeDefinition[[1]]$definition
+## [1] &quot;no prey added&quot;
+## 
+## 
+## $attributeList$attribute[[6]]$measurementScale$nominal$nonNumericDomain$enumeratedDomain$codeDefinition[[2]]
+## $attributeList$attribute[[6]]$measurementScale$nominal$nonNumericDomain$enumeratedDomain$codeDefinition[[2]]$code
+## [1] &quot;low&quot;
+## 
+## $attributeList$attribute[[6]]$measurementScale$nominal$nonNumericDomain$enumeratedDomain$codeDefinition[[2]]$definition
+## [1] &quot;0.125 mg prey added ml-1 d-1&quot;
+## 
+## 
+## $attributeList$attribute[[6]]$measurementScale$nominal$nonNumericDomain$enumeratedDomain$codeDefinition[[3]]
+## $attributeList$attribute[[6]]$measurementScale$nominal$nonNumericDomain$enumeratedDomain$codeDefinition[[3]]$code
+## [1] &quot;med.low&quot;
+## 
+## $attributeList$attribute[[6]]$measurementScale$nominal$nonNumericDomain$enumeratedDomain$codeDefinition[[3]]$definition
+## [1] &quot;0,25 mg prey added ml-1 d-1&quot;
+## 
+## 
+## $attributeList$attribute[[6]]$measurementScale$nominal$nonNumericDomain$enumeratedDomain$codeDefinition[[4]]
+## $attributeList$attribute[[6]]$measurementScale$nominal$nonNumericDomain$enumeratedDomain$codeDefinition[[4]]$code
+## [1] &quot;med.high&quot;
+## 
+## $attributeList$attribute[[6]]$measurementScale$nominal$nonNumericDomain$enumeratedDomain$codeDefinition[[4]]$definition
+## [1] &quot;0.5 mg prey added ml-1 d-1&quot;
+## 
+## 
+## $attributeList$attribute[[6]]$measurementScale$nominal$nonNumericDomain$enumeratedDomain$codeDefinition[[5]]
+## $attributeList$attribute[[6]]$measurementScale$nominal$nonNumericDomain$enumeratedDomain$codeDefinition[[5]]$code
+## [1] &quot;high&quot;
+## 
+## $attributeList$attribute[[6]]$measurementScale$nominal$nonNumericDomain$enumeratedDomain$codeDefinition[[5]]$definition
+## [1] &quot;1.0 mg prey added ml-1 d-1&quot;
+## 
+## 
+## $attributeList$attribute[[6]]$measurementScale$nominal$nonNumericDomain$enumeratedDomain$codeDefinition[[6]]
+## $attributeList$attribute[[6]]$measurementScale$nominal$nonNumericDomain$enumeratedDomain$codeDefinition[[6]]$code
+## [1] &quot;air.temp&quot;
+## 
+## $attributeList$attribute[[6]]$measurementScale$nominal$nonNumericDomain$enumeratedDomain$codeDefinition[[6]]$definition
+## [1] &quot;air temperature measured just above all plants (1 thermocouple)&quot;
+## 
+## 
+## $attributeList$attribute[[6]]$measurementScale$nominal$nonNumericDomain$enumeratedDomain$codeDefinition[[7]]
+## $attributeList$attribute[[6]]$measurementScale$nominal$nonNumericDomain$enumeratedDomain$codeDefinition[[7]]$code
+## [1] &quot;water.temp&quot;
+## 
+## $attributeList$attribute[[6]]$measurementScale$nominal$nonNumericDomain$enumeratedDomain$codeDefinition[[7]]$definition
+## [1] &quot;water temperature measured within each pitcher&quot;
+## 
+## 
+## $attributeList$attribute[[6]]$measurementScale$nominal$nonNumericDomain$enumeratedDomain$codeDefinition[[8]]
+## $attributeList$attribute[[6]]$measurementScale$nominal$nonNumericDomain$enumeratedDomain$codeDefinition[[8]]$code
+## [1] &quot;par&quot;
+## 
+## $attributeList$attribute[[6]]$measurementScale$nominal$nonNumericDomain$enumeratedDomain$codeDefinition[[8]]$definition
+## [1] &quot;photosynthetic active radiation (PAR) measured just above all plants (1 sensor)&quot;
+## 
+## 
+## 
+## 
+## 
+## 
+## 
+## 
+## $attributeList$attribute[[7]]
+## $attributeList$attribute[[7]]$attributeName
+## [1] &quot;value.i&quot;
+## 
+## $attributeList$attribute[[7]]$attributeDefinition
+## [1] &quot;value of measured variable for run.num on year/day/hour.min.&quot;
+## 
+## $attributeList$attribute[[7]]$storageType
+## [1] &quot;string&quot;
+## 
+## $attributeList$attribute[[7]]$measurementScale
+## $attributeList$attribute[[7]]$measurementScale$nominal
+## $attributeList$attribute[[7]]$measurementScale$nominal$nonNumericDomain
+## $attributeList$attribute[[7]]$measurementScale$nominal$nonNumericDomain$enumeratedDomain
+## $attributeList$attribute[[7]]$measurementScale$nominal$nonNumericDomain$enumeratedDomain$codeDefinition
+## $attributeList$attribute[[7]]$measurementScale$nominal$nonNumericDomain$enumeratedDomain$codeDefinition[[1]]
+## $attributeList$attribute[[7]]$measurementScale$nominal$nonNumericDomain$enumeratedDomain$codeDefinition[[1]]$code
+## [1] &quot;control&quot;
+## 
+## $attributeList$attribute[[7]]$measurementScale$nominal$nonNumericDomain$enumeratedDomain$codeDefinition[[1]]$definition
+## [1] &quot;% dissolved oxygen&quot;
+## 
+## 
+## $attributeList$attribute[[7]]$measurementScale$nominal$nonNumericDomain$enumeratedDomain$codeDefinition[[2]]
+## $attributeList$attribute[[7]]$measurementScale$nominal$nonNumericDomain$enumeratedDomain$codeDefinition[[2]]$code
+## [1] &quot;low&quot;
+## 
+## $attributeList$attribute[[7]]$measurementScale$nominal$nonNumericDomain$enumeratedDomain$codeDefinition[[2]]$definition
+## [1] &quot;% dissolved oxygen&quot;
+## 
+## 
+## $attributeList$attribute[[7]]$measurementScale$nominal$nonNumericDomain$enumeratedDomain$codeDefinition[[3]]
+## $attributeList$attribute[[7]]$measurementScale$nominal$nonNumericDomain$enumeratedDomain$codeDefinition[[3]]$code
+## [1] &quot;med.low&quot;
+## 
+## $attributeList$attribute[[7]]$measurementScale$nominal$nonNumericDomain$enumeratedDomain$codeDefinition[[3]]$definition
+## [1] &quot;% dissolved oxygen&quot;
+## 
+## 
+## $attributeList$attribute[[7]]$measurementScale$nominal$nonNumericDomain$enumeratedDomain$codeDefinition[[4]]
+## $attributeList$attribute[[7]]$measurementScale$nominal$nonNumericDomain$enumeratedDomain$codeDefinition[[4]]$code
+## [1] &quot;med.high&quot;
+## 
+## $attributeList$attribute[[7]]$measurementScale$nominal$nonNumericDomain$enumeratedDomain$codeDefinition[[4]]$definition
+## [1] &quot;% dissolved oxygen&quot;
+## 
+## 
+## $attributeList$attribute[[7]]$measurementScale$nominal$nonNumericDomain$enumeratedDomain$codeDefinition[[5]]
+## $attributeList$attribute[[7]]$measurementScale$nominal$nonNumericDomain$enumeratedDomain$codeDefinition[[5]]$code
+## [1] &quot;high&quot;
+## 
+## $attributeList$attribute[[7]]$measurementScale$nominal$nonNumericDomain$enumeratedDomain$codeDefinition[[5]]$definition
+## [1] &quot;% dissolved oxygen&quot;
+## 
+## 
+## $attributeList$attribute[[7]]$measurementScale$nominal$nonNumericDomain$enumeratedDomain$codeDefinition[[6]]
+## $attributeList$attribute[[7]]$measurementScale$nominal$nonNumericDomain$enumeratedDomain$codeDefinition[[6]]$code
+## [1] &quot;air.temp&quot;
+## 
+## $attributeList$attribute[[7]]$measurementScale$nominal$nonNumericDomain$enumeratedDomain$codeDefinition[[6]]$definition
+## [1] &quot;degrees C&quot;
+## 
+## 
+## $attributeList$attribute[[7]]$measurementScale$nominal$nonNumericDomain$enumeratedDomain$codeDefinition[[7]]
+## $attributeList$attribute[[7]]$measurementScale$nominal$nonNumericDomain$enumeratedDomain$codeDefinition[[7]]$code
+## [1] &quot;water.temp&quot;
+## 
+## $attributeList$attribute[[7]]$measurementScale$nominal$nonNumericDomain$enumeratedDomain$codeDefinition[[7]]$definition
+## [1] &quot;degrees C&quot;
+## 
+## 
+## $attributeList$attribute[[7]]$measurementScale$nominal$nonNumericDomain$enumeratedDomain$codeDefinition[[8]]
+## $attributeList$attribute[[7]]$measurementScale$nominal$nonNumericDomain$enumeratedDomain$codeDefinition[[8]]$code
+## [1] &quot;par&quot;
+## 
+## $attributeList$attribute[[7]]$measurementScale$nominal$nonNumericDomain$enumeratedDomain$codeDefinition[[8]]$definition
+## [1] &quot;micromoles m-1 s-1&quot;
+## 
+## 
+## 
+## 
+## 
+## 
+## 
+## 
+## $attributeList$attribute[[8]]
+## $attributeList$attribute[[8]]$attributeName
+## [1] &quot;length&quot;
+## 
+## $attributeList$attribute[[8]]$attributeDefinition
+## [1] &quot;length of the species in meters (dummy example of numeric data)&quot;
+## 
+## $attributeList$attribute[[8]]$storageType
+## [1] &quot;float&quot;
+## 
+## $attributeList$attribute[[8]]$measurementScale
+## $attributeList$attribute[[8]]$measurementScale$ratio
+## $attributeList$attribute[[8]]$measurementScale$ratio$unit
+## $attributeList$attribute[[8]]$measurementScale$ratio$unit$standardUnit
+## [1] &quot;meter&quot;
+## 
+## 
+## $attributeList$attribute[[8]]$measurementScale$ratio$numericDomain
+## $attributeList$attribute[[8]]$measurementScale$ratio$numericDomain$numberType
+## [1] &quot;real&quot;</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;ropensci/EML&quot;</span>)</span></code></pre></div>
+<pre><code>## Downloading GitHub repo ropensci/EML@HEAD</code></pre>
+<pre><code>## rlang     (1.1.1 -&gt; 1.1.2) [CRAN]
+## lifecycle (1.0.3 -&gt; 1.0.4) [CRAN]
+## withr     (2.5.1 -&gt; 2.5.2) [CRAN]
+## utf8      (1.2.3 -&gt; 1.2.4) [CRAN]
+## fansi     (1.0.4 -&gt; 1.0.5) [CRAN]
+## xfun      (0.40  -&gt; 0.41 ) [CRAN]
+## evaluate  (0.22  -&gt; 0.23 ) [CRAN]
+## htmltools (0.5.6 -&gt; 0.5.7) [CRAN]
+## curl      (5.0.2 -&gt; 5.1.0) [CRAN]
+## V8        (4.3.3 -&gt; 4.4.0) [CRAN]
+## tinytex   (0.47  -&gt; 0.48 ) [CRAN]
+## knitr     (1.44  -&gt; 1.45 ) [CRAN]
+## jqr       (1.2.3 -&gt; 1.3.1) [CRAN]</code></pre>
+<pre><code>## Installing 13 packages: rlang, lifecycle, withr, utf8, fansi, xfun, evaluate, htmltools, curl, V8, tinytex, knitr, jqr</code></pre>
+<pre><code>## Installing packages into &#39;/Users/gabrielnakamura/Library/R/x86_64/4.3/library&#39;
+## (as &#39;lib&#39; is unspecified)</code></pre>
+<pre><code>## 
+## The downloaded binary packages are in
+##  /var/folders/f8/p96_skl10n3f6556n3r41c7c0000gn/T//Rtmp2uTXvi/downloaded_packages
+## ── R CMD build ───────────────────────────
+##   
+   checking for file ‘/private/var/folders/f8/p96_skl10n3f6556n3r41c7c0000gn/T/Rtmp2uTXvi/remotes29ac2c8de866/ropensci-EML-b7871cc/DESCRIPTION’ ...
+  
+   checking for file ‘/private/var/folders/f8/p96_skl10n3f6556n3r41c7c0000gn/T/Rtmp2uTXvi/remotes29ac2c8de866/ropensci-EML-b7871cc/DESCRIPTION’ ... 
+  
+✔  checking for file ‘/private/var/folders/f8/p96_skl10n3f6556n3r41c7c0000gn/T/Rtmp2uTXvi/remotes29ac2c8de866/ropensci-EML-b7871cc/DESCRIPTION’ (2.5s)
+## 
+  
+─  preparing ‘EML’: (686ms)
+## 
+  
+   checking DESCRIPTION meta-information ...
+  
+✔  checking DESCRIPTION meta-information
+## 
+  
+─  checking for LF line-endings in source and make files and shell scripts (344ms)
+## 
+  
+─  checking for empty or unneeded directories
+## 
+  
+─  building ‘EML_2.0.6.tar.gz’
+## 
+  
+   
+## </code></pre>
+<pre><code>## Installing package into &#39;/Users/gabrielnakamura/Library/R/x86_64/4.3/library&#39;
+## (as &#39;lib&#39; is unspecified)</code></pre>
+</div>
+<div id="manipulando-emls-com-xml" class="section level1">
+<h1>Manipulando EMLs com XML</h1>
+</div>
+
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiTWFuaXB1bGFuZG8gYXJxdWl2b3MgWE1MIgphdXRob3I6ICJHYWJyaWVsIE5ha2FtdXJhIgpkYXRlOiAiMjAyMy0xMS0wOCIKb3V0cHV0OiBodG1sX2RvY3VtZW50Ci0tLQotLS0KdGl0bGU6ICdNZXRhZGFkb3MgY29tIEVNTCcKYXV0aG9yOiAiR2FicmllbCBOYWthbXVyYSIKZGF0ZTogImByIFN5cy5EYXRlKClgIgpvdXRwdXQ6IGh0bWxfZG9jdW1lbnQKLS0tCgpgYGB7ciBlY2hvPUZBTFNFLCBpbmNsdWRlPVRSVUV9CmtsaXBweTo6a2xpcHB5KCkKYGBgCgojIE1hbmlwdWxhbmRvIG1ldGFkYWRvcwoKTmEgc2XDp8OjbyBhbnRlcmlvciB2aW1vcyBjb21vIFttb250YXIgdW0gbWV0YWRhZG8gZG8gemVybyB1dGlsaXphbmRvIG8gcGFjb3RlIEVNTF0oKQoKCiMgVXNhbmRvIG8gcGFjb3RlIFhNTAoKYGBge3IgZWNobz1UUlVFLCBldmFsPUZBTFNFfQppbnN0YWxsLnBhY2thZ2VzKCJYTUwiKQpsaWJyYXJ5KFhNTCkKCmRhdGEgPC0geG1sUGFyc2UoImh0dHA6Ly9mb3JlY2FzdC53ZWF0aGVyLmdvdi9NYXBDbGljay5waHA/bGF0PTI5LjgwMyZsb249LTgyLjQxMSZGY3N0VHlwZT1kaWdpdGFsRFdNTCIpCgp4bWxfZGF0YSA8LSB4bWxUb0xpc3QoaGVyZTo6aGVyZSgiZGF0YSIsICJlbWxfdHV0b3JpYWxIRjIwNS54bWwiKSkKaGVscChwYWNrYWdlID0gIlhNTCIpCnhtbF9kYXRhJGRhdGFzZXQkZGF0YVRhYmxlCgpgYGAKCgojIFVzYW5kbyBvIHBhY290ZSBFTUwKCmBgYHtyfQplbWxfZXggPC0gRU1MOjpyZWFkX2VtbChoZXJlOjpoZXJlKCJkYXRhIiwgImVtbF90dXRvcmlhbEhGMjA1LnhtbCIpKQplbWxfZXgKbmFtZXMoZW1sX2V4KQplbWxfZXgkZGF0YXNldCRkYXRhVGFibGUKZGV2dG9vbHM6Omluc3RhbGxfZ2l0aHViKCJyb3BlbnNjaS9FTUwiKQpgYGAKCgojIE1hbmlwdWxhbmRvIEVNTHMgY29tIFhNTAoKCg==</div>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeSourceEmbed("xml_manipulacao.Rmd");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

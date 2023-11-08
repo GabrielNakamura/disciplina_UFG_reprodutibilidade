@@ -5,13 +5,40 @@ date: "`r Sys.Date()`"
 output: html_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, fig.align = "center")
-```
-
 ```{r klippy, echo=FALSE, include=TRUE}
 klippy::klippy()
 ```
 
 # Aprendendo a ignorar
 
+Algumas vezes incluímos em nosso repositório arquivos que não queremos que apareça no GitHub, e que as mudanças também não sejam monitoradas. Por exemplo, um arquivo de texto que contém um manuscrito em progresso, ou uma imagem (ou várias imagens) que são muito pesadas para serem enviadas pelo git, entre outras situações variadas. Mas o ponto é, estes arquivos ainda fazem parte do projeto em andamento e você gostaria de mantê-los na pasta juntamente com os outros arquivos monitorados. A solução para isso é pedir que o git os ignore. Nesta seção aprenderemos como podemos fazer com que alguns arquivos escapem da observação do git, e, consequentemente, não apareçam no repositório remoto do GitHub.
+
+# O arquivo `.gitignore`
+
+Para ignorarmos arquivos ou até mesmo pastas inteiras vamos utilizar um arquivo especial chamado `.gitignore`. Este arquivo não tem nome, apenas extensão, e fica hospedado na raiz do seu diretório. Algumas vezes ele é criado automáticamente ao iniar remotamente o repositório, outras ele é criado por você manualmente. Um arquivo do tipo .gitignore apresenta a seguinte aparência quando criado automaticamente
+
+```{r echo=FALSE,eval=TRUE}
+knitr::include_graphics(here::here("figs", "gitignore-exemplo.png"))
+```
+
+Note que ele é formado por algumas extensões apenas. De maneira resumida, qualquer arquivo que apresente as extensões indicadas no arquivo gitignore vai ser ignorado pelo git. 
+
+O arquivo gitignore é extremamente versátil para acomodar uma série de instruções. Podemos ignorar um arquivo específico ao indicar o caminho deste arquivo a partir da raiz do diretório. Podemos ignorar uma pasta inteira. Ou ainda um conjunto de arquivos que apresentem a mesma característica. 
+Todas os padrões possíveis de serem utilizados no arquivo gitignore podem ser encontrados [aqui](https://git-scm.com/docs/gitignore)
+
+Aqui alguns dos padrões mais comuns
+
+1. para ignorar um arquivo único dentro de uma pasta use `pasta/nomeDoArquivo.extensao`
+2. para ignorar todos os arquivos dentro de uma pasta específica use `pasta/`. isso irá ignorar caminhos abaixo do indicado
+3. para ignorar arquivos inteiros dentro de uma pasta use `pasta/*`. Isso irá ignorar qualquer arquivo dentro da pasta.
+4. para ignorar arquivos a partir de um dado padrão de nome use `padrao.*`. Isso irá ignorar qualquer arquivo dentro do diretório e suas subpastas que apresentem o padrão indicado. Por exemplo, digamos que exista o arquivo chamado `padrao.docx` e `padrao.txt`, ambos os arquivos serão ignorados
+
+# Parar de monitorar um arquivo que já está sendo monitorado
+
+Algumas vezes queremos que um arquivo que já está sendo monitorado pelo git pare de ser observado. Para isso não basta que este arquivo seja apenas incluído no .gitignore, precisamos incluí-lo no .gitignore e removê-lo do cache. Vamos supor que queremos ignorar o arquivo chamado `arrependimento.docx` No terminal faça o seguinte
+
+```{r echo=TRUE, eval=FALSE}
+git rm --cached arrependimento.docx
+```
+
+A partir de então o arquivo passará a ser ignorado pelo git, ou seja, mesmo que mudanças sejam feitas nele, elas não aparecerão.
