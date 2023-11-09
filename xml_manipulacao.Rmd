@@ -48,4 +48,6 @@ devtools::install_github("ropensci/EML")
 
 # Manipulando EMLs com XML
 
+VAmos testar retornar pro arquivo usando o reset hard
+
 
