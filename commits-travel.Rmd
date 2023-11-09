@@ -154,6 +154,8 @@ git reset --soft HEAD@{11}
 
 Isso retornará 11 commits em relação ao commit atual. Você pode voltar ao commit atual usando a mesma sintaxe. Lembrando que o argumento `--soft` retorna para o estado desejado mas mantém os arquivos no seu diretório local.
 
+> **_NOTE:_**  Acesse o site [Oh Shit, Git!?](https://ohshitgit.com/) para uma série de dicas muito úteis sobre erros comuns quando estamos usando o Git
+
 
 ## Atividade
 
