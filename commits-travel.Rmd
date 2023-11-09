@@ -123,15 +123,36 @@ Resetar na linguagem do versionamento significa, basicamente, realizar um *CTR +
 1. Movendo para o passado mas mantendo o trabalho localmente 
 
 ```{r echo=TRUE, eval=FALSE}
-git reset --soft HEAD^
+git reset --soft HEAD~1
 ```
 
 2. Movendo para o passado e **deletando** o trabalho localmente
 
 ```{r echo=TRUE, eval=FALSE}
-git reset --hard HEAD^
+git reset --hard HEAD~1
 ```
 
+O que quer dizer esta sintaxe? Basicamente estamos movendo nosso HEAD (último commit) um commit no passado (HEAD~1). Se quisermos nos mover para commits mais antigos, por exemplo, dois commits anteriores, apenas mudamos o número 1 para 2 após o `~`.
+
+Outra opção que tem sido minha escolha preferida é o uso do git reflog juntamente com o reset. Digite o seguinte no terminal
+
+```{r echo=TRUE,eval=FALSE}
+git reflog
+```
+
+Isso irá fazer com que apareça no seu terminal um histórico de todos os commits que foram feitos até o presente momento. A figura a seguir mostra esse histórico para o repositório deste site.
+
+```{r echo=FALSE,eval=TRUE}
+knitr::include_graphics(here::here("figs", "reflog-fig.png"))
+```
+
+Com o reflog você pode usar o `index` do commit para navegar no tempo. O index é o número que aparece logo após o `HEAD@{index}`. Esse index pode ser utilizado em conjunto com a função `reset` que vimos anteriormente. Por exemplo, se eu quiser voltar para o commit número 11, devo usar o seguinte código
+
+```{r echo=TRUE,eval=FALSE}
+git reset --soft HEAD@{11}
+```
+
+Isso retornará 11 commits em relação ao commit atual. Você pode voltar ao commit atual usando a mesma sintaxe. Lembrando que o argumento `--soft` retorna para o estado desejado mas mantém os arquivos no seu diretório local.
 
 
 ## Atividade
